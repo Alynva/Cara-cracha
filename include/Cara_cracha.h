@@ -1,5 +1,5 @@
-#ifndef Cara_cracha
-#define Cara_cracha
+#ifndef CARA_CRACHA
+#define CARA_CRACHA
 
 #include "data_structures.h"
 #include "Pessoa.h"
