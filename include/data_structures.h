@@ -10,6 +10,9 @@
 #ifndef DATA_STRUCTURES_H
 #define DATA_STRUCTURES_H
 
+#include <iostream>
+using namespace std;
+
 template<class T>
 class Node {
 public:
@@ -31,10 +34,10 @@ public:
 	Queue():size(0) {};
 	~Queue() { this->clear(); };
 
-	void enqueue(const T, bool&);
+	void enqueue(const T);
 	bool dequeue(T&);
 
-	bool isEmpty() const { bool check = (header.next == &header) ? true : false; return check; };
+	bool isEmpty() const { return (header.next == &header); };
 	int getSize() const { return this->size; };
 	Node<T>* getFront() const { return this->header.next; };
 	Node<T>* getBack() const { return this->header.previous; };
@@ -44,8 +47,7 @@ public:
 };
 
 template<class T>
-void Queue<T>::enqueue(const T element, bool& check) {
-	check = false;
+void Queue<T>::enqueue(const T element) {
 	Node<T> *aux = new Node<T>;
 	aux->value = element;
 	aux->next = &header;
@@ -53,14 +55,13 @@ void Queue<T>::enqueue(const T element, bool& check) {
 	header.previous->next = aux;
 	header.previous = aux;
 	size++;
-	check = true;
 }
 
 
 template<class T>
 bool Queue<T>::dequeue(T& element) {
 	if (!this->isEmpty()) {
-		element = header.previous->value;
+		element = header.next->value;
 		Node<T>* aux = header.next;
 		header.next = aux->next;
 		aux->next->previous = &header;

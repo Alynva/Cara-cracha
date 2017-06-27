@@ -8,13 +8,13 @@ C_VERSION = -std=c++11
 OBJ_FILE = main.cpp
 
 # Arquivos auxiliares
-AUX_FILES = 
+AUX_FILES = Vetor.cpp map.cpp random.cpp EventManager.cpp
 
 # Flags do compilador
 CC_FLAGS = -g -Wall
 
 # Linkers do compilador
-CC_LINKERS = 
+CC_LINKERS =
 ifeq ($(OS),Windows_NT)
 	CC_LINKERS += -lmingw32 -L../bin -L../lib
 endif

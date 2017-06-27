@@ -1,12 +1,6 @@
-#include "../include/eventmanager.h"
-#include <iostream>
+#include "../include/EventManager.h"
 
-using namespace std;
-
-bool abc;
-EventManager::EventManager(bool* tFullScreen, bool* mQuit, bool* gPlay, SDL_Point* mWinSize):t_fullscreen(tFullScreen), quit(mQuit), play(gPlay), window_size(mWinSize), mouse_pressed(false) {
-
-}
+EventManager::EventManager(bool* pgq, bool* pgp, bool* pmp):quit(pgq), play(pgp), mouse_pressed(pmp) {}
 
 void EventManager::update() {
 	while (SDL_PollEvent(&this->handler)) {
@@ -26,8 +20,6 @@ void EventManager::update() {
 				this->mouseMove();
 				break;
 			case SDL_KEYDOWN:
-				if (this->handler.key.keysym.scancode == SDL_SCANCODE_F11)
-					*this->t_fullscreen = true;
 				break;
 			case SDL_WINDOWEVENT:
 		        switch (this->handler.window.event) {
@@ -49,7 +41,6 @@ void EventManager::update() {
 //			            SDL_Log("Window %d resized to %dx%d",
 //			                    this->handler.window.windowID, this->handler.window.data1,
 //			                    this->handler.window.data2);
-						this->windowResized(this->handler.window.data1, this->handler.window.data2);
 			            break;
 			        case SDL_WINDOWEVENT_SIZE_CHANGED:
 //			            SDL_Log("Window %d size changed to %dx%d",
@@ -102,54 +93,13 @@ void EventManager::update() {
 }
 
 void EventManager::mouseMove() {
-	SDL_GetMouseState(&mouse_pos.x, &mouse_pos.y);
-
-}
-
-void EventManager::mouseLeftDown() {
-	this->mouse_pressed = true;
-
-}
-
-void EventManager::mouseLeftUp() {
-	this->mouse_pressed = false;
-
 	
 }
 
+void EventManager::mouseLeftDown() {
+	*this->mouse_pressed = true;
+}
 
-void EventManager::windowResized(int w, int h) {
-	*this->window_size = {w, h};
-
-	if (this->logo) {
-		this->logo->setPosition({this->window_size->x / 2 - 204, this->window_size->y / 4 - 79});
-	}
-
-	if (this->stacks.getSize()) {
-		Node<PilhaInteligente*>* node_stack = this->stacks.peek()->next;
-		for (int i = 1; i < this->stacks.getSize(); i++) { // Inicia em 1 pois o primeiro � a pilha que persegue o mouse
-			if (i >= 1 && i <= 4)
-				node_stack->value->setPosition({w/2 - 385 + 90 * (i-1), 50});
-			if (i >= 5 && i <= 8)
-				node_stack->value->setPosition({w/2 + 45 + 90 * (i-5), 50});
-			if (i >= 9 && i <= 16)
-				node_stack->value->setPosition({w/2 - 385 + 100 * (i-9), 200});
-			node_stack = node_stack->next;
-		}
-	}
-
-	if (this->buttons.getSize()) {
-		Node<Button*>* node_button = this->buttons.peek();
-		for (int i = 0; i < this->buttons.getSize(); i++) {
-			string type = node_button->value->getType();
-			if (type == "play")
-				node_button->value->setPosition({this->window_size->x / 2 - 125, this->window_size->y / 2 - 25});
-			else if (type == "project")
-				node_button->value->setPosition({this->window_size->x / 2 - 125, this->window_size->y / 2 + 50});
-			else if (type == "quit")
-				node_button->value->setPosition({this->window_size->x / 2 - 125, this->window_size->y / 2 + 125});
-
-			node_button = node_button->next;
-		}
-	}
+void EventManager::mouseLeftUp() {
+	*this->mouse_pressed = false;
 }

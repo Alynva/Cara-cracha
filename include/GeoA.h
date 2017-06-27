@@ -7,9 +7,12 @@ namespace GeoA {
 	const double HALF_PI = 1.57079632679489661923;
 	const double QUARTER_PI = 0.7853982;
 
+	void randInit();
 	double random(); // [0.0 .. 1.0]
 	double random(double); // [0.0 .. double]
 	double random(double, double); // [double .. double]
+	
+	double map(double, double, double, double, double);
 	
 	struct Ponto {
 		double x; // Número do componente x do vetor
@@ -33,11 +36,11 @@ namespace GeoA {
 		Vetor* copy() const; // Obtém uma cópia do vetor, retorna um objeto Vetor.
 
 		Vetor* add(double, double, double); // Adiciona componentes x, y e z a um vetor, adiciona um vetor a outro ou adiciona dois vetores independentes juntos. A versão do método que adiciona dois vetores juntos é um método estático e retorna um objeto Vetor, os outros atuam diretamente no vetor.
-		Vetor* add(Vetor*);
+		Vetor* add(const Vetor*);
 		static Vetor* add(Vetor*, Vetor*);
 		Vetor* sub(double, double, double); // Subtrai componentes x, y e z de um vetor, subtrai um vetor de outro, ou subtrai dois vetores independentes. A versão do método que subtrai dois vetores é um método estático e retorna um objeto Vetor, os outros atuam diretamente no vetor.
 		Vetor* sub(const Vetor*);
-		static Vetor* sub(Vetor*, Vetor*);
+		static Vetor* sub(const Vetor*, const Vetor*);
 		Vetor* mult(double); // Multiplique o vetor por um escalar.
 		Vetor* div(double); // Divida o vetor por um escalar.
 		double mag(); // Calcula a magnitude (comprimento) do vetor e retorna o resultado como um double.
@@ -61,6 +64,28 @@ namespace GeoA {
 		static Vetor* fromAngle(double); // Cria um novo vetor 2D unitário a partir de um ângulo.
 		static Vetor* random2D(); // Cria um novo vetor 2D unitário a partir de um ângulo aleatório.
 		static Vetor* random3D(); // Cria um novo vetor 3D unitário a partir de um ângulo aleatório.
+	};
+	
+	
+	class Objeto {
+		Vetor pos;
+		Vetor target;
+		Vetor vel;
+		Vetor acc;
+		double max_speed;
+		double max_force;
+		
+		public:
+			Objeto() {
+				this->max_speed = 10;
+				this->max_force = 1;
+			}
+			
+			Objeto* update();
+			Objeto* behaviors();
+			Objeto* applyForce(const Vetor*);
+			Vetor* arrive(const Vetor*);
+			Vetor* flee(const Vetor*);
 	};
 }
 

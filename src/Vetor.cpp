@@ -1,4 +1,4 @@
-#include "GeoA.h"
+#include "../include/GeoA.h"
 #include <string> // string
 #include <cstring> // strcpy
 #include <cmath> // mathematical functions
@@ -40,7 +40,7 @@ GeoA::Vetor* GeoA::Vetor::add(double px, double py, double pz) {
 	this->z += pz;
 	return this;
 }
-GeoA::Vetor* GeoA::Vetor::add(GeoA::Vetor* pv) {
+GeoA::Vetor* GeoA::Vetor::add(const GeoA::Vetor* pv) {
 	this->x += pv->x;
 	this->y += pv->y;
 	this->z += pv->z;
@@ -61,6 +61,12 @@ GeoA::Vetor* GeoA::Vetor::sub(const GeoA::Vetor* pv) {
 	this->z -= pv->z;
 	return this;
 }
+GeoA::Vetor* GeoA::Vetor::sub(const GeoA::Vetor* pv1, const GeoA::Vetor* pv2) {
+	double x = pv2->x - pv1->x;
+	double y = pv2->y - pv1->y;
+	double z = pv2->z - pv1->z;
+	return new Vetor(x, y, z);
+}
 GeoA::Vetor* GeoA::Vetor::mult(double scl) {
 	this->x *= scl;
 	this->y *= scl;
@@ -71,6 +77,7 @@ GeoA::Vetor* GeoA::Vetor::div(double scl) {
 	this->x /= scl;
 	this->y /= scl;
 	this->z /= scl;
+	return this;
 }
 double GeoA::Vetor::mag() {
 	return sqrt(this->magSq());
