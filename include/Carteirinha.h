@@ -1,5 +1,7 @@
-#ifindef
-#include iostream
+#ifindef CARTEIRINHA_H
+#define CARTEIRINHA_H
+
+#include <iostream>
 
 using namespace std;
 
@@ -17,6 +19,9 @@ class Carteirinha {
 		int cor_do_chapeu;
 		int barba;
 		int cor_da_barba;
+		
+		Carteirinha Carteirinha();
+		Carteirinha Carteirinha(bool, int, int, int, int, int, int, int, int, int, int, int );
 		
 };
 

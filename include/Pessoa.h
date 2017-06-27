@@ -1,5 +1,7 @@
-#ifindef
-#include iostream
+#ifindef PESSOA_H
+#define PESSOA_H
+#include "carteirnha.h"
+#include <iostream>
 
 using namespace std;
 
@@ -23,7 +25,10 @@ class Pessoa {
 		int cor_da_calca;
 		int tenis;
 		int cor_do_tenis;
-		carteirinha card;
+		Carteirinha card;
+		
+		Pessoa Pessoa();
+		Pessoa Pessoa(bool, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, Carteirinha);
 		
 };
 

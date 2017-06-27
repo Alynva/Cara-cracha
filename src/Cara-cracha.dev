@@ -2,7 +2,7 @@
 FileName=Cara-cracha.dev
 Name=Cara-cracha
 Type=1
-Ver=1
+Ver=2
 ObjFiles=
 Includes=
 Libs=
@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=00000000000000000000000000c
-UnitCount=2
+UnitCount=4
 
 [VersionInfo]
 Major=1
@@ -51,7 +51,7 @@ AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit1]
-FileName=Pessoa.h
+FileName=..\include\Carteirinha.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -61,7 +61,27 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit2]
-FileName=Carteirinha.h
+FileName=..\include\Pessoa.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit3]
+FileName=..\include\EventManager.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit4]
+FileName=EventManager.cpp
 CompileCpp=1
 Folder=
 Compile=1
