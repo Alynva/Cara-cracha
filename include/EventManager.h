@@ -9,14 +9,16 @@ class EventManager {
 	bool* quit;
 	bool* play;
 	bool* mouse_pressed;
+	SDL_Point* window_size;
 	
 	public:
-		EventManager(bool*, bool*, bool*);
+		EventManager(bool*, bool*, bool*, SDL_Point*);
 	
 		void update();
 		void mouseMove();
 		void mouseLeftDown();
 		void mouseLeftUp();
+		void windowResized(int, int);
 };
 
 #endif

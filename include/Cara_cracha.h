@@ -4,24 +4,27 @@
 #include "EventManager.h"
 #include "data_structures.h"
 #include "Pessoa.h"
+#include "get_fill_size.hpp"
 
 #include <iostream>
 using namespace std;
 
 class Cara_cracha {
 	SDL_Window* g_window; // Janela principal
+	SDL_Point window_size; // Tamanho da janela
 	SDL_Renderer* g_renderer; // Renderizador principal
 	SDL_Texture* g_bg; // Plano de fundo
 	bool game_quit; // Responsavel pelo loop principal
 	bool game_play; // Respons�vel por come�ar o jogo
 	EventManager event; // Eventos
 	bool mouse_pressed;
+	double hour;
 
 	public:
 		int tela_id;
 		Queue<Pessoa*> fila;
 
-		Cara_cracha():g_window(NULL), g_renderer(NULL), game_quit(false), game_play(false), event(&this->game_quit, &this->game_play, &this->mouse_pressed) {};
+		Cara_cracha():g_window(NULL), g_renderer(NULL), game_quit(false), game_play(false), event(&this->game_quit, &this->game_play, &this->mouse_pressed, &this->window_size), mouse_pressed(false), hour(630) {};
 
 		~Cara_cracha() {
 			SDL_DestroyRenderer(this->g_renderer);
@@ -48,7 +51,7 @@ class Cara_cracha {
 				} else {
 
 					// Inicializa a cor do renderizador
-					SDL_SetRenderDrawColor(this->g_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+					SDL_SetRenderDrawColor(this->g_renderer, 0, 0, 0, 255);
 
 					// Inicializa o carregamento de PNG
 					int imgFlags = IMG_INIT_PNG;
@@ -59,9 +62,17 @@ class Cara_cracha {
 
 					// Do samething....
 
+					this->g_bg = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/1.jpg"));
+					if (this->g_bg == NULL) {
+						SDL_Log("Erro Img: %s", SDL_GetError());
+					}
+
 					for (int i = 0; i < 10; i++){
 						this->fila.enqueue(new Pessoa());
 					}
+
+					for (int i = 0; i < this->fila.getSize(); i++)
+						this->fila[i]->initTextures(this->g_renderer);
 
 					return true;
 				}
@@ -71,20 +82,37 @@ class Cara_cracha {
 
 		}
 
-		Cara_cracha* update() {
-			return this;
+		bool update() {
+
+			this->event.update();
+
+			// Limpa a tela
+			SDL_RenderClear(this->g_renderer);
+
+			// Renderiza o background
+			int iw, ih; // Vari�veis para calcular o tamanho e posi��o da imagem sem distor�o
+			SDL_QueryTexture(this->g_bg, NULL, NULL, &iw, &ih); // Get the image size
+			SDL_Rect bg_quad = getFillSize(iw, ih, this->window_size.x, this->window_size.y);
+			SDL_RenderCopy(this->g_renderer, this->g_bg, NULL, &bg_quad);
+
+			if (this->mouse_pressed)
+				for (int i = 0; i < this->fila.getSize(); i++)
+					this->fila[i]->arrive(this->fila[i]->pos.add(GeoA::Vetor::random2D()->mult(50)));
+
+			for (int i = 0; i < this->fila.getSize(); i++)
+					this->fila[i]->update()->render();
+
+			SDL_RenderPresent(this->g_renderer);
+
+			return !this->game_quit;
 		}
 
 		Cara_cracha* play() {
 
-			Pessoa* p_temp = nullptr;
-
 			for (int i = 0; i < this->fila.getSize(); i++) {
-				this->fila.dequeue(p_temp);
 
-				cout << p_temp->sexo << " " << p_temp->rosto << endl;
-
-				this->fila.enqueue(p_temp);
+				this->fila[i]->render();
+			
 			}
 
 			return this;

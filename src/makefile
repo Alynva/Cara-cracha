@@ -8,7 +8,7 @@ C_VERSION = -std=c++11
 OBJ_FILE = main.cpp
 
 # Arquivos auxiliares
-AUX_FILES = Vetor.cpp map.cpp random.cpp EventManager.cpp
+AUX_FILES = Vetor.cpp map.cpp random.cpp EventManager.cpp Textura.cpp
 
 # Flags do compilador
 CC_FLAGS = -g -Wall

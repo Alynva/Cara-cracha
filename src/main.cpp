@@ -7,6 +7,9 @@ int main(int argc, char** argv) {
 
 	if (jogo.init()) {
 		jogo.play();
+		while (jogo.update()) {
+			
+		}
 
 		cout << "RODOU" << endl;
 	}
