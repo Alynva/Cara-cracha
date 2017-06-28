@@ -10,9 +10,10 @@ class EventManager {
 	bool* play;
 	bool* mouse_pressed;
 	SDL_Point* window_size;
+	bool* window_shown;
 	
 	public:
-		EventManager(bool*, bool*, bool*, SDL_Point*);
+		EventManager(bool*, bool*, bool*, SDL_Point*, bool*);
 	
 		void update();
 		void mouseMove();

@@ -12,6 +12,7 @@ using namespace std;
 class Cara_cracha {
 	SDL_Window* g_window; // Janela principal
 	SDL_Point window_size; // Tamanho da janela
+	bool window_shown;
 	SDL_Renderer* g_renderer; // Renderizador principal
 	SDL_Texture* g_bg; // Plano de fundo
 	bool game_quit; // Responsavel pelo loop principal
@@ -23,8 +24,10 @@ class Cara_cracha {
 	public:
 		int tela_id;
 		Queue<Pessoa*> fila;
+		Queue<GeoA::Vetor> fila_pos;
 
-		Cara_cracha():g_window(NULL), g_renderer(NULL), game_quit(false), game_play(false), event(&this->game_quit, &this->game_play, &this->mouse_pressed, &this->window_size), mouse_pressed(false), hour(630) {};
+		Cara_cracha():g_window(NULL), window_shown(false), g_renderer(NULL), game_quit(false), game_play(false), event(&this->game_quit, &this->game_play, &this->mouse_pressed, &this->window_size, &this->window_shown), mouse_pressed(false), hour(630), tela_id(0) {
+		};
 
 		~Cara_cracha() {
 			SDL_DestroyRenderer(this->g_renderer);
@@ -61,6 +64,7 @@ class Cara_cracha {
 					}
 
 					// Do samething....
+					this->event.update();
 
 					this->g_bg = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/1.jpg"));
 					if (this->g_bg == NULL) {
@@ -71,8 +75,23 @@ class Cara_cracha {
 						this->fila.enqueue(new Pessoa());
 					}
 
-					for (int i = 0; i < this->fila.getSize(); i++)
+					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/4, 0));
+					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5-50, this->window_size.y*3/4.3, 0));
+					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/4.6, 0));
+					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5+50, this->window_size.y*3/4.9, 0));
+					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/5.2, 0));
+					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5-50, this->window_size.y*3/5.4, 0));
+					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5-100, this->window_size.y*3/5.6, 0));
+					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5-50, this->window_size.y*3/5.7, 0));
+					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/5.8, 0));
+					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5+50, this->window_size.y*3/5.85, 0));
+
+					for (int i = 0; i < this->fila.getSize(); i++){
+						this->fila[i]->pos = this->fila_pos[i];
 						this->fila[i]->initTextures(this->g_renderer);
+					}
+
+					this->tela_id = 1;
 
 					return true;
 				}
@@ -86,23 +105,35 @@ class Cara_cracha {
 
 			this->event.update();
 
-			// Limpa a tela
-			SDL_RenderClear(this->g_renderer);
+			if (this->window_shown) {
+				// Limpa a tela
+				SDL_RenderClear(this->g_renderer);
 
-			// Renderiza o background
-			int iw, ih; // Vari�veis para calcular o tamanho e posi��o da imagem sem distor�o
-			SDL_QueryTexture(this->g_bg, NULL, NULL, &iw, &ih); // Get the image size
-			SDL_Rect bg_quad = getFillSize(iw, ih, this->window_size.x, this->window_size.y);
-			SDL_RenderCopy(this->g_renderer, this->g_bg, NULL, &bg_quad);
 
-			if (this->mouse_pressed)
-				for (int i = 0; i < this->fila.getSize(); i++)
-					this->fila[i]->arrive(this->fila[i]->pos.add(GeoA::Vetor::random2D()->mult(50)));
+				// Renderiza o background
+				int iw, ih; // Vari�veis para calcular o tamanho e posi��o da imagem sem distor�o
+				SDL_QueryTexture(this->g_bg, NULL, NULL, &iw, &ih); // Get the image size
+				SDL_Rect bg_quad = getFillSize(iw, ih, this->window_size.x, this->window_size.y);
+				SDL_RenderCopy(this->g_renderer, this->g_bg, NULL, &bg_quad);
+				
+				switch (this->tela_id) {
+					case 1:
+						this->tela_id = 2;
+						break;
+					case 2:
+						this->fila[0]->cart.render();
+						break;
+				}
 
-			for (int i = 0; i < this->fila.getSize(); i++)
-					this->fila[i]->update()->render();
+				/*if (this->mouse_pressed)
+					for (int i = 0; i < this->fila.getSize(); i++)
+						this->fila[i]->applyForce(this->fila[i]->arrive(new GeoA::Vetor()));*/
 
-			SDL_RenderPresent(this->g_renderer);
+				for (int i = this->fila.getSize() - 1; i >= 0; i--)
+						this->fila[i]->update()->render();
+
+				SDL_RenderPresent(this->g_renderer);
+			}
 
 			return !this->game_quit;
 		}
