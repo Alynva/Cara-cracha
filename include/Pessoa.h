@@ -123,6 +123,8 @@ Pessoa* Pessoa::update() {
 	this->vel.add(&this->acc);
 	this->acc.mult(0);
 
+	this->updateTexPos();
+
 	return this;
 }
 
@@ -135,8 +137,6 @@ Pessoa* Pessoa::updateTexPos() {
 	this->t_blusa.setPosition({int (this->pos.x - 67), int (this->pos.y - 206)});
 	this->t_calca.setPosition({int (this->pos.x - 67), int (this->pos.y - 206)});
 	this->t_tenis.setPosition({int (this->pos.x - 67), int (this->pos.y - 206)});
-
-	this->cart.updateTexPos();
 
 	return this;
 }
@@ -160,8 +160,6 @@ GeoA::Vetor* Pessoa::arrive(const GeoA::Vetor* target) {
 }
 
 Pessoa* Pessoa::render() {
-	this->updateTexPos();
-
 	this->t_corpo.render();
 	this->t_rosto.render();
 	this->t_cabelo.render();

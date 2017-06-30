@@ -27,6 +27,7 @@ class Carteirinha {
 		Carteirinha(bool, int, int, int, int, int, int, int, int);
 		
 		void initTextures(SDL_Renderer*);
+		Carteirinha* update();
 		Carteirinha* updateTexPos();
 		void render();
 };
@@ -57,6 +58,12 @@ void Carteirinha::initTextures(SDL_Renderer* renderer) {
 	this->t_fundo = Textura(path_fundo, renderer, this->pos.x - 150, this->pos.y - 100, 300, 200);
 }
 
+Carteirinha* Carteirinha::update() {
+	this->updateTexPos();
+
+	return this;
+}
+
 Carteirinha* Carteirinha::updateTexPos() {
 	this->t_fundo.setPosition({int (this->pos.x), int (this->pos.y)});
 
@@ -64,8 +71,6 @@ Carteirinha* Carteirinha::updateTexPos() {
 }
 
 void Carteirinha::render() {
-	this->updateTexPos();
-
 	this->t_fundo.render();
 }
 

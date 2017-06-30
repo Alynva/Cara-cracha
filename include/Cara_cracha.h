@@ -40,7 +40,7 @@ class Cara_cracha {
 		}
 
 		bool init() {
-			SDL_Init(SDL_INIT_VIDEO);
+			//SDL_Init(SDL_INIT_VIDEO);
 			this->g_window = SDL_CreateWindow("Cara crachá", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 800, SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
 			if (this->g_window == NULL) {
 				SDL_Log("Window could not be created. SDL Error: %s", SDL_GetError());
@@ -121,7 +121,7 @@ class Cara_cracha {
 
 				if (this->tela_id == 2) {
 					this->fila[0]->cart.pos = GeoA::Vetor(this->window_size.x*2/3, this->window_size.y*2/3, 0);
-					this->fila[0]->cart.render();
+					this->fila[0]->cart.update()->render();
 				}
 
 				SDL_RenderPresent(this->g_renderer);
