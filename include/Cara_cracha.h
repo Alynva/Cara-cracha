@@ -41,13 +41,13 @@ class Cara_cracha {
 
 		bool init() {
 
-			this->g_window = SDL_CreateWindow("Cara crachá", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);
+			this->g_window = SDL_CreateWindow("Cara crachá", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 800, SDL_WINDOW_RESIZABLE);
 			if (this->g_window == NULL) {
 				SDL_Log("Window could not be created. SDL Error: %s", SDL_GetError());
 				return false;
 			} else {
 				// Cria o renderizador
-				this->g_renderer = SDL_CreateRenderer(this->g_window, -1, SDL_RENDERER_ACCELERATED);
+				this->g_renderer = SDL_CreateRenderer(this->g_window, -1, SDL_RENDERER_PRESENTVSYNC);
 				if (this->g_renderer == NULL) {
 					SDL_Log("Renderer could not be created. SDL Error: %s", SDL_GetError());
 					return false;
@@ -116,13 +116,8 @@ class Cara_cracha {
 				SDL_Rect bg_quad = getFillSize(iw, ih, this->window_size.x, this->window_size.y);
 				SDL_RenderCopy(this->g_renderer, this->g_bg, NULL, &bg_quad);
 				
-				switch (this->tela_id) {
-					case 1:
-						this->tela_id = 2;
-						break;
-					case 2:
-						this->fila[0]->cart.render();
-						break;
+				if (this->tela_id == 1) {
+					this->tela_id = 2;
 				}
 
 				/*if (this->mouse_pressed)
@@ -130,7 +125,12 @@ class Cara_cracha {
 						this->fila[i]->applyForce(this->fila[i]->arrive(new GeoA::Vetor()));*/
 
 				for (int i = this->fila.getSize() - 1; i >= 0; i--)
-						this->fila[i]->update()->render();
+					this->fila[i]->update()->render();
+
+				if (this->tela_id == 2) {
+					this->fila[0]->cart.pos = GeoA::Vetor(this->window_size.x*2/3, this->window_size.y*2/3, 0);
+					this->fila[0]->cart.render();
+				}
 
 				SDL_RenderPresent(this->g_renderer);
 			}

@@ -44,6 +44,7 @@ class Pessoa {
 
 		void initTextures(SDL_Renderer*);
 		Pessoa* update();
+		Pessoa* updateTexPos();
 
 		Pessoa* applyForce(const GeoA::Vetor*);
 		GeoA::Vetor* arrive(const GeoA::Vetor*);
@@ -125,6 +126,21 @@ Pessoa* Pessoa::update() {
 	return this;
 }
 
+Pessoa* Pessoa::updateTexPos() {
+	this->t_corpo.setPosition({int (this->pos.x - 67), int (this->pos.y - 206)});
+	this->t_rosto.setPosition({int (this->pos.x - 67), int (this->pos.y - 206)});
+	this->t_cabelo.setPosition({int (this->pos.x - 67), int (this->pos.y - 206)});
+	this->t_barba.setPosition({int (this->pos.x - 67), int (this->pos.y - 206)});
+	this->t_oculos.setPosition({int (this->pos.x - 67), int (this->pos.y - 206)});
+	this->t_blusa.setPosition({int (this->pos.x - 67), int (this->pos.y - 206)});
+	this->t_calca.setPosition({int (this->pos.x - 67), int (this->pos.y - 206)});
+	this->t_tenis.setPosition({int (this->pos.x - 67), int (this->pos.y - 206)});
+
+	this->cart.updateTexPos();
+
+	return this;
+}
+
 Pessoa* Pessoa::applyForce(const GeoA::Vetor* force) {
 	this->acc.add(force);
 	
@@ -144,7 +160,7 @@ GeoA::Vetor* Pessoa::arrive(const GeoA::Vetor* target) {
 }
 
 Pessoa* Pessoa::render() {
-	this->initTextures(this->t_rosto.getRenderer());
+	this->updateTexPos();
 
 	this->t_corpo.render();
 	this->t_rosto.render();
