@@ -18,6 +18,11 @@ class Cara_cracha {
 	bool game_play; // Respons�vel por come�ar o jogo
 	EventManager event; // Eventos
 	bool mouse_pressed;
+
+	short int max_fps;
+	unsigned int curr_fr;
+	unsigned int last_fr;
+
 	double hour;
 
 	public:
@@ -26,7 +31,19 @@ class Cara_cracha {
 		Queue<Pessoa*> fila;
 		Queue<GeoA::Vetor> fila_pos;
 
-		Cara_cracha():g_window(NULL), g_renderer(NULL), game_quit(false), game_play(false), event(&this->game_quit, &this->game_play, &this->mouse_pressed, &this->window_size), mouse_pressed(false), hour(630), tela_id(0), user(Pessoa(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) {
+		Cara_cracha():
+			g_window(NULL),
+			g_renderer(NULL),
+			game_quit(false),
+			game_play(false),
+			event(&this->game_quit, &this->game_play, &this->mouse_pressed, &this->window_size),
+			mouse_pressed(false),
+			max_fps(60),
+			curr_fr(0),
+			last_fr(0),
+			hour(630),
+			tela_id(0),
+			user(Pessoa(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) {
 		};
 
 		~Cara_cracha() {
@@ -124,6 +141,7 @@ class Cara_cracha {
 			}
 
 			SDL_RenderPresent(this->g_renderer);
+			this->limitFPS();
 
 			return !this->game_quit;
 		}
@@ -131,16 +149,16 @@ class Cara_cracha {
 		Cara_cracha* updateFilaPos() {
 			this->fila_pos.clear();
 
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/4, 0));
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5-50, this->window_size.y*3/4.3, 0));
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/4.6, 0));
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5+50, this->window_size.y*3/4.9, 0));
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/5.2, 0));
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5-50, this->window_size.y*3/5.4, 0));
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5-100, this->window_size.y*3/5.6, 0));
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5-50, this->window_size.y*3/5.7, 0));
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/5.8, 0));
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5+50, this->window_size.y*3/5.85, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 11, this->window_size.y*0.5 + 160, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 75, this->window_size.y*0.5 + 128, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 139, this->window_size.y*0.5 + 96, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 75, this->window_size.y*0.5 + 64, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 139, this->window_size.y*0.5 + 32, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 203, this->window_size.y*0.5 + 64, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 75, this->window_size.y*0.5 + 0, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 203, this->window_size.y*0.5 + 0, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 267, this->window_size.y*0.5 + 32, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 139, this->window_size.y*0.5 - 32, 0));
 
 			for (int i = 0; i < this->fila.getSize(); i++)
 				this->fila[i]->pos = this->fila_pos[i];
@@ -158,6 +176,16 @@ class Cara_cracha {
 
 			return this;
 
+		}
+
+		Cara_cracha* limitFPS() {
+			this->curr_fr = SDL_GetTicks();
+			int sleep = this->last_fr + this->max_fps - this->curr_fr;
+			if (sleep > 0)
+				SDL_Delay(sleep);
+			this->last_fr = this->curr_fr;
+
+			return this;
 		}
 };
 
