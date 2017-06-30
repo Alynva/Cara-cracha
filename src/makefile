@@ -11,7 +11,7 @@ OBJ_FILE = main.cpp
 AUX_FILES = Vetor.cpp map.cpp random.cpp EventManager.cpp Textura.cpp
 
 # Flags do compilador
-CC_FLAGS = -g -Wall
+CC_FLAGS = -g -Wall -mwindows
 
 # Linkers do compilador
 CC_LINKERS =
@@ -27,11 +27,13 @@ else
 	OUT_FILE = ../bin/Cara-cracha.out
 endif
 
-all:
+all: 
 	$(CC) $(C_VERSION) $(OBJ_FILE) $(AUX_FILES) $(CC_FLAGS) $(CC_LINKERS) -o $(OUT_FILE)
 
 clean:
 	rm $(OUT_FILE)
 
-run:
+run: 
 	$(OUT_FILE)
+
+full: all run

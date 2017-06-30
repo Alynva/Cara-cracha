@@ -40,21 +40,21 @@ class Cara_cracha {
 		}
 
 		bool init() {
-
-			this->g_window = SDL_CreateWindow("Cara crachá", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 800, SDL_WINDOW_RESIZABLE);
+			SDL_Init(SDL_INIT_VIDEO);
+			this->g_window = SDL_CreateWindow("Cara crachá", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 800, SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
 			if (this->g_window == NULL) {
 				SDL_Log("Window could not be created. SDL Error: %s", SDL_GetError());
 				return false;
 			} else {
 				// Cria o renderizador
-				this->g_renderer = SDL_CreateRenderer(this->g_window, -1, SDL_RENDERER_PRESENTVSYNC);
+				this->g_renderer = SDL_CreateRenderer(this->g_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
 				if (this->g_renderer == NULL) {
 					SDL_Log("Renderer could not be created. SDL Error: %s", SDL_GetError());
 					return false;
 				} else {
 
 					// Inicializa a cor do renderizador
-					SDL_SetRenderDrawColor(this->g_renderer, 0, 0, 0, 255);
+					SDL_SetRenderDrawColor(this->g_renderer, 255, 0, 0, 255);
 
 					// Inicializa o carregamento de PNG
 					int imgFlags = IMG_INIT_PNG;
@@ -75,19 +75,9 @@ class Cara_cracha {
 						this->fila.enqueue(new Pessoa());
 					}
 
-					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/4, 0));
-					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5-50, this->window_size.y*3/4.3, 0));
-					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/4.6, 0));
-					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5+50, this->window_size.y*3/4.9, 0));
-					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/5.2, 0));
-					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5-50, this->window_size.y*3/5.4, 0));
-					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5-100, this->window_size.y*3/5.6, 0));
-					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5-50, this->window_size.y*3/5.7, 0));
-					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/5.8, 0));
-					this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5+50, this->window_size.y*3/5.85, 0));
+					this->updateFilaPos();
 
 					for (int i = 0; i < this->fila.getSize(); i++){
-						this->fila[i]->pos = this->fila_pos[i];
 						this->fila[i]->initTextures(this->g_renderer);
 					}
 
@@ -105,7 +95,7 @@ class Cara_cracha {
 
 			this->event.update();
 
-			if (this->window_shown) {
+			if (true) {
 				// Limpa a tela
 				SDL_RenderClear(this->g_renderer);
 
@@ -123,6 +113,8 @@ class Cara_cracha {
 				/*if (this->mouse_pressed)
 					for (int i = 0; i < this->fila.getSize(); i++)
 						this->fila[i]->applyForce(this->fila[i]->arrive(new GeoA::Vetor()));*/
+				
+				this->updateFilaPos();
 
 				for (int i = this->fila.getSize() - 1; i >= 0; i--)
 					this->fila[i]->update()->render();
@@ -136,6 +128,24 @@ class Cara_cracha {
 			}
 
 			return !this->game_quit;
+		}
+
+		Cara_cracha* updateFilaPos() {
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/4, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5-50, this->window_size.y*3/4.3, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/4.6, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5+50, this->window_size.y*3/4.9, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/5.2, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5-50, this->window_size.y*3/5.4, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5-100, this->window_size.y*3/5.6, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5-50, this->window_size.y*3/5.7, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/5.8, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5+50, this->window_size.y*3/5.85, 0));
+
+			for (int i = 0; i < this->fila.getSize(); i++)
+				this->fila[i]->pos = this->fila_pos[i];
+
+			return this;
 		}
 
 		Cara_cracha* play() {

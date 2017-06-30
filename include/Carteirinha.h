@@ -64,7 +64,7 @@ Carteirinha* Carteirinha::updateTexPos() {
 }
 
 void Carteirinha::render() {
-	this->initTextures(this->t_fundo.getRenderer());
+	this->updateTexPos();
 
 	this->t_fundo.render();
 }
