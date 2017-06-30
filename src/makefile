@@ -11,7 +11,10 @@ OBJ_FILE = main.cpp
 AUX_FILES = Vetor.cpp map.cpp random.cpp EventManager.cpp Textura.cpp
 
 # Flags do compilador
-CC_FLAGS = -g -Wall -mwindows
+CC_FLAGS = -g -Wall
+ifeq ($(OS),Windows_NT)
+	CC_FLAGS += -mwindows
+endif
 
 # Linkers do compilador
 CC_LINKERS =
