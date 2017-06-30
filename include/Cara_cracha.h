@@ -12,7 +12,6 @@ using namespace std;
 class Cara_cracha {
 	SDL_Window* g_window; // Janela principal
 	SDL_Point window_size; // Tamanho da janela
-	bool window_shown;
 	SDL_Renderer* g_renderer; // Renderizador principal
 	SDL_Texture* g_bg; // Plano de fundo
 	bool game_quit; // Responsavel pelo loop principal
@@ -27,7 +26,7 @@ class Cara_cracha {
 		Queue<Pessoa*> fila;
 		Queue<GeoA::Vetor> fila_pos;
 
-		Cara_cracha():g_window(NULL), window_shown(false), g_renderer(NULL), game_quit(false), game_play(false), event(&this->game_quit, &this->game_play, &this->mouse_pressed, &this->window_size, &this->window_shown), mouse_pressed(false), hour(630), tela_id(0), user(Pessoa(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) {
+		Cara_cracha():g_window(NULL), g_renderer(NULL), game_quit(false), game_play(false), event(&this->game_quit, &this->game_play, &this->mouse_pressed, &this->window_size), mouse_pressed(false), hour(630), tela_id(0), user(Pessoa(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) {
 		};
 
 		~Cara_cracha() {
@@ -42,13 +41,13 @@ class Cara_cracha {
 
 		bool init() {
 			//SDL_Init(SDL_INIT_VIDEO);
-			this->g_window = SDL_CreateWindow("Cara crachá", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 800, SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_ALLOW_HIGHDPI);
+			this->g_window = SDL_CreateWindow("Cara crachá", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, -1, -1, SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_ALLOW_HIGHDPI);
 			if (this->g_window == NULL) {
 				SDL_Log("Window could not be created. SDL Error: %s", SDL_GetError());
 				return false;
 			} else {
 				// Cria o renderizador
-				this->g_renderer = SDL_CreateRenderer(this->g_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
+				this->g_renderer = SDL_CreateRenderer(this->g_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 				if (this->g_renderer == NULL) {
 					SDL_Log("Renderer could not be created. SDL Error: %s", SDL_GetError());
 					return false;
@@ -96,37 +95,35 @@ class Cara_cracha {
 
 			this->event.update();
 
-			if (this->window_shown) {
-				// Limpa a tela
-				SDL_RenderClear(this->g_renderer);
+			// Limpa a tela
+			SDL_RenderClear(this->g_renderer);
 
-				SDL_Rect bg_quad; 
-				bg_quad.x = this->window_size.x / 2 - 1350;
-				bg_quad.y = this->window_size.y / 2 - 1240;
-				bg_quad.w = 3198;
-				bg_quad.h = 2800;
-				SDL_RenderCopy(this->g_renderer, this->g_bg, NULL, &bg_quad);
-				
-				if (this->tela_id == 1) {
-					this->tela_id = 2;
-				}
-
-				/*if (this->mouse_pressed)
-					for (int i = 0; i < this->fila.getSize(); i++)
-						this->fila[i]->applyForce(this->fila[i]->arrive(new GeoA::Vetor()));*/
-				
-				this->updateFilaPos();
-
-				for (int i = this->fila.getSize() - 1; i >= 0; i--)
-					this->fila[i]->update()->render();
-
-				if (this->tela_id == 2) {
-					this->fila[0]->cart.pos = GeoA::Vetor(this->window_size.x*2/3, this->window_size.y*2/3, 0);
-					this->fila[0]->cart.update()->render();
-				}
-
-				SDL_RenderPresent(this->g_renderer);
+			SDL_Rect bg_quad; 
+			bg_quad.x = this->window_size.x / 2 - 1350;
+			bg_quad.y = this->window_size.y / 2 - 1240;
+			bg_quad.w = 3198;
+			bg_quad.h = 2800;
+			SDL_RenderCopy(this->g_renderer, this->g_bg, NULL, &bg_quad);
+			
+			if (this->tela_id == 1) {
+				this->tela_id = 2;
 			}
+
+			/*if (this->mouse_pressed)
+				for (int i = 0; i < this->fila.getSize(); i++)
+					this->fila[i]->applyForce(this->fila[i]->arrive(new GeoA::Vetor()));*/
+			
+			this->updateFilaPos();
+
+			for (int i = this->fila.getSize() - 1; i >= 0; i--)
+				this->fila[i]->update()->render();
+
+			if (this->tela_id == 2) {
+				this->fila[0]->cart.pos = GeoA::Vetor(this->window_size.x*2/3, this->window_size.y*2/3, 0);
+				this->fila[0]->cart.update()->render();
+			}
+
+			SDL_RenderPresent(this->g_renderer);
 
 			return !this->game_quit;
 		}

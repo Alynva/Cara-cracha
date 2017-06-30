@@ -1,6 +1,6 @@
 #include "../include/EventManager.h"
 
-EventManager::EventManager(bool* pgq, bool* pgp, bool* pmp, SDL_Point* pws, bool* pwsh):quit(pgq), play(pgp), mouse_pressed(pmp), window_size(pws), window_shown(pwsh) {}
+EventManager::EventManager(bool* pgq, bool* pgp, bool* pmp, SDL_Point* pws):quit(pgq), play(pgp), mouse_pressed(pmp), window_size(pws) {}
 
 void EventManager::update() {
 	while (SDL_PollEvent(&this->handler)) {
@@ -24,16 +24,13 @@ void EventManager::update() {
 			case SDL_WINDOWEVENT:
 		        switch (this->handler.window.event) {
 			        case SDL_WINDOWEVENT_SHOWN:
-			            SDL_Log("Window %d shown", this->handler.window.windowID);
-			        	*this->window_shown = true;
+//			            SDL_Log("Window %d shown", this->handler.window.windowID);
 			            break;
 			        case SDL_WINDOWEVENT_EXPOSED:
-			            SDL_Log("Window %d exposed", this->handler.window.windowID);
-			        	*this->window_shown = true;
+//			            SDL_Log("Window %d exposed", this->handler.window.windowID);
 			            break;
 			        case SDL_WINDOWEVENT_HIDDEN:
-			            SDL_Log("Window %d hidden", this->handler.window.windowID);
-			        	*this->window_shown = false;
+//			            SDL_Log("Window %d hidden", this->handler.window.windowID);
 			            break;
 			        case SDL_WINDOWEVENT_MOVED:
 //			            SDL_Log("Window %d moved to %d,%d",
@@ -52,8 +49,7 @@ void EventManager::update() {
 //			                    this->handler.window.data2);
 			            break;
 			        case SDL_WINDOWEVENT_MINIMIZED:
-			            SDL_Log("Window %d minimized", this->handler.window.windowID);
-			        	*this->window_shown = false;
+//			            SDL_Log("Window %d minimized", this->handler.window.windowID);
 			            break;
 			        case SDL_WINDOWEVENT_MAXIMIZED:
 //			            SDL_Log("Window %d maximized", this->handler.window.windowID);
