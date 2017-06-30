@@ -23,10 +23,11 @@ class Cara_cracha {
 
 	public:
 		int tela_id;
+		Pessoa user;
 		Queue<Pessoa*> fila;
 		Queue<GeoA::Vetor> fila_pos;
 
-		Cara_cracha():g_window(NULL), window_shown(false), g_renderer(NULL), game_quit(false), game_play(false), event(&this->game_quit, &this->game_play, &this->mouse_pressed, &this->window_size, &this->window_shown), mouse_pressed(false), hour(630), tela_id(0) {
+		Cara_cracha():g_window(NULL), window_shown(false), g_renderer(NULL), game_quit(false), game_play(false), event(&this->game_quit, &this->game_play, &this->mouse_pressed, &this->window_size, &this->window_shown), mouse_pressed(false), hour(630), tela_id(0), user(Pessoa(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) {
 		};
 
 		~Cara_cracha() {
