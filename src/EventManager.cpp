@@ -24,15 +24,16 @@ void EventManager::update() {
 			case SDL_WINDOWEVENT:
 		        switch (this->handler.window.event) {
 			        case SDL_WINDOWEVENT_SHOWN:
-//			            SDL_Log("Window %d shown", this->handler.window.windowID);
+			            SDL_Log("Window %d shown", this->handler.window.windowID);
+			        	*this->window_shown = true;
+			            break;
+			        case SDL_WINDOWEVENT_EXPOSED:
+			            SDL_Log("Window %d exposed", this->handler.window.windowID);
 			        	*this->window_shown = true;
 			            break;
 			        case SDL_WINDOWEVENT_HIDDEN:
-//			            SDL_Log("Window %d hidden", this->handler.window.windowID);
+			            SDL_Log("Window %d hidden", this->handler.window.windowID);
 			        	*this->window_shown = false;
-			            break;
-			        case SDL_WINDOWEVENT_EXPOSED:
-//			            SDL_Log("Window %d exposed", this->handler.window.windowID);
 			            break;
 			        case SDL_WINDOWEVENT_MOVED:
 //			            SDL_Log("Window %d moved to %d,%d",
@@ -51,7 +52,7 @@ void EventManager::update() {
 //			                    this->handler.window.data2);
 			            break;
 			        case SDL_WINDOWEVENT_MINIMIZED:
-//			            SDL_Log("Window %d minimized", this->handler.window.windowID);
+			            SDL_Log("Window %d minimized", this->handler.window.windowID);
 			        	*this->window_shown = false;
 			            break;
 			        case SDL_WINDOWEVENT_MAXIMIZED:

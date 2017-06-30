@@ -42,7 +42,7 @@ class Cara_cracha {
 
 		bool init() {
 			//SDL_Init(SDL_INIT_VIDEO);
-			this->g_window = SDL_CreateWindow("Cara crachá", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 800, SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+			this->g_window = SDL_CreateWindow("Cara crachá", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 800, SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_ALLOW_HIGHDPI);
 			if (this->g_window == NULL) {
 				SDL_Log("Window could not be created. SDL Error: %s", SDL_GetError());
 				return false;
@@ -67,7 +67,7 @@ class Cara_cracha {
 					// Do samething....
 					this->event.update();
 
-					this->g_bg = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/1.jpg"));
+					this->g_bg = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background.png"));
 					if (this->g_bg == NULL) {
 						SDL_Log("Erro Img: %s", SDL_GetError());
 					}
@@ -96,15 +96,15 @@ class Cara_cracha {
 
 			this->event.update();
 
-			if (true) {
+			if (this->window_shown) {
 				// Limpa a tela
 				SDL_RenderClear(this->g_renderer);
 
-
-				// Renderiza o background
-				int iw, ih; // Vari�veis para calcular o tamanho e posi��o da imagem sem distor�o
-				SDL_QueryTexture(this->g_bg, NULL, NULL, &iw, &ih); // Get the image size
-				SDL_Rect bg_quad = getFillSize(iw, ih, this->window_size.x, this->window_size.y);
+				SDL_Rect bg_quad; 
+				bg_quad.x = this->window_size.x / 2 - 1350;
+				bg_quad.y = this->window_size.y / 2 - 1240;
+				bg_quad.w = 3198;
+				bg_quad.h = 2800;
 				SDL_RenderCopy(this->g_renderer, this->g_bg, NULL, &bg_quad);
 				
 				if (this->tela_id == 1) {
@@ -132,6 +132,8 @@ class Cara_cracha {
 		}
 
 		Cara_cracha* updateFilaPos() {
+			this->fila_pos.clear();
+
 			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/4, 0));
 			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5-50, this->window_size.y*3/4.3, 0));
 			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5, this->window_size.y*3/4.6, 0));
