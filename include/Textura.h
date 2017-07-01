@@ -15,14 +15,15 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include <string>
+#include "data_structures.h"
 
 class Textura {
 	SDL_Rect recFormat;
-	SDL_Texture* pTexture;
+	Queue<SDL_Texture*> pTextures;
 	SDL_Renderer* pRenderer;
 	std::string pPath;
 	
-	SDL_Texture* loadTexture();
+	SDL_Texture* loadTexture(std::string);
 
 	public:
 		Textura() {};
@@ -35,7 +36,8 @@ class Textura {
 		void setRenderer(SDL_Renderer*);
 		SDL_Renderer* getRenderer() const;
 		SDL_Texture* getTexture() const;
-		void render();
+		Textura* render(int = -1);
+		Textura* add(std::string);
 };
 
 #endif

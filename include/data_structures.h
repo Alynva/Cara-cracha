@@ -42,7 +42,7 @@ public:
 	Node<T>* getFront() const { return this->header.next; };
 	Node<T>* getBack() const { return this->header.previous; };
 
-	T operator[](int);
+	T operator[](int) const;
 
 	void clear();
 
@@ -81,7 +81,7 @@ void Queue<T>::clear() {
 }
 
 template<class T>
-T Queue<T>::operator[](int index) {
+T Queue<T>::operator[](int index) const {
 	Node<T>* temp = this->getFront();
 	while (index > 0 && temp != this->getBack()){
 		temp = temp->next;

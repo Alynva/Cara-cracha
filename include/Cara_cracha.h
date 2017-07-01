@@ -147,7 +147,7 @@ class Cara_cracha {
 		}
 
 		Cara_cracha* updateFilaPos() {
-			this->fila_pos.clear();
+			//this->fila_pos.clear();
 
 			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 11, this->window_size.y*0.5 + 160, 0));
 			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 75, this->window_size.y*0.5 + 128, 0));
