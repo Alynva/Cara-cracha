@@ -20,6 +20,7 @@ class Cara_cracha {
 	unsigned int last_fr;
 
 	double hour;
+	Texto t_hour;
 
 	public:
 		int tela_id;
@@ -85,6 +86,10 @@ class Cara_cracha {
 
 					// Do samething....
 					this->event.update();
+
+
+					this->t_hour = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 25, {50, 50, 0, 0}, {0, 0, 0}, "Teste: áàãâéêúôç");
+
 
 
 					SDL_Texture* tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (fundo).png"));
@@ -169,6 +174,10 @@ class Cara_cracha {
 
 			// Renderiza os itens do cenário que podem estar na frente das pessoas
 			SDL_RenderCopy(this->g_renderer, this->g_bg[1], NULL, &bg_quad);
+
+			this->hour += 0.1;
+			this->t_hour.setText(std::to_string((int) this->hour/60)+((int) this->hour % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hour % 60));
+			this->t_hour.render();
 
 			SDL_RenderPresent(this->g_renderer);
 			this->limitFPS();
