@@ -25,13 +25,14 @@ class Cara_cracha {
 		Pessoa player;
 		Queue<Pessoa*> fila;
 		Queue<GeoA::Vetor> fila_pos;
+		Objeto catraca;
 
 		Cara_cracha():
 			g_window(NULL),
 			g_renderer(NULL),
 			game_quit(false),
 			game_play(false),
-			event(&this->game_quit, &this->game_play, &this->mouse_pressed, &this->window_size, &tela_id, &fila),
+			event(&this->game_quit, &this->game_play, &this->mouse_pressed, &this->window_size, &tela_id, &fila, &this->catraca.estado),
 			mouse_pressed(false),
 			max_fps(60),
 			curr_fr(0),
@@ -107,6 +108,12 @@ class Cara_cracha {
 						this->fila[i]->initTextures(this->g_renderer)->pos = GeoA::Vetor(this->window_size.x*0.5 - 139, this->window_size.y*0.5 - 32, 0);
 					}
 
+					this->catraca.pos = GeoA::Vetor(this->window_size.x*0.5 - 16, this->window_size.y*0.5 + 52, 0);
+					this->catraca.estado = 0;
+					this->catraca.tex_fundo_0 = Textura("../media/img/sentido_unico (tras).png", this->g_renderer, this->catraca.pos.x, this->catraca.pos.y, 148, 160);
+					this->catraca.tex_fundo_1 = Textura("../media/img/sentido_unico (aberto).png", this->g_renderer, this->catraca.pos.x, this->catraca.pos.y, 148, 160);
+					this->catraca.tex_frente = Textura("../media/img/sentido_unico (frente).png", this->g_renderer, this->catraca.pos.x, this->catraca.pos.y, 148, 160);
+
 					this->tela_id = 1;
 
 					return true;
@@ -130,8 +137,17 @@ class Cara_cracha {
 			bg_quad.w = 3198;
 			bg_quad.h = 2800;
 			SDL_RenderCopy(this->g_renderer, this->g_bg[0], NULL, &bg_quad);
+
+			switch (this->catraca.estado) {
+				case 0:
+					this->catraca.tex_fundo_0.render();
+					break;
+				case 1:
+					this->catraca.tex_fundo_1.render();
+					break;
+			}
 			
-			this->updateFilaPos();
+			this->updateFilaPos(); this->catraca.estado = 0;
 
 			for (int i = this->fila.getSize() - 1; i >= 0; i--)
 				this->fila[i]->behaviors()->update()->render();
@@ -142,6 +158,8 @@ class Cara_cracha {
 			}
 
 			player.update()->render();
+
+			this->catraca.tex_frente.render();
 
 			// Renderiza os itens do cenário que podem estar na frente das pessoas
 			SDL_RenderCopy(this->g_renderer, this->g_bg[1], NULL, &bg_quad);

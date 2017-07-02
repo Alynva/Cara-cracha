@@ -1,12 +1,13 @@
 #include "../include/EventManager.h"
 
-EventManager::EventManager(bool* pgq, bool* pgp, bool* pmp, SDL_Point* pws, int* pti, Queue<Pessoa*>* pf):
+EventManager::EventManager(bool* pgq, bool* pgp, bool* pmp, SDL_Point* pws, int* pti, Queue<Pessoa*>* pf, int* pce):
 	quit(pgq),
 	play(pgp),
 	mouse_pressed(pmp),
 	window_size(pws),
 	tela_id(pti),
-	fila(pf) {
+	fila(pf),
+	catraca_estado(pce) {
 }
 
 void EventManager::update() {
@@ -115,6 +116,7 @@ void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
 					Pessoa* t1;
 					Pessoa* t2;
 					fila->dequeue(t1);
+					*catraca_estado = 1;
 					t2 = new Pessoa();
 					t2->pos = GeoA::Vetor(this->window_size->x*0.5 - 139, this->window_size->y*0.5 - 32, 0);
 					t2->initTextures(t1->t_corpo.getRenderer());

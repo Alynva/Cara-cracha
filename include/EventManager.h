@@ -3,6 +3,7 @@
 
 #include "data_structures.h"
 #include "Pessoa.h"
+#include "Objeto.h"
 
 class EventManager {
 	SDL_Event handler;
@@ -12,9 +13,10 @@ class EventManager {
 	SDL_Point* window_size;
 	int* tela_id;
 	Queue<Pessoa*>* fila;
+	int* catraca_estado;
 	
 	public:
-		EventManager(bool*, bool*, bool*, SDL_Point*, int*, Queue<Pessoa*>*);
+		EventManager(bool*, bool*, bool*, SDL_Point*, int*, Queue<Pessoa*>*, int*);
 	
 		void update();
 		void mouseMove();
