@@ -21,7 +21,7 @@ CC_LINKERS =
 ifeq ($(OS),Windows_NT)
 	CC_LINKERS += -lmingw32 -L../bin -L../lib
 endif
-CC_LINKERS += -lSDL2 -lSDL2_image -lSDL2main
+CC_LINKERS += -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2main
 
 # Arquivo de saída
 ifeq ($(OS),Windows_NT)

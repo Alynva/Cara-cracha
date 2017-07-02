@@ -3,6 +3,7 @@
 
 #include "EventManager.h"
 #include "get_fill_size.hpp"
+#include "Texto.h"
 
 class Cara_cracha {
 	SDL_Window* g_window; // Janela principal
@@ -49,6 +50,7 @@ class Cara_cracha {
 			this->g_window = NULL;
 
 			IMG_Quit();
+			TTF_Quit();
 			SDL_Quit();
 		}
 
@@ -76,9 +78,13 @@ class Cara_cracha {
 						return false;
 					}
 
+					if(TTF_Init() == -1) {
+						SDL_Log("TTF_Init: %s\n", TTF_GetError());
+						return false;
+					}
+
 					// Do samething....
 					this->event.update();
-
 
 
 					SDL_Texture* tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (fundo).png"));
