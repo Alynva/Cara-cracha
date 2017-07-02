@@ -78,7 +78,7 @@ inline Pessoa::Pessoa():max_speed(10), max_force(.01) {
 	this->cor_do_tenis = GeoA::random(1, 4);
 
 	if (GeoA::random() > CHANCE_CART_DIF) {
-		Carteirinha cart_temp(this->sexo, this->rosto, this->cor_do_rosto, this->oculos, this->cor_do_oculos, this->cabelo, this->cor_do_cabelo, this->barba, this->cor_da_barba, this->blusa, this->cor_da_blusa);
+		Carteirinha cart_temp(this->sexo, this->rosto, this->cor_do_rosto, this->cabelo);
 		this->cart = cart_temp;
 	}
 

@@ -28,7 +28,7 @@ class Carteirinha {
 		int cor_da_blusa;
 		
 		Carteirinha();
-		Carteirinha(bool, int, int, int, int, int, int, int, int, int, int);
+		Carteirinha(bool, int, int, int);
 		
 		void initTextures(SDL_Renderer*);
 		Carteirinha* update();
@@ -53,8 +53,14 @@ inline Carteirinha::Carteirinha() {
 
 }
 
-inline Carteirinha::Carteirinha(bool ps, int pr, int pcr, int po, int pco, int pc, int pcc, int pb, int pcb, int pbl, int pcbl):sexo(ps), rosto(pr), cor_do_rosto(pcr), oculos(po), cor_do_oculos(pco), cabelo(pc), cor_do_cabelo(pcc), barba(pb), cor_da_barba(pcb), blusa(pbl), cor_da_blusa(pcbl) {
-
+inline Carteirinha::Carteirinha(bool ps, int pr, int pcr, int pc):sexo(ps), rosto(pr), cor_do_rosto(pcr), cabelo(pc) {
+	this->oculos = GeoA::random() > 0.75 ? GeoA::random(1, 4) : 0;
+	this->cor_do_oculos = GeoA::random(1, 4);
+	this->cor_do_cabelo = GeoA::random(1, 4);
+	this->barba = GeoA::random() > 0.8 ? GeoA::random(1, 4) : 0;
+	this->cor_da_barba = GeoA::random(1, 4);
+	this->blusa = GeoA::random(1, 4);
+	this->cor_da_blusa = GeoA::random(1, 4);
 }
 
 inline void Carteirinha::initTextures(SDL_Renderer* renderer) {
