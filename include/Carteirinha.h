@@ -5,7 +5,8 @@
 #include "Textura.h"
 
 class Carteirinha {
-	Textura t_fundo;
+	Textura t_fundo_t;
+	Textura t_fundo_f;
 	Textura t_corpo;
 	Textura t_rosto;
 	Textura t_oculos;
@@ -66,8 +67,10 @@ inline Carteirinha::Carteirinha(bool ps, int pr, int pcr, int pc):sexo(ps), rost
 inline void Carteirinha::initTextures(SDL_Renderer* renderer) {
 	std::string path_imgs = "../media/";
 	
-	std::string path_fundo = path_imgs+"img/fundo_cart.png";
-	this->t_fundo = Textura(path_fundo, renderer, this->pos.x - 150, this->pos.y - 100, 300, 200);
+	std::string path_fundo_t = path_imgs+"img/carteirinha.png";
+	this->t_fundo_t = Textura(path_fundo_t, renderer, this->pos.x - 150, this->pos.y - 100, 300, 200);
+	std::string path_fundo_f = path_imgs+"img/carteirinha (reflexo).png";
+	this->t_fundo_f = Textura(path_fundo_f, renderer, this->pos.x - 150, this->pos.y - 100, 300, 200);
 
 	std::string path_corpo = path_imgs+"avatar/body/corpo_c"+std::to_string(this->cor_do_rosto)+".png";
 	this->t_corpo = Textura(path_corpo, renderer, this->pos.x - 12, this->pos.y + 45, 128, 220);
@@ -97,7 +100,8 @@ inline Carteirinha* Carteirinha::update() {
 }
 
 inline Carteirinha* Carteirinha::updateTexPos() {
-	this->t_fundo.setPosition({int (this->pos.x), int (this->pos.y)});
+	this->t_fundo_t.setPosition({int (this->pos.x), int (this->pos.y)});
+	this->t_fundo_f.setPosition({int (this->pos.x), int (this->pos.y)});
 
 	this->t_corpo.setPosition({int (this->pos.x - 12), int (this->pos.y + 45)});
 	this->t_rosto.setPosition({int (this->pos.x - 12), int (this->pos.y + 45)});
@@ -110,7 +114,7 @@ inline Carteirinha* Carteirinha::updateTexPos() {
 }
 
 inline void Carteirinha::render() {
-	this->t_fundo.render();
+	this->t_fundo_t.render();
 
 	SDL_Rect srcrect, format;
 	srcrect.x = 31;
@@ -130,12 +134,7 @@ inline void Carteirinha::render() {
 	SDL_RenderCopy(this->t_oculos.getRenderer(), this->t_oculos.getTexture(), &srcrect, &format);
 	SDL_RenderCopy(this->t_blusa.getRenderer(), this->t_blusa.getTexture(), &srcrect, &format);
 
-	//this->t_corpo.render();
-	//this->t_rosto.render();
-	//this->t_cabelo.render();
-	//this->t_barba.render();
-	//this->t_oculos.render();
-	//this->t_blusa.render();
+	this->t_fundo_f.render();
 }
 
 #endif
