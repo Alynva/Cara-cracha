@@ -9,7 +9,6 @@ class Carteirinha {
 	Textura t_fundo_f;
 	Textura t_corpo;
 	Textura t_rosto;
-	Textura t_oculos;
 	Textura t_cabelo;
 	Textura t_barba;
 	Textura t_blusa;
@@ -19,8 +18,6 @@ class Carteirinha {
 		bool sexo;
 		int rosto;
 		int cor_do_rosto;
-		int oculos;
-		int cor_do_oculos;
 		int cabelo;
 		int cor_do_cabelo;
 		int barba;
@@ -43,8 +40,6 @@ inline Carteirinha::Carteirinha() {
 
 	this->rosto = GeoA::random(1, 4);
 	this->cor_do_rosto = GeoA::random(1, 4);
-	this->oculos = GeoA::random() > 0.75 ? GeoA::random(1, 4) : 0;
-	this->cor_do_oculos = GeoA::random(1, 4);
 	this->cabelo = GeoA::random(1, 4);
 	this->cor_do_cabelo = GeoA::random(1, 4);
 	this->barba = GeoA::random() > 0.8 ? GeoA::random(1, 4) : 0;
@@ -55,8 +50,6 @@ inline Carteirinha::Carteirinha() {
 }
 
 inline Carteirinha::Carteirinha(bool ps, int pr, int pcr, int pc):sexo(ps), rosto(pr), cor_do_rosto(pcr), cabelo(pc) {
-	this->oculos = GeoA::random() > 0.75 ? GeoA::random(1, 4) : 0;
-	this->cor_do_oculos = GeoA::random(1, 4);
 	this->cor_do_cabelo = GeoA::random(1, 4);
 	this->barba = GeoA::random() > 0.8 ? GeoA::random(1, 4) : 0;
 	this->cor_da_barba = GeoA::random(1, 4);
@@ -84,9 +77,6 @@ inline void Carteirinha::initTextures(SDL_Renderer* renderer) {
 	std::string path_barba = this->barba > 0 ? path_imgs+"avatar/head/barba_"+std::to_string(this->sexo)+"_t"+std::to_string(this->barba)+"_c"+std::to_string(this->cor_da_barba)+".png" : path_imgs+"avatar/0.png";
 	this->t_barba = Textura(path_barba, renderer, this->pos.x - 12, this->pos.y + 45, 128, 220);
 	
-	std::string path_oculos = this->oculos > 0 ? path_imgs+"avatar/head/oculos_t"+std::to_string(this->oculos)+"_c"+std::to_string(this->cor_do_oculos)+".png" : path_imgs+"avatar/0.png";
-	this->t_oculos = Textura(path_oculos, renderer, this->pos.x - 12, this->pos.y + 45, 128, 220);
-	
 	//std::string path_blusa = path_imgs+"body/blusa_"+std::to_string(this->sexo)+"_t"+std::to_string(this->blusa)+"_c"+std::to_string(this->cor_da_blusa)+".png";
 	std::string path_blusa = path_imgs+"avatar/body/blusa_"+std::to_string(this->sexo)+"_t1_c2.png";
 	this->t_blusa = Textura(path_blusa, renderer, this->pos.x - 12, this->pos.y + 45, 128, 220);
@@ -107,7 +97,6 @@ inline Carteirinha* Carteirinha::updateTexPos() {
 	this->t_rosto.setPosition({int (this->pos.x - 12), int (this->pos.y + 45)});
 	this->t_cabelo.setPosition({int (this->pos.x - 12), int (this->pos.y + 45)});
 	this->t_barba.setPosition({int (this->pos.x - 12), int (this->pos.y + 45)});
-	this->t_oculos.setPosition({int (this->pos.x - 12), int (this->pos.y + 45)});
 	this->t_blusa.setPosition({int (this->pos.x - 12), int (this->pos.y + 45)});
 
 	return this;
@@ -131,7 +120,6 @@ inline void Carteirinha::render() {
 	SDL_RenderCopy(this->t_rosto.getRenderer(), this->t_rosto.getTexture(), &srcrect, &format);
 	SDL_RenderCopy(this->t_cabelo.getRenderer(), this->t_cabelo.getTexture(), &srcrect, &format);
 	SDL_RenderCopy(this->t_barba.getRenderer(), this->t_barba.getTexture(), &srcrect, &format);
-	SDL_RenderCopy(this->t_oculos.getRenderer(), this->t_oculos.getTexture(), &srcrect, &format);
 	SDL_RenderCopy(this->t_blusa.getRenderer(), this->t_blusa.getTexture(), &srcrect, &format);
 
 	this->t_fundo_f.render();
