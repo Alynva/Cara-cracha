@@ -2,7 +2,7 @@
 CC = g++
 
 # Flags de versao
-C_VERSION = -std=c++11
+C_VERSION = -std=c++14
 
 # Arquivo principal
 OBJ_FILE = main.cpp

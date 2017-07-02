@@ -10,7 +10,9 @@ namespace GeoA {
 	void randInit();
 	double random(); // [0.0 .. 1.0]
 	double random(double); // [0.0 .. double]
+	int random(int, int); // [int .. int]
 	double random(double, double); // [double .. double]
+	int randomX(int, int); // (int .. int)
 	
 	double map(double, double, double, double, double);
 	

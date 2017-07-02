@@ -1,18 +1,9 @@
 #ifndef PESSOA_H
 #define PESSOA_H
 
-#include <iostream>
 #include "Carteirinha.h"
 
 class Pessoa {
-	Textura t_rosto;
-	Textura t_oculos;
-	Textura t_cabelo;
-	Textura t_barba;
-	Textura t_corpo;
-	Textura t_blusa;
-	Textura t_calca;
-	Textura t_tenis;
 
 	public:
 		GeoA::Vetor pos;
@@ -23,20 +14,28 @@ class Pessoa {
 		double max_force;
 
 		bool sexo;
+		Textura t_corpo;
 		int rosto;
 		int cor_do_rosto;
+		Textura t_rosto;
 		int oculos;
 		int cor_do_oculos;
+		Textura t_oculos;
 		int cabelo;
 		int cor_do_cabelo;
+		Textura t_cabelo;
 		int barba;
 		int cor_da_barba;
+		Textura t_barba;
 		int blusa;
 		int cor_da_blusa;
+		Textura t_blusa;
 		int calca;
 		int cor_da_calca;
+		Textura t_calca;
 		int tenis;
 		int cor_do_tenis;
+		Textura t_tenis;
 		Carteirinha cart;
 		
 		Pessoa();
@@ -52,18 +51,18 @@ class Pessoa {
 		Pessoa* render();
 };
 
-Pessoa::Pessoa() {
+inline Pessoa::Pessoa() {
 	this->pos = GeoA::Vetor(GeoA::random(0, 1000), GeoA::random(0, 700), 0);
 
 	this->sexo = GeoA::random() > 0.5;
 
 	this->rosto = GeoA::random(1, 4);
 	this->cor_do_rosto = GeoA::random(1, 4);
-	this->oculos = GeoA::random(1, 4);
+	this->oculos = GeoA::random() > 0.75 ? GeoA::random(1, 4) : -1;
 	this->cor_do_oculos = GeoA::random(1, 4);
 	this->cabelo = GeoA::random(1, 4);
 	this->cor_do_cabelo = GeoA::random(1, 4);
-	this->barba = GeoA::random(1, 4);
+	this->barba = GeoA::random() > 0.8 ? GeoA::random(1, 4) : -1;
 	this->cor_da_barba = this->cor_do_cabelo;
 	this->blusa = GeoA::random(1, 4);
 	this->cor_da_blusa = GeoA::random(1, 4);
@@ -80,12 +79,12 @@ Pessoa::Pessoa() {
 	//this->initTextures(nullptr);
 }
 
-Pessoa::Pessoa(bool ps, int pr, int pcr, int po, int pco, int pc, int pcc, int pb, int pcb, int pba, int pcba, int pca, int pcca, int pt, int pct):sexo(ps), rosto(pr), cor_do_rosto(pcr), oculos(po), cor_do_oculos(pco), cabelo(pc), cor_do_cabelo(pcc), barba(pba), cor_da_barba(pcba), blusa(pb), cor_da_blusa(pcb), calca(pca), cor_da_calca(pcca), tenis(pt), cor_do_tenis(pct) {
+inline Pessoa::Pessoa(bool ps, int pr, int pcr, int po, int pco, int pc, int pcc, int pb, int pcb, int pba, int pcba, int pca, int pcca, int pt, int pct):sexo(ps), rosto(pr), cor_do_rosto(pcr), oculos(po), cor_do_oculos(pco), cabelo(pc), cor_do_cabelo(pcc), barba(pba), cor_da_barba(pcba), blusa(pb), cor_da_blusa(pcb), calca(pca), cor_da_calca(pcca), tenis(pt), cor_do_tenis(pct) {
 
 	//this->initTextures(nullptr);
 }
 
-void Pessoa::initTextures(SDL_Renderer* renderer) {
+inline void Pessoa::initTextures(SDL_Renderer* renderer) {
 	string path_imgs = "../media/avatar/";
 	
 	string path_corpo = path_imgs+"body/corpo_c"+std::to_string(this->cor_do_rosto)+".png";
@@ -97,10 +96,10 @@ void Pessoa::initTextures(SDL_Renderer* renderer) {
 	string path_cabelo = path_imgs+"head/cabelo_"+std::to_string(this->sexo)+"_t"+std::to_string(this->cabelo)+"_c"+std::to_string(this->cor_do_cabelo)+".png";
 	this->t_cabelo = Textura(path_cabelo, renderer, this->pos.x - 67, this->pos.y - 206, 128, 220);
 	
-	string path_barba = path_imgs+"head/barba_"+std::to_string(this->sexo)+"_t"+std::to_string(this->barba)+"_c"+std::to_string(this->cor_da_barba)+".png";
+	string path_barba = this->barba > 0 ? path_imgs+"head/barba_"+std::to_string(this->sexo)+"_t"+std::to_string(this->barba)+"_c"+std::to_string(this->cor_da_barba)+".png" : path_imgs+"0.png";
 	this->t_barba = Textura(path_barba, renderer, this->pos.x - 67, this->pos.y - 206, 128, 220);
 	
-	string path_oculos = path_imgs+"head/oculos_t"+std::to_string(this->oculos)+"_c"+std::to_string(this->cor_do_oculos)+".png";
+	string path_oculos = this->oculos > 0 ? path_imgs+"head/oculos_t"+std::to_string(this->oculos)+"_c"+std::to_string(this->cor_do_oculos)+".png" : path_imgs+"0.png";
 	this->t_oculos = Textura(path_oculos, renderer, this->pos.x - 67, this->pos.y - 206, 128, 220);
 	
 	//string path_blusa = path_imgs+"body/blusa_"+std::to_string(this->sexo)+"_t"+std::to_string(this->blusa)+"_c"+std::to_string(this->cor_da_blusa)+".png";
@@ -118,7 +117,7 @@ void Pessoa::initTextures(SDL_Renderer* renderer) {
 	this->cart.initTextures(renderer);
 }
 
-Pessoa* Pessoa::update() {
+inline Pessoa* Pessoa::update() {
 	this->pos.add(&this->vel);
 	this->vel.add(&this->acc);
 	this->acc.mult(0);
@@ -128,7 +127,7 @@ Pessoa* Pessoa::update() {
 	return this;
 }
 
-Pessoa* Pessoa::updateTexPos() {
+inline Pessoa* Pessoa::updateTexPos() {
 	this->t_corpo.setPosition({int (this->pos.x - 67), int (this->pos.y - 206)});
 	this->t_rosto.setPosition({int (this->pos.x - 67), int (this->pos.y - 206)});
 	this->t_cabelo.setPosition({int (this->pos.x - 67), int (this->pos.y - 206)});
@@ -141,13 +140,13 @@ Pessoa* Pessoa::updateTexPos() {
 	return this;
 }
 
-Pessoa* Pessoa::applyForce(const GeoA::Vetor* force) {
+inline Pessoa* Pessoa::applyForce(const GeoA::Vetor* force) {
 	this->acc.add(force);
 	
 	return this;
 }
 
-GeoA::Vetor* Pessoa::arrive(const GeoA::Vetor* target) {
+inline GeoA::Vetor* Pessoa::arrive(const GeoA::Vetor* target) {
 	GeoA::Vetor* desired = GeoA::Vetor::sub(target, &this->pos);
 	int d = desired->mag();
 	double speed = this->max_speed;
@@ -159,7 +158,7 @@ GeoA::Vetor* Pessoa::arrive(const GeoA::Vetor* target) {
 	return steer;
 }
 
-Pessoa* Pessoa::render() {
+inline Pessoa* Pessoa::render() {
 	this->t_corpo.render();
 	this->t_rosto.render();
 	this->t_cabelo.render();

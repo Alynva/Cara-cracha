@@ -2,18 +2,13 @@
 #define CARA_CRACHA
 
 #include "EventManager.h"
-#include "data_structures.h"
-#include "Pessoa.h"
 #include "get_fill_size.hpp"
-
-#include <iostream>
-using namespace std;
 
 class Cara_cracha {
 	SDL_Window* g_window; // Janela principal
 	SDL_Point window_size; // Tamanho da janela
 	SDL_Renderer* g_renderer; // Renderizador principal
-	SDL_Texture* g_bg; // Plano de fundo
+	Queue<SDL_Texture*> g_bg; // Plano de fundo
 	bool game_quit; // Responsavel pelo loop principal
 	bool game_play; // Respons�vel por come�ar o jogo
 	EventManager event; // Eventos
@@ -27,7 +22,7 @@ class Cara_cracha {
 
 	public:
 		int tela_id;
-		Pessoa user;
+		Pessoa player;
 		Queue<Pessoa*> fila;
 		Queue<GeoA::Vetor> fila_pos;
 
@@ -36,14 +31,14 @@ class Cara_cracha {
 			g_renderer(NULL),
 			game_quit(false),
 			game_play(false),
-			event(&this->game_quit, &this->game_play, &this->mouse_pressed, &this->window_size),
+			event(&this->game_quit, &this->game_play, &this->mouse_pressed, &this->window_size, &tela_id, &fila),
 			mouse_pressed(false),
 			max_fps(60),
 			curr_fr(0),
 			last_fr(0),
 			hour(630),
 			tela_id(0),
-			user(Pessoa(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) {
+			player(Pessoa(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) {
 		};
 
 		~Cara_cracha() {
@@ -83,10 +78,24 @@ class Cara_cracha {
 					// Do samething....
 					this->event.update();
 
-					this->g_bg = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background.png"));
-					if (this->g_bg == NULL) {
+
+
+					SDL_Texture* tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (fundo).png"));
+					if (tx_temp == NULL) {
 						SDL_Log("Erro Img: %s", SDL_GetError());
 					}
+					this->g_bg.enqueue(tx_temp);
+					tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (frente).png"));
+					if (tx_temp == NULL) {
+						SDL_Log("Erro Img: %s", SDL_GetError());
+					}
+					this->g_bg.enqueue(tx_temp);
+
+
+					player.pos = GeoA::Vetor(this->window_size.x*0.5 - 75, this->window_size.y*0.5 + 192, 0);
+					player.initTextures(this->g_renderer);
+					SDL_SetTextureColorMod(player.t_corpo.getTexture(), 0, 255, 0);
+
 
 					for (int i = 0; i < 10; i++){
 						this->fila.enqueue(new Pessoa());
@@ -120,15 +129,7 @@ class Cara_cracha {
 			bg_quad.y = this->window_size.y / 2 - 1240;
 			bg_quad.w = 3198;
 			bg_quad.h = 2800;
-			SDL_RenderCopy(this->g_renderer, this->g_bg, NULL, &bg_quad);
-			
-			if (this->tela_id == 1) {
-				this->tela_id = 2;
-			}
-
-			/*if (this->mouse_pressed)
-				for (int i = 0; i < this->fila.getSize(); i++)
-					this->fila[i]->applyForce(this->fila[i]->arrive(new GeoA::Vetor()));*/
+			SDL_RenderCopy(this->g_renderer, this->g_bg[0], NULL, &bg_quad);
 			
 			this->updateFilaPos();
 
@@ -139,6 +140,11 @@ class Cara_cracha {
 				this->fila[0]->cart.pos = GeoA::Vetor(this->window_size.x*2/3, this->window_size.y*2/3, 0);
 				this->fila[0]->cart.update()->render();
 			}
+
+			player.update()->render();
+
+			// Renderiza os itens do cenário que podem estar na frente das pessoas
+			SDL_RenderCopy(this->g_renderer, this->g_bg[1], NULL, &bg_quad);
 
 			SDL_RenderPresent(this->g_renderer);
 			this->limitFPS();

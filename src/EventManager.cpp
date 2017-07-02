@@ -1,6 +1,13 @@
 #include "../include/EventManager.h"
 
-EventManager::EventManager(bool* pgq, bool* pgp, bool* pmp, SDL_Point* pws):quit(pgq), play(pgp), mouse_pressed(pmp), window_size(pws) {}
+EventManager::EventManager(bool* pgq, bool* pgp, bool* pmp, SDL_Point* pws, int* pti, Queue<Pessoa*>* pf):
+	quit(pgq),
+	play(pgp),
+	mouse_pressed(pmp),
+	window_size(pws),
+	tela_id(pti),
+	fila(pf) {
+}
 
 void EventManager::update() {
 	while (SDL_PollEvent(&this->handler)) {
@@ -9,12 +16,10 @@ void EventManager::update() {
 				*this->quit = true;
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				if (handler.button.button == SDL_BUTTON_LEFT)
-					this->mouseLeftDown();
+				this->mouseDown(this->handler.button);
 				break;
 			case SDL_MOUSEBUTTONUP:
-				if (handler.button.button == SDL_BUTTON_LEFT)
-					this->mouseLeftUp();
+				this->mouseUp();
 				break;
 			case SDL_MOUSEMOTION:
 				this->mouseMove();
@@ -96,11 +101,44 @@ void EventManager::mouseMove() {
 	
 }
 
-void EventManager::mouseLeftDown() {
+void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
 	*this->mouse_pressed = true;
+
+	switch (button.button) {
+		case SDL_BUTTON_LEFT:
+			switch (*this->tela_id) {
+				case 1:
+					*this->tela_id = 2;
+					break;
+				case 2:
+					*this->tela_id = 1;
+					Pessoa* temp;
+					fila->dequeue(temp);
+					fila->enqueue(new Pessoa());
+					temp = nullptr;
+					break;
+			} 
+			break;
+		case SDL_BUTTON_RIGHT:
+			switch (*this->tela_id) {
+				case 1:
+					*this->tela_id = 2;
+					break;
+				case 2:
+					*this->tela_id = 1;
+					Pessoa* temp;
+					fila->dequeue(temp);
+					fila->enqueue(temp);
+					temp = nullptr;
+					break;
+			} 
+			break;
+		case SDL_BUTTON_MIDDLE:
+			break;
+	}
 }
 
-void EventManager::mouseLeftUp() {
+void EventManager::mouseUp() {
 	*this->mouse_pressed = false;
 }
 

@@ -1,18 +1,21 @@
 #include "../include/Textura.h"
+#include <iostream>
 
-SDL_Texture* Textura::loadTexture(std::string path) {
+using namespace std;
+
+SDL_Texture* Textura::loadTexture() {
 	// Textura final
 	SDL_Texture* newTexture = NULL;
 
 	// Carrega imagem a partir de um caminho
-	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+	SDL_Surface* loadedSurface = IMG_Load(this->pPath.c_str());
 	if (loadedSurface == NULL) {
-		SDL_Log("Unable to load image %s. SDL_Image Error: %s", path.c_str(), IMG_GetError());
+		cout << "Unable to load image " << this->pPath.c_str() << ". SDL_Image Error: " << IMG_GetError() << endl;
 	} else {
 		// Cria textura dos pixels da superficie
 		newTexture = SDL_CreateTextureFromSurface(this->pRenderer, loadedSurface);
 		if ( newTexture == NULL) {
-			SDL_Log("Unable to create texture from %s. SDL Error: %s", path.c_str(), SDL_GetError());
+			cout << "Unable to create texture from " << this->pPath.c_str() << ". SDL Error: " << SDL_GetError() << endl;
 		}
 
 		// Deleta a superficie
@@ -22,9 +25,9 @@ SDL_Texture* Textura::loadTexture(std::string path) {
 	return newTexture;
 }
 
-Textura::Textura(std::string path, SDL_Renderer* renderer, int x, int y, int w, int h):pPath(path) {
+Textura::Textura(string path, SDL_Renderer* renderer, int x, int y, int w, int h):pPath(path) {
 	this->pRenderer = renderer;
-	this->pTextures.enqueue(this->loadTexture(path));
+	this->pTexture = this->loadTexture();
 	this->recFormat.x = x;
 	this->recFormat.y = y;
 	this->recFormat.w = w;
@@ -35,8 +38,8 @@ SDL_Point Textura::getSize() const {
 	return {this->recFormat.w, this->recFormat.h};
 }
 void Textura::setSize(int w, int h) {
-	this->recFormat.h = h;
 	this->recFormat.w = w;
+	this->recFormat.h = h;
 }
 
 SDL_Point Textura::getPosition() const {
@@ -53,19 +56,8 @@ SDL_Renderer* Textura::getRenderer() const {
 	return this->pRenderer;
 }
 SDL_Texture* Textura::getTexture() const {
-	return this->pTextures[0];
+	return this->pTexture;
 }
-Textura* Textura::render(int index) {
-	SDL_Log("front null? %c", this->pTextures.getFront()->value == NULL ? 's' : 'n');
-	Queue<SDL_Texture*> temp;
-	temp.enqueue(this->loadTexture(this->pPath));
-	this->pTextures = temp;
-	
-	if (index < 0)
-		for (int i = 0; i < this->pTextures.getSize(); i++)
-			SDL_RenderCopy(this->pRenderer, this->pTextures[i], NULL, &this->recFormat);
-	else
-		SDL_RenderCopy(this->pRenderer, this->pTextures[index], NULL, &this->recFormat);
-	
-	return this;
+void Textura::render() {
+	SDL_RenderCopy(this->pRenderer, this->pTexture, NULL, &this->recFormat);
 }
