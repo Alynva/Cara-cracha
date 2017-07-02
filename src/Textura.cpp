@@ -1,7 +1,4 @@
 #include "../include/Textura.h"
-#include <iostream>
-
-using namespace std;
 
 SDL_Texture* Textura::loadTexture() {
 	// Textura final
@@ -10,12 +7,12 @@ SDL_Texture* Textura::loadTexture() {
 	// Carrega imagem a partir de um caminho
 	SDL_Surface* loadedSurface = IMG_Load(this->pPath.c_str());
 	if (loadedSurface == NULL) {
-		cout << "Unable to load image " << this->pPath.c_str() << ". SDL_Image Error: " << IMG_GetError() << endl;
+		SDL_Log("Unable to load image %s. SDL_Image Error: %s", this->pPath.c_str(), IMG_GetError());
 	} else {
 		// Cria textura dos pixels da superficie
 		newTexture = SDL_CreateTextureFromSurface(this->pRenderer, loadedSurface);
 		if ( newTexture == NULL) {
-			cout << "Unable to create texture from " << this->pPath.c_str() << ". SDL Error: " << SDL_GetError() << endl;
+			SDL_Log("Unable to create texture from %s. SDL Error: %s", this->pPath.c_str(), SDL_GetError());
 		}
 
 		// Deleta a superficie
@@ -25,7 +22,7 @@ SDL_Texture* Textura::loadTexture() {
 	return newTexture;
 }
 
-Textura::Textura(string path, SDL_Renderer* renderer, int x, int y, int w, int h):pPath(path) {
+Textura::Textura(std::string path, SDL_Renderer* renderer, int x, int y, int w, int h):pPath(path) {
 	this->pRenderer = renderer;
 	this->pTexture = this->loadTexture();
 	this->recFormat.x = x;
@@ -58,6 +55,6 @@ SDL_Renderer* Textura::getRenderer() const {
 SDL_Texture* Textura::getTexture() const {
 	return this->pTexture;
 }
-void Textura::render() {
-	SDL_RenderCopy(this->pRenderer, this->pTexture, NULL, &this->recFormat);
+bool Textura::render() {
+	return SDL_RenderCopy(this->pRenderer, this->pTexture, NULL, &this->recFormat) == 0;
 }

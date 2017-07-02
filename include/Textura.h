@@ -35,7 +35,7 @@ class Textura {
 		void setRenderer(SDL_Renderer*);
 		SDL_Renderer* getRenderer() const;
 		SDL_Texture* getTexture() const;
-		void render();
+		bool render();
 };
 
 #endif

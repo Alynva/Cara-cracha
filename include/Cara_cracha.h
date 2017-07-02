@@ -134,7 +134,7 @@ class Cara_cracha {
 			this->updateFilaPos();
 
 			for (int i = this->fila.getSize() - 1; i >= 0; i--)
-				this->fila[i]->update()->render();
+				this->fila[i]->behaviors()->update()->render();
 
 			if (this->tela_id == 2) {
 				this->fila[0]->cart.pos = GeoA::Vetor(this->window_size.x*2/3, this->window_size.y*2/3, 0);
@@ -167,7 +167,7 @@ class Cara_cracha {
 			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 139, this->window_size.y*0.5 - 32, 0));
 
 			for (int i = 0; i < this->fila.getSize(); i++)
-				this->fila[i]->pos = this->fila_pos[i];
+				this->fila[i]->target = this->fila_pos[i];
 
 			return this;
 		}

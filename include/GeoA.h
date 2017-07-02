@@ -66,6 +66,8 @@ namespace GeoA {
 		static Vetor* fromAngle(double); // Cria um novo vetor 2D unitário a partir de um ângulo.
 		static Vetor* random2D(); // Cria um novo vetor 2D unitário a partir de um ângulo aleatório.
 		static Vetor* random3D(); // Cria um novo vetor 3D unitário a partir de um ângulo aleatório.
+
+		bool operator!=(const Vetor&) const;
 	};
 	
 	

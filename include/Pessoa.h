@@ -3,6 +3,10 @@
 
 #include "Carteirinha.h"
 
+#define CHANCE_N_OCULOS 0.75 // Chance da pessoa não possuir óculos
+#define CHANCE_N_BARBA 0.8 // Chance da pessoa não possuir barba
+#define CHANCE_CART_DIF 0.5 // Chance da carteirinha ser de uma pessoa diferente
+
 class Pessoa {
 
 	public:
@@ -46,23 +50,25 @@ class Pessoa {
 		Pessoa* updateTexPos();
 
 		Pessoa* applyForce(const GeoA::Vetor*);
+		Pessoa* behaviors();
 		GeoA::Vetor* arrive(const GeoA::Vetor*);
 
 		Pessoa* render();
 };
 
-inline Pessoa::Pessoa() {
+inline Pessoa::Pessoa():max_speed(10), max_force(.01) {
 	this->pos = GeoA::Vetor(GeoA::random(0, 1000), GeoA::random(0, 700), 0);
+	this->target = GeoA::Vetor(0,0,0);
 
 	this->sexo = GeoA::random() > 0.5;
 
 	this->rosto = GeoA::random(1, 4);
 	this->cor_do_rosto = GeoA::random(1, 4);
-	this->oculos = GeoA::random() > 0.75 ? GeoA::random(1, 4) : -1;
+	this->oculos = GeoA::random() > CHANCE_N_OCULOS ? GeoA::random(1, 4) : -1;
 	this->cor_do_oculos = GeoA::random(1, 4);
 	this->cabelo = GeoA::random(1, 4);
 	this->cor_do_cabelo = GeoA::random(1, 4);
-	this->barba = GeoA::random() > 0.8 ? GeoA::random(1, 4) : -1;
+	this->barba = GeoA::random() > CHANCE_N_BARBA ? GeoA::random(1, 4) : -1;
 	this->cor_da_barba = this->cor_do_cabelo;
 	this->blusa = GeoA::random(1, 4);
 	this->cor_da_blusa = GeoA::random(1, 4);
@@ -71,15 +77,15 @@ inline Pessoa::Pessoa() {
 	this->tenis = GeoA::random(1, 4);
 	this->cor_do_tenis = GeoA::random(1, 4);
 
-	if (GeoA::random() > 0.05) {
-		Carteirinha cart_temp(this->sexo, this->rosto, this->cor_do_rosto, this->oculos, this->cor_do_oculos, this->cabelo, this->cor_do_cabelo, this->barba, this->cor_da_barba);
+	if (GeoA::random() > CHANCE_CART_DIF) {
+		Carteirinha cart_temp(this->sexo, this->rosto, this->cor_do_rosto, this->oculos, this->cor_do_oculos, this->cabelo, this->cor_do_cabelo, this->barba, this->cor_da_barba, this->blusa, this->cor_da_blusa);
 		this->cart = cart_temp;
 	}
 
 	//this->initTextures(nullptr);
 }
 
-inline Pessoa::Pessoa(bool ps, int pr, int pcr, int po, int pco, int pc, int pcc, int pb, int pcb, int pba, int pcba, int pca, int pcca, int pt, int pct):sexo(ps), rosto(pr), cor_do_rosto(pcr), oculos(po), cor_do_oculos(pco), cabelo(pc), cor_do_cabelo(pcc), barba(pba), cor_da_barba(pcba), blusa(pb), cor_da_blusa(pcb), calca(pca), cor_da_calca(pcca), tenis(pt), cor_do_tenis(pct) {
+inline Pessoa::Pessoa(bool ps, int pr, int pcr, int po, int pco, int pc, int pcc, int pb, int pcb, int pba, int pcba, int pca, int pcca, int pt, int pct):max_speed(.3), max_force(3), sexo(ps), rosto(pr), cor_do_rosto(pcr), oculos(po), cor_do_oculos(pco), cabelo(pc), cor_do_cabelo(pcc), barba(pba), cor_da_barba(pcba), blusa(pb), cor_da_blusa(pcb), calca(pca), cor_da_calca(pcca), tenis(pt), cor_do_tenis(pct) {
 
 	//this->initTextures(nullptr);
 }
@@ -146,16 +152,17 @@ inline Pessoa* Pessoa::applyForce(const GeoA::Vetor* force) {
 	return this;
 }
 
+inline Pessoa* Pessoa::behaviors() {
+	if (this->pos != this->target)
+		this->vel = this->arrive(&this->target)->limit(this->max_speed);
+	else if (this->vel.mag() > 0)
+		this->vel.mult(0);
+
+	return this;
+}
+
 inline GeoA::Vetor* Pessoa::arrive(const GeoA::Vetor* target) {
-	GeoA::Vetor* desired = GeoA::Vetor::sub(target, &this->pos);
-	int d = desired->mag();
-	double speed = this->max_speed;
-	if (d < 100)
-		speed = GeoA::map(d, 0, 100, 0, this->max_speed);
-	desired->setMag(speed);
-	GeoA::Vetor* steer = GeoA::Vetor::sub(desired, &this->vel);
-	steer->limit(this->max_force);
-	return steer;
+	return GeoA::Vetor::sub(&this->pos, target);
 }
 
 inline Pessoa* Pessoa::render() {

@@ -157,3 +157,7 @@ GeoA::Vetor* GeoA::Vetor::random3D() {
 	double vy = sqrt(1 - vz * vz) * sin(angle);
 	return new GeoA::Vetor(vx, vy, vz);
 }
+
+bool GeoA::Vetor::operator!=(const Vetor& v) const {
+	return (this->x != v.x) || (this->y != v.y) || (this->z != v.z);
+}
