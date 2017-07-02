@@ -45,7 +45,7 @@ class Pessoa {
 		Pessoa();
 		Pessoa(bool, int, int, int, int, int, int, int, int, int, int, int, int, int, int);
 
-		void initTextures(SDL_Renderer*);
+		Pessoa* initTextures(SDL_Renderer*);
 		Pessoa* update();
 		Pessoa* updateTexPos();
 
@@ -57,7 +57,7 @@ class Pessoa {
 };
 
 inline Pessoa::Pessoa():max_speed(10), max_force(.01) {
-	this->pos = GeoA::Vetor(GeoA::random(0, 1000), GeoA::random(0, 700), 0);
+	//this->pos = GeoA::Vetor(GeoA::random(0, 1000), GeoA::random(0, 700), 0);
 	this->target = GeoA::Vetor(0,0,0);
 
 	this->sexo = GeoA::random() > 0.5;
@@ -90,7 +90,7 @@ inline Pessoa::Pessoa(bool ps, int pr, int pcr, int po, int pco, int pc, int pcc
 	//this->initTextures(nullptr);
 }
 
-inline void Pessoa::initTextures(SDL_Renderer* renderer) {
+inline Pessoa* Pessoa::initTextures(SDL_Renderer* renderer) {
 	string path_imgs = "../media/avatar/";
 	
 	string path_corpo = path_imgs+"body/corpo_c"+std::to_string(this->cor_do_rosto)+".png";
@@ -121,6 +121,8 @@ inline void Pessoa::initTextures(SDL_Renderer* renderer) {
 	this->t_tenis = Textura(path_tenis, renderer, this->pos.x - 67, this->pos.y - 206, 128, 220);
 
 	this->cart.initTextures(renderer);
+
+	return this;
 }
 
 inline Pessoa* Pessoa::update() {

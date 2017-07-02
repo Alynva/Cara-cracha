@@ -104,7 +104,7 @@ class Cara_cracha {
 					this->updateFilaPos();
 
 					for (int i = 0; i < this->fila.getSize(); i++){
-						this->fila[i]->initTextures(this->g_renderer);
+						this->fila[i]->initTextures(this->g_renderer)->pos = GeoA::Vetor(this->window_size.x*0.5 - 139, this->window_size.y*0.5 - 32, 0);
 					}
 
 					this->tela_id = 1;

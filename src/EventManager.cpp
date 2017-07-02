@@ -112,10 +112,14 @@ void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
 					break;
 				case 2:
 					*this->tela_id = 1;
-					Pessoa* temp;
-					fila->dequeue(temp);
-					fila->enqueue(new Pessoa());
-					temp = nullptr;
+					Pessoa* t1;
+					Pessoa* t2;
+					fila->dequeue(t1);
+					t2 = new Pessoa();
+					t2->pos = GeoA::Vetor(this->window_size->x*0.5 - 139, this->window_size->y*0.5 - 32, 0);
+					t2->initTextures(t1->t_corpo.getRenderer());
+					fila->enqueue(t2);
+					t1 = t2 = nullptr;
 					break;
 			} 
 			break;
