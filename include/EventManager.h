@@ -13,10 +13,10 @@ class EventManager {
 	SDL_Point* window_size;
 	int* tela_id;
 	Queue<Pessoa*>* fila;
-	int* catraca_estado;
+	double* catraca_estado;
 	
 	public:
-		EventManager(bool*, bool*, bool*, SDL_Point*, int*, Queue<Pessoa*>*, int*);
+		EventManager(bool*, bool*, bool*, SDL_Point*, int*, Queue<Pessoa*>*, double*);
 	
 		void update();
 		void mouseMove();

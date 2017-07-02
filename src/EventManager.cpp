@@ -1,6 +1,6 @@
 #include "../include/EventManager.h"
 
-EventManager::EventManager(bool* pgq, bool* pgp, bool* pmp, SDL_Point* pws, int* pti, Queue<Pessoa*>* pf, int* pce):
+EventManager::EventManager(bool* pgq, bool* pgp, bool* pmp, SDL_Point* pws, int* pti, Queue<Pessoa*>* pf, double* pce):
 	quit(pgq),
 	play(pgp),
 	mouse_pressed(pmp),
@@ -106,15 +106,14 @@ void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
 	*this->mouse_pressed = true;
 
 	switch (button.button) {
-		case SDL_BUTTON_LEFT:
+		case SDL_BUTTON_LEFT: // Deixa entrar
 			switch (*this->tela_id) {
 				case 1:
 					*this->tela_id = 2;
 					break;
 				case 2:
 					*this->tela_id = 1;
-					Pessoa* t1;
-					Pessoa* t2;
+					Pessoa *t1, *t2;
 					fila->dequeue(t1);
 					*catraca_estado = 1;
 					t2 = new Pessoa();
@@ -125,7 +124,7 @@ void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
 					break;
 			} 
 			break;
-		case SDL_BUTTON_RIGHT:
+		case SDL_BUTTON_RIGHT: // Não deixa entrar
 			switch (*this->tela_id) {
 				case 1:
 					*this->tela_id = 2;

@@ -6,7 +6,7 @@
 
 struct Objeto {
 	GeoA::Vetor pos;
-	int estado;
+	double estado;
 	Textura tex_fundo_0;
 	Textura tex_fundo_1;
 	Textura tex_frente;

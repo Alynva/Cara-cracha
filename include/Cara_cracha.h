@@ -142,44 +142,62 @@ class Cara_cracha {
 			// Limpa a tela
 			SDL_RenderClear(this->g_renderer);
 
+
+			// Calcula posição do fundo
 			SDL_Rect bg_quad; 
 			bg_quad.x = this->window_size.x / 2 - 1350;
 			bg_quad.y = this->window_size.y / 2 - 1240;
 			bg_quad.w = 3198;
 			bg_quad.h = 2800;
+
+			// Renderiza o fundo
 			SDL_RenderCopy(this->g_renderer, this->g_bg[0], NULL, &bg_quad);
 
-			switch (this->catraca.estado) {
-				case 0:
-					this->catraca.tex_fundo_0.render();
-					break;
-				case 1:
-					this->catraca.tex_fundo_1.render();
-					break;
-			}
-			
-			this->updateFilaPos(); this->catraca.estado = 0;
 
+			// Renderiza a catraca
+			if (this->catraca.estado == 0)
+				this->catraca.tex_fundo_0.render();
+			else
+				this->catraca.tex_fundo_1.render();
+
+			//Animação da catraca
+			if (this->catraca.estado > 0.05) this->catraca.estado -= 0.05;
+			else this->catraca.estado = 0;
+
+			
+			// Atualiza a posição das pessoas que estão na fila
+			this->updateFilaPos();
+
+			// Atualiza e renderiza as pessoas
 			for (int i = this->fila.getSize() - 1; i >= 0; i--)
 				this->fila[i]->behaviors()->update()->render();
 
+			// Renderiza a carteirinha
 			if (this->tela_id == 2) {
 				this->fila[0]->cart.pos = GeoA::Vetor(this->window_size.x*2/3, this->window_size.y*2/3, 0);
 				this->fila[0]->cart.update()->render();
 			}
 
+
+			// Renderiza o jogador
 			player.update()->render();
 
+
+			// Renderiza a parte da frente da catraca
 			this->catraca.tex_frente.render();
+
 
 			// Renderiza os itens do cenário que podem estar na frente das pessoas
 			SDL_RenderCopy(this->g_renderer, this->g_bg[1], NULL, &bg_quad);
 
-			this->hour += 0.1;
-			this->t_hour.setText(std::to_string((int) this->hour/60)+((int) this->hour % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hour % 60));
+
+			// Altera e renderiza a hora
+			this->hour = (this->hour >= 1440 ? 0 : this->hour + (((this->hour > 660 && this->hour < 840) || (this->hour > 1020 && this->hour < 1140)) ? 0.1 : 0.5));
+			this->t_hour.setText(((int) this->hour / 60 >= 10 ? "" : "0")+std::to_string((int) this->hour/60)+((int) this->hour % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hour % 60));
 			this->t_hour.render();
 
 			SDL_RenderPresent(this->g_renderer);
+			// Aplica o delay necessário para manter a 60fps
 			this->limitFPS();
 
 			return !this->game_quit;
