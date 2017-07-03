@@ -94,8 +94,10 @@ class Cara_cracha {
 					this->janela.pos = GeoA::Vetor(50, 50, 0);
 					this->janela.tex_fundo_0 = Textura("../media/img/box.png", this->g_renderer, this->janela.pos.x, this->janela.pos.y, 213, 191);
 
-					this->t_hora = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 35, {157, 95, 0, 0}, {0, 0, 0}, std::to_string(this->hora));
-					this->t_dia = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 25, {((int) (this->window_size.x*0.5)), 50, 0, 0}, {0, 0, 0}, "Dia "+std::to_string(this->dia));
+					this->t_hora = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 25, {250, 82, 0, 0}, {0, 0, 0}, std::to_string(this->hora));
+					this->t_hora.setAncora(1);
+					this->t_dia = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 25, {62, 82, 0, 0}, {0, 0, 0}, "Dia "+std::to_string(this->dia));
+					this->t_dia.setAncora(-1);
 
 
 					SDL_Texture* tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (fundo).png"));
