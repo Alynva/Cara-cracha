@@ -109,32 +109,33 @@ void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
 		case SDL_BUTTON_LEFT: // Deixa entrar
 			switch (*this->tela_id) {
 				case 1:
-					*this->tela_id = 2;
+					if (this->fila->getSize())
+						*this->tela_id = 2;
 					break;
 				case 2:
 					*this->tela_id = 1;
-					Pessoa *t1, *t2;
-					fila->dequeue(t1);
-					*catraca_estado = 1;
-					t2 = new Pessoa();
-					t2->pos = GeoA::Vetor(this->window_size->x*0.5 - 139, this->window_size->y*0.5 - 32, 0);
-					t2->initTextures(t1->t_corpo.getRenderer());
-					fila->enqueue(t2);
-					t1 = t2 = nullptr;
+					if (this->fila->getSize()) {
+						Pessoa *t1;
+						fila->dequeue(t1);
+						*catraca_estado = 1;
+						t1 = nullptr;
+					}
 					break;
 			} 
 			break;
 		case SDL_BUTTON_RIGHT: // Não deixa entrar
 			switch (*this->tela_id) {
 				case 1:
-					*this->tela_id = 2;
+					if (this->fila->getSize())
+						*this->tela_id = 2;
 					break;
 				case 2:
 					*this->tela_id = 1;
-					Pessoa* temp;
-					fila->dequeue(temp);
-					fila->enqueue(temp);
-					temp = nullptr;
+					if (this->fila->getSize()) {
+						Pessoa* temp;
+						fila->dequeue(temp);
+						temp = nullptr;
+					}
 					break;
 			} 
 			break;

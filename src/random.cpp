@@ -16,7 +16,6 @@ double GeoA::random(double X) {
 	return static_cast <double> (rand()) / (static_cast <double> (RAND_MAX/X));
 }
 int GeoA::random(int LO, int HI) {
-	cout << endl << HI << endl;
 	return LO + static_cast <int> (rand()) /( static_cast <int> (RAND_MAX/(HI-LO)));
 }
 double GeoA::random(double LO, double HI) {
