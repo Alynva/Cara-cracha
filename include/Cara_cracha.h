@@ -117,7 +117,7 @@ class Cara_cracha {
 
 					player.pos = GeoA::Vetor(this->window_size.x*0.5 - 75, this->window_size.y*0.5 + 192, 0);
 					player.initTextures(this->g_renderer);
-					SDL_SetTextureColorMod(player.t_corpo.getTexture(), 0, 255, 0);
+					SDL_SetTextureColorMod(player.t_corpo.getTexture(), 241, 214, 147);
 
 
 					/*for (int i = 0; i < 10; i++){
