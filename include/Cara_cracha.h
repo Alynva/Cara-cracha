@@ -21,7 +21,6 @@ class Cara_cracha {
 
 	double hora;
 	Texto t_hora;
-	int dia;
 	Texto t_dia;
 	Objeto janela;
 
@@ -43,7 +42,6 @@ class Cara_cracha {
 			curr_fr(0),
 			last_fr(0),
 			hora(630),
-			dia(1),
 			tela_id(0),
 			player(Pessoa(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) {
 		};
@@ -96,7 +94,7 @@ class Cara_cracha {
 
 					this->t_hora = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 25, {250, 82, 0, 0}, {0, 0, 0}, std::to_string(this->hora));
 					this->t_hora.setAncora(1);
-					this->t_dia = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 25, {62, 82, 0, 0}, {0, 0, 0}, "Dia "+std::to_string(this->dia));
+					this->t_dia = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 25, {62, 82, 0, 0}, {0, 0, 0}, "Dia "+std::to_string(this->hora));
 					this->t_dia.setAncora(-1);
 
 
@@ -110,6 +108,11 @@ class Cara_cracha {
 						SDL_Log("Erro Img: %s", SDL_GetError());
 					}
 					this->g_bg.enqueue(tx_temp);
+					tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (frente)(porta fechada).png"));
+					if (tx_temp == NULL) {
+						SDL_Log("Erro Img: %s", SDL_GetError());
+					}
+					this->g_bg.enqueue(tx_temp);
 
 
 					player.pos = GeoA::Vetor(this->window_size.x*0.5 - 75, this->window_size.y*0.5 + 192, 0);
@@ -117,15 +120,11 @@ class Cara_cracha {
 					SDL_SetTextureColorMod(player.t_corpo.getTexture(), 0, 255, 0);
 
 
-					for (int i = 0; i < 10; i++){
+					/*for (int i = 0; i < 10; i++){
 						this->fila.enqueue(new Pessoa());
 					}
 
-					this->updateFilaPos();
-
-					for (int i = 0; i < this->fila.getSize(); i++){
-						this->fila[i]->initTextures(this->g_renderer)->pos = GeoA::Vetor(this->window_size.x*0.5 - 139, this->window_size.y*0.5 - 32, 0);
-					}
+					this->updateFilaPos();*/
 
 					this->catraca.pos = GeoA::Vetor(this->window_size.x*0.5 - 16, this->window_size.y*0.5 + 52, 0);
 					this->catraca.estado = 0;
@@ -173,6 +172,8 @@ class Cara_cracha {
 			else this->catraca.estado = 0;
 
 			
+			// Atualiza quantidade de pessoas na fila
+			this->updateFilaSize();
 			// Atualiza a posição das pessoas que estão na fila
 			this->updateFilaPos();
 
@@ -181,7 +182,7 @@ class Cara_cracha {
 				this->fila[i]->behaviors()->update()->render();
 
 			// Renderiza a carteirinha
-			if (this->tela_id == 2) {
+			if (this->tela_id == 2 && this->fila.getSize()) {
 				this->fila[0]->cart.pos = GeoA::Vetor(this->window_size.x*2/3, this->window_size.y*2/3, 0);
 				this->fila[0]->cart.update()->render();
 			}
@@ -196,18 +197,19 @@ class Cara_cracha {
 
 
 			// Renderiza os itens do cenário que podem estar na frente das pessoas
-			SDL_RenderCopy(this->g_renderer, this->g_bg[1], NULL, &bg_quad);
+			if 	(((int)this->hora % 1440 > 660 && (int)this->hora % 1440 < 840) || // 11:00 ~ 14:00
+				 ((int)this->hora % 1440 > 1020 && (int)this->hora % 1440 < 1140)) // 17:00 ~ 19:00
+				SDL_RenderCopy(this->g_renderer, this->g_bg[1], NULL, &bg_quad);
+			else
+				SDL_RenderCopy(this->g_renderer, this->g_bg[2], NULL, &bg_quad);
 
 
 			// Altera e renderiza o dia e hora
 			this->janela.tex_fundo_0.render();
-			if (this->hora >= 1440) {
-				this->dia++;
-				this->t_dia.setText("Dia "+std::to_string(this->dia));
-			}
+			this->t_dia.setText("Dia "+std::to_string((int)(this->hora / 60) / 24 + 1));
 			this->t_dia.render();
-			this->hora = (this->hora >= 1440 ? 0 : this->hora + (((this->hora > 660 && this->hora < 840) || (this->hora > 1020 && this->hora < 1140)) ? 0.1 : 0.5));
-			this->t_hora.setText(((int) this->hora / 60 >= 10 ? "" : "0")+std::to_string((int) this->hora/60)+((int) this->hora % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hora % 60));
+			this->hora = this->hora + (((this->hora > 660 && this->hora < 840) || (this->hora > 1020 && this->hora < 1140)) ? 0.1 : 0.5);
+			this->t_hora.setText(((int)(this->hora / 60) % 24 >= 10 ? "" : "0")+std::to_string((int)(this->hora/60) % 24)+((int) this->hora % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hora % 60));
 			this->t_hora.render();
 
 			SDL_RenderPresent(this->g_renderer);
@@ -218,12 +220,18 @@ class Cara_cracha {
 		}
 
 		Cara_cracha* updateFilaPos() {
-			//this->fila_pos.clear();
+			this->fila_pos.clear();
 
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 11, this->window_size.y*0.5 + 160, 0));
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 75, this->window_size.y*0.5 + 128, 0));
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 139, this->window_size.y*0.5 + 96, 0));
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 75, this->window_size.y*0.5 + 64, 0));
+			if 	(((int)this->hora % 1440 > 660 && (int)this->hora % 1440 < 900) || // 11:00 ~ 15:00
+				 ((int)this->hora % 1440 > 1020 && (int)this->hora % 1440 < 1200)) { // 17:00 ~ 20:00
+				this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 11, this->window_size.y*0.5 + 160, 0));
+				this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 75, this->window_size.y*0.5 + 128, 0));
+			}
+			if 	(((int)this->hora % 1440 > 660 && (int)this->hora % 1440 < 840) || // 11:00 ~ 14:00
+				 ((int)this->hora % 1440 > 1020 && (int)this->hora % 1440 < 1140)) { // 17:00 ~ 19:00
+				this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 139, this->window_size.y*0.5 + 96, 0));
+				this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 75, this->window_size.y*0.5 + 64, 0));
+			}
 			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 139, this->window_size.y*0.5 + 32, 0));
 			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 203, this->window_size.y*0.5 + 64, 0));
 			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 75, this->window_size.y*0.5 + 0, 0));
@@ -231,8 +239,59 @@ class Cara_cracha {
 			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 267, this->window_size.y*0.5 + 32, 0));
 			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 139, this->window_size.y*0.5 - 32, 0));
 
-			for (int i = 0; i < this->fila.getSize(); i++)
+			for (int i = 0; i < this->fila.getSize(); i++) {
 				this->fila[i]->target = this->fila_pos[i];
+			}
+
+			return this;
+		}
+
+		Cara_cracha* updateFilaSize() {
+			double x = ((int)(this->hora / 60) % 24) + GeoA::map((int)this->hora % 60, 0, 60, 0, 1);
+
+			if 	(((int)this->hora % 1440 > 630 && (int)this->hora % 1440 < 840) || // 10:30 ~ 14:00
+				 ((int)this->hora % 1440 > 1020 && (int)this->hora % 1440 < 1140)) { // 17:00 ~ 19:00
+				if 	(GeoA::random(200) < (-x * x + 24.5 * x - 147) * 6 ||
+					 GeoA::random(200) < (-x * x +   36 * x - 323) * 9) {
+					this->fila.enqueue(new Pessoa());
+					this->fila[this->fila.getSize()-1]->initTextures(this->g_renderer)->pos = GeoA::Vetor(this->window_size.x*0.5 - 139, this->window_size.y*0.5 - 32, 0);
+				}
+			} else {
+				Queue<Pessoa*> fila_temp;
+				Pessoa *pessoa_temp, *temp;
+
+				if (((int)this->hora % 1440 >= 870 && (int)this->hora % 1440 < 930) || // 14:30 ~ 15:30
+					((int)this->hora % 1440 >= 1170 && (int)this->hora % 1440 < 1230)) { // 19:30 ~ 20:30
+					if (this->fila.getSize()) {
+						this->fila.dequeue(pessoa_temp);
+						fila_temp.enqueue(pessoa_temp);
+					}
+					if (this->fila.getSize()) {
+						this->fila.dequeue(pessoa_temp);
+						fila_temp.enqueue(pessoa_temp);
+					}
+				}
+				
+				if (((int)this->hora % 1440 < 630 || (int)this->hora % 1440 >= 1170) || // 19:30 ~ 10:30
+					((int)this->hora % 1440 >= 870 && (int)this->hora % 1440 < 990)) // 14:30 ~ 16:30
+					while (this->fila.getSize()) {
+						this->fila.dequeue(temp);
+					}
+
+				if (((int)this->hora % 1440 >= 870 && (int)this->hora % 1440 < 930) || // 14:30 ~ 15:30
+					((int)this->hora % 1440 >= 1170 && (int)this->hora % 1440 < 1230)) { // 19:30 ~ 20:30
+					if (this->fila.getSize()) {
+						fila_temp.dequeue(pessoa_temp);
+						this->fila.enqueue(pessoa_temp);
+					}
+					if (this->fila.getSize()) {
+						fila_temp.dequeue(pessoa_temp);
+						this->fila.enqueue(pessoa_temp);
+					}
+				}
+				
+				pessoa_temp = temp = nullptr;
+			}
 
 			return this;
 		}
