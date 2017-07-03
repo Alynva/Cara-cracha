@@ -19,8 +19,11 @@ class Cara_cracha {
 	unsigned int curr_fr;
 	unsigned int last_fr;
 
-	double hour;
-	Texto t_hour;
+	double hora;
+	Texto t_hora;
+	int dia;
+	Texto t_dia;
+	Objeto janela;
 
 	public:
 		int tela_id;
@@ -39,7 +42,8 @@ class Cara_cracha {
 			max_fps(60),
 			curr_fr(0),
 			last_fr(0),
-			hour(630),
+			hora(630),
+			dia(1),
 			tela_id(0),
 			player(Pessoa(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) {
 		};
@@ -87,9 +91,11 @@ class Cara_cracha {
 					// Do samething....
 					this->event.update();
 
+					this->janela.pos = GeoA::Vetor(50, 50, 0);
+					this->janela.tex_fundo_0 = Textura("../media/img/box.png", this->g_renderer, this->janela.pos.x, this->janela.pos.y, 213, 191);
 
-					this->t_hour = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 25, {50, 50, 0, 0}, {0, 0, 0}, "Teste: áàãâéêúôç");
-
+					this->t_hora = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 35, {157, 95, 0, 0}, {0, 0, 0}, std::to_string(this->hora));
+					this->t_dia = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 25, {((int) (this->window_size.x*0.5)), 50, 0, 0}, {0, 0, 0}, "Dia "+std::to_string(this->dia));
 
 
 					SDL_Texture* tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (fundo).png"));
@@ -191,10 +197,16 @@ class Cara_cracha {
 			SDL_RenderCopy(this->g_renderer, this->g_bg[1], NULL, &bg_quad);
 
 
-			// Altera e renderiza a hora
-			this->hour = (this->hour >= 1440 ? 0 : this->hour + (((this->hour > 660 && this->hour < 840) || (this->hour > 1020 && this->hour < 1140)) ? 0.1 : 0.5));
-			this->t_hour.setText(((int) this->hour / 60 >= 10 ? "" : "0")+std::to_string((int) this->hour/60)+((int) this->hour % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hour % 60));
-			this->t_hour.render();
+			// Altera e renderiza o dia e hora
+			this->janela.tex_fundo_0.render();
+			if (this->hora >= 1440) {
+				this->dia++;
+				this->t_dia.setText("Dia "+std::to_string(this->dia));
+			}
+			this->t_dia.render();
+			this->hora = (this->hora >= 1440 ? 0 : this->hora + (((this->hora > 660 && this->hora < 840) || (this->hora > 1020 && this->hora < 1140)) ? 0.1 : 0.5));
+			this->t_hora.setText(((int) this->hora / 60 >= 10 ? "" : "0")+std::to_string((int) this->hora/60)+((int) this->hora % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hora % 60));
+			this->t_hora.render();
 
 			SDL_RenderPresent(this->g_renderer);
 			// Aplica o delay necessário para manter a 60fps

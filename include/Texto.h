@@ -15,6 +15,7 @@ class Texto {
 	SDL_Rect rec_format;
 	SDL_Rect rec_srcrect;
 	SDL_Color t_color;
+	int ancora;
 	
 	Texto* loadFont();
 	Texto* updateFont();
@@ -37,6 +38,7 @@ class Texto {
 		Texto* setSrcrect(SDL_Rect);
 		Texto* setColor(SDL_Color);
 		Texto* setText(std::string);
+		Texto* setAncora(int);
 		bool render();
 };
 
@@ -83,6 +85,7 @@ inline Texto::Texto():
 	rec_format({0, 0, 0, 0}),
 	rec_srcrect({0, 0, 0, 0}),
 	t_color({0, 0, 0}),
+	ancora(0),
 	t_text("") {
 }
 inline Texto::Texto(std::string pp, SDL_Renderer* pr, int ps, SDL_Rect pf, SDL_Color pc, std::string pt, SDL_Rect psr):
@@ -94,6 +97,7 @@ inline Texto::Texto(std::string pp, SDL_Renderer* pr, int ps, SDL_Rect pf, SDL_C
 	rec_format(pf),
 	rec_srcrect(psr),
 	t_color(pc),
+	ancora(0),
 	t_text(pt) {
 	this->loadFont();
 }
@@ -133,8 +137,25 @@ inline Texto* Texto::setText(std::string pt) {
 	this->t_text = pt;
 	return this->updateFont();
 }
+inline Texto* Texto::setAncora(int pa) {
+	this->ancora = pa;
+	return this->updateFont();
+}
 inline bool Texto::render() {
-	return SDL_RenderCopy(this->t_renderer, this->t_texture, NULL, &this->rec_format) == 0;
+	SDL_Rect temp = this->rec_format;
+	switch (this->ancora) {
+		case -1:
+			return SDL_RenderCopy(this->t_renderer, this->t_texture, NULL, &this->rec_format) == 0;
+			break;
+		case 1:
+			temp.x = temp.x - temp.w;
+			return SDL_RenderCopy(this->t_renderer, this->t_texture, NULL, &temp) == 0;
+			break;
+		default:
+			temp.x = temp.x - temp.w * .5;
+			temp.y = temp.y - temp.h * .5;
+			return SDL_RenderCopy(this->t_renderer, this->t_texture, NULL, &temp) == 0;
+	}
 }
 
 #endif
