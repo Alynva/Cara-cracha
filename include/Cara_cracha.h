@@ -96,11 +96,11 @@ class Cara_cracha {
 					this->event.update();
 
 					this->janela.pos = GeoA::Vetor(50, 50, 0);
-					this->janela.tex_fundo_0 = Textura("../media/img/box.png", this->g_renderer, this->janela.pos.x, this->janela.pos.y, 213, 191);
+					this->janela.tex_fundo_0 = Textura("../media/img/box.png", this->g_renderer, this->janela.pos.x, this->janela.pos.y, 213, 350);
 
-					this->t_hora = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 25, {250, 82, 0, 0}, {0, 0, 0}, std::to_string(this->hora));
+					this->t_hora = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 31, {255, 82, 0, 0}, {0, 0, 0}, std::to_string(this->hora));
 					this->t_hora.setAncora(1);
-					this->t_dia = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 25, {62, 82, 0, 0}, {0, 0, 0}, "Dia "+std::to_string(this->hora));
+					this->t_dia = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 17, {62, 82, 0, 0}, {0, 0, 0}, "Dia "+std::to_string(this->hora));
 					this->t_dia.setAncora(-1);
 
 
