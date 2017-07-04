@@ -30,6 +30,11 @@ class Cara_cracha {
 	Objeto janela;
 
 	public:
+			// tela_id == 0 (inicial/instruções)
+			// tela_id == 1 (jogo rodando, sem ver carteirinha)
+			// tela_id == 2 (jogo rodando, vendo carteirinha)
+			// tela_id == 3 (fim de jogo, game over)
+			// tela_id == 4 (jogo pausado)
 		int tela_id;
 		Pessoa player;
 		Queue<Pessoa*> fila_dentro;
@@ -86,7 +91,7 @@ class Cara_cracha {
 				} else {
 
 					// Inicializa a cor do renderizador
-					SDL_SetRenderDrawColor(this->g_renderer, 255, 0, 0, 255);
+					SDL_SetRenderDrawColor(this->g_renderer, 0, 0, 0, 255);
 
 					// Inicializa o carregamento de PNG
 					int imgFlags = IMG_INIT_PNG;
@@ -110,9 +115,9 @@ class Cara_cracha {
 					this->janela.pos = GeoA::Vetor(50, 50, 0);
 					this->janela.tex_fundo_0 = Textura("../media/img/box.png", this->g_renderer, this->janela.pos.x, this->janela.pos.y, 213, 350);
 
-					this->t_hora = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 31, {254, 82, 0, 0}, {0, 0, 0}, std::to_string(this->hora));
+					this->t_hora = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 31, {254, 82, 0, 0}, {0, 0, 0}, ((int)(this->hora / 60) % 24 >= 10 ? "" : "0")+std::to_string((int)(this->hora/60) % 24)+((int) this->hora % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hora % 60));
 					this->t_hora.setAncora(1);
-					this->t_dia = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 17, {64, 82, 0, 0}, {0, 0, 0}, "Dia "+std::to_string(this->hora));
+					this->t_dia = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 17, {64, 82, 0, 0}, {0, 0, 0}, "Dia "+std::to_string((int)(this->hora / 60) / 24 + 1));
 					this->t_dia.setAncora(-1);
 
 
@@ -157,7 +162,7 @@ class Cara_cracha {
 					this->catraca.tex_fundo_1 = Textura("../media/img/sentido_unico (aberto).png", this->g_renderer, this->catraca.pos.x, this->catraca.pos.y, 148, 160);
 					this->catraca.tex_frente = Textura("../media/img/sentido_unico (frente).png", this->g_renderer, this->catraca.pos.x, this->catraca.pos.y, 148, 160);
 
-					this->tela_id = 1;
+					//this->tela_id = 1;
 
 					return true;
 				}
@@ -192,19 +197,28 @@ class Cara_cracha {
 			else
 				this->catraca.tex_fundo_1.render();
 
-			//Animação da catraca
-			if (this->catraca.estado > 0.05) this->catraca.estado -= 0.05;
-			else this->catraca.estado = 0;
+			if (this->tela_id == 1 || this->tela_id == 2) {
+				//Animação da catraca
+				if (this->catraca.estado > 0.05) this->catraca.estado -= 0.05;
+				else this->catraca.estado = 0;
+			}
 
 			
-			// Atualiza quantidade de pessoas na fila
-			this->updateFilaSize();
-			// Atualiza a posição das pessoas que estão na fila
-			this->updateFilaPos();
+			if (this->tela_id == 1 || this->tela_id == 2) {
+				// Atualiza quantidade de pessoas na fila
+				this->updateFilaSize();
+				// Atualiza a posição das pessoas que estão na fila
+				this->updateFilaPos();
+			}
 
-			// Atualiza e renderiza as pessoas de fora
+			if (this->tela_id == 1 || this->tela_id == 2) {
+				// Atualiza as pessoas de fora
+				for (int i = this->fila_fora.getSize() - 1; i >= 0; i--)
+					this->fila_fora[i]->behaviors()->update();
+			}
+			// Renderiza as pessoas de fora
 			for (int i = this->fila_fora.getSize() - 1; i >= 0; i--)
-				this->fila_fora[i]->behaviors()->update()->render();
+					this->fila_fora[i]->render();
 
 			// Renderiza a carteirinha
 			if (this->tela_id == 2 && this->fila_dentro.getSize()) {
@@ -223,9 +237,14 @@ class Cara_cracha {
 				SDL_RenderCopy(this->g_renderer, this->g_bg[2], NULL, &bg_quad);
 
 
-			// Atualiza e renderiza as pessoas de dentro
+			if (this->tela_id == 1 || this->tela_id == 2) {
+				// Atualiza as pessoas de dentro
+				for (int i = this->fila_dentro.getSize() - 1; i >= 0; i--)
+					this->fila_dentro[i]->behaviors()->update();
+			}
+			// Renderiza as pessoas de dentro
 			for (int i = this->fila_dentro.getSize() - 1; i >= 0; i--)
-				this->fila_dentro[i]->behaviors()->update()->render();
+				this->fila_dentro[i]->render();
 
 
 			// Renderiza os itens do cenário que podem estar na frente das pessoas
@@ -243,23 +262,59 @@ class Cara_cracha {
 			// Altera e renderiza o dia, a hora e os pontos
 			this->janela.tex_fundo_0.render();
 
-			this->t_dia.setText("Dia "+std::to_string((int)(this->hora / 60) / 24 + 1))->render();
-			
+			if (this->tela_id == 1 || this->tela_id == 2) {
+				// Atualiza o texto do dia
+				this->t_dia.setText("Dia "+std::to_string((int)(this->hora / 60) / 24 + 1));
 
-			if (((int)this->hora % 1440 > EXPEDIENTE_ALMO_INICIO && (int)this->hora % 1440 < EXPEDIENTE_ALMO_FIM) || ((int)this->hora % 1440 > EXPEDIENTE_JANT_INICIO && (int)this->hora % 1440 < EXPEDIENTE_JANT_FIM))
-				this->hora = this->hora + 0.1;
-			else if ((int)this->hora % 1440 > EXPEDIENTE_ALMO_FIM && (int)this->hora % 1440 < EXPEDIENTE_JANT_INICIO)
-				this->hora = this->hora + 0.5;
-			else
-				this->hora = this->hora + 1;
-			this->t_hora.setText(((int)(this->hora / 60) % 24 >= 10 ? "" : "0")+std::to_string((int)(this->hora/60) % 24)+((int) this->hora % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hora % 60))->render();
+				// Incrementa a hora
+				if (((int)this->hora % 1440 > EXPEDIENTE_ALMO_INICIO && (int)this->hora % 1440 < EXPEDIENTE_ALMO_FIM) || ((int)this->hora % 1440 > EXPEDIENTE_JANT_INICIO && (int)this->hora % 1440 < EXPEDIENTE_JANT_FIM))
+					this->hora = this->hora + 0.1;
+				else if ((int)this->hora % 1440 > EXPEDIENTE_ALMO_FIM && (int)this->hora % 1440 < EXPEDIENTE_JANT_INICIO)
+					this->hora = this->hora + 0.5;
+				else
+					this->hora = this->hora + 1;
+				// Atualiza o texto da hora incrementada
+				this->t_hora.setText(((int)(this->hora / 60) % 24 >= 10 ? "" : "0")+std::to_string((int)(this->hora/60) % 24)+((int) this->hora % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hora % 60));
 
-			for (int i = 0; i < 4; i++) {
-				this->t_count_criterios[i].setText(std::to_string(this->count_criterios[i]))->render();
+				// Atualiza os contadores de critérios para pontos
+				for (int i = 0; i < 4; i++)
+					this->t_count_criterios[i].setText(std::to_string(this->count_criterios[i]));
+
+				// Atualiza a pontuação provisória
+				this->pontua_prov = this->count_criterios[0]*10 + this->count_criterios[1]*-20 + this->count_criterios[2]*-10 + this->count_criterios[3]*5;
+				this->t_pontua_prov.setText(std::to_string(this->pontua_prov));
 			}
+			// Renderiza o texto do dia
+			this->t_dia.render();
+			// Renderiza o texto da hora
+			this->t_hora.render();
 
-			this->pontua_prov = this->count_criterios[0]*10 + this->count_criterios[1]*-20 + this->count_criterios[2]*-10 + this->count_criterios[3]*5;
-			this->t_pontua_prov.setText(std::to_string(this->pontua_prov))->render();
+			// Renderiza os contadores de critérios para pontos
+			for (int i = 0; i < 4; i++)
+				this->t_count_criterios[i].render();
+			// Renderiza a pontuação provisória
+			this->t_pontua_prov.render();
+
+
+			if (this->tela_id == 0 || this->tela_id == 3 || this->tela_id == 4) { // Renderiza o retângulo opaco
+				SDL_SetRenderDrawBlendMode(this->g_renderer, SDL_BLENDMODE_BLEND);
+				SDL_SetRenderDrawColor(this->g_renderer, 0, 0, 0, 125);
+				SDL_Rect rectangle;
+				rectangle.x = rectangle.y = 0;
+				rectangle.w = this->window_size.x;
+				rectangle.h = this->window_size.y;
+				SDL_RenderFillRect(this->g_renderer, &rectangle);
+				SDL_SetRenderDrawBlendMode(this->g_renderer, SDL_BLENDMODE_NONE);
+
+				switch (this->tela_id) {
+					case 0: // Renderiza as instruções
+					break;
+					case 3: // Renderiza a tela de fim de jogo
+					break;
+					case 4: // Renderiza mensagem "PAUSADO"
+					break;
+				}
+			}
 
 
 			SDL_RenderPresent(this->g_renderer);

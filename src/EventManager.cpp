@@ -26,6 +26,7 @@ void EventManager::update() {
 				this->mouseMove();
 				break;
 			case SDL_KEYDOWN:
+				this->keyDown(this->handler.key);
 				break;
 			case SDL_WINDOWEVENT:
 		        switch (this->handler.window.event) {
@@ -147,6 +148,15 @@ void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
 
 void EventManager::mouseUp() {
 	*this->mouse_pressed = false;
+}
+
+void EventManager::keyDown(SDL_KeyboardEvent& key) {
+	if ((*this->tela_id == 0 || *this->tela_id == 3) && key.keysym.sym == SDLK_RETURN)
+		*this->tela_id = 1;
+	else if ((*this->tela_id == 1 || *this->tela_id == 2) && key.keysym.sym == SDLK_ESCAPE)
+		*this->tela_id = 4;
+	else if ((*this->tela_id == 4) && key.keysym.sym == SDLK_ESCAPE)
+		*this->tela_id = 1;
 }
 
 bool EventManager::checaCart(const Pessoa* p) {

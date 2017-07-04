@@ -22,6 +22,7 @@ class EventManager {
 		void mouseMove();
 		void mouseDown(SDL_MouseButtonEvent&);
 		void mouseUp();
+		void keyDown(SDL_KeyboardEvent&);
 		bool checaCart(const Pessoa *);
 };
 
