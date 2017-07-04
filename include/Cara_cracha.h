@@ -241,7 +241,13 @@ class Cara_cracha {
 
 			this->t_dia.setText("Dia "+std::to_string((int)(this->hora / 60) / 24 + 1))->render();
 			
-			this->hora = this->hora + (((int)this->hora % 1440 > EXPEDIENTE_ALMO_INICIO && (int)this->hora % 1440 < EXPEDIENTE_ALMO_FIM) ||				 ((int)this->hora % 1440 > EXPEDIENTE_JANT_INICIO && (int)this->hora % 1440 < EXPEDIENTE_JANT_FIM) ? 0.1 : 0.5);
+
+			if (((int)this->hora % 1440 > EXPEDIENTE_ALMO_INICIO && (int)this->hora % 1440 < EXPEDIENTE_ALMO_FIM) || ((int)this->hora % 1440 > EXPEDIENTE_JANT_INICIO && (int)this->hora % 1440 < EXPEDIENTE_JANT_FIM))
+				this->hora = this->hora + 0.1;
+			else if ((int)this->hora % 1440 > EXPEDIENTE_ALMO_FIM && (int)this->hora % 1440 < EXPEDIENTE_JANT_INICIO)
+				this->hora = this->hora + 0.5;
+			else
+				this->hora = this->hora + 1;
 			this->t_hora.setText(((int)(this->hora / 60) % 24 >= 10 ? "" : "0")+std::to_string((int)(this->hora/60) % 24)+((int) this->hora % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hora % 60))->render();
 
 			for (int i = 0; i < 4; i++) {
