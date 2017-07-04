@@ -2,9 +2,6 @@
 #include <cstdlib> // srand, rand
 #include <ctime> // time
 
-#include <iostream>
-using namespace std;
-
 void GeoA::randInit() {
 	srand(time(NULL));
 }

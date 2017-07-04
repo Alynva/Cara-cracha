@@ -57,7 +57,6 @@ class Pessoa {
 };
 
 inline Pessoa::Pessoa():max_speed(10), max_force(.01) {
-	//this->pos = GeoA::Vetor(GeoA::random(0, 1000), GeoA::random(0, 700), 0);
 	this->target = GeoA::Vetor(0,0,0);
 
 	this->sexo = GeoA::random() > 0.5;
@@ -81,13 +80,9 @@ inline Pessoa::Pessoa():max_speed(10), max_force(.01) {
 		Carteirinha cart_temp(this->sexo, this->rosto, this->cor_do_rosto, this->cabelo);
 		this->cart = cart_temp;
 	}
-
-	//this->initTextures(nullptr);
 }
 
 inline Pessoa::Pessoa(bool ps, int pr, int pcr, int po, int pco, int pc, int pcc, int pb, int pcb, int pba, int pcba, int pca, int pcca, int pt, int pct):max_speed(.3), max_force(3), sexo(ps), rosto(pr), cor_do_rosto(pcr), oculos(po), cor_do_oculos(pco), cabelo(pc), cor_do_cabelo(pcc), barba(pba), cor_da_barba(pcba), blusa(pb), cor_da_blusa(pcb), calca(pca), cor_da_calca(pcca), tenis(pt), cor_do_tenis(pct) {
-
-	//this->initTextures(nullptr);
 }
 
 inline Pessoa* Pessoa::initTextures(SDL_Renderer* renderer) {

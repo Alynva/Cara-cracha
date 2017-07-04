@@ -27,12 +27,8 @@ class Texto {
 		Texto(std::string, SDL_Renderer*, int, SDL_Rect, SDL_Color, std::string, SDL_Rect = {0, 0, 0, 0});
 	
 		Texto* setPath(std::string);
-		//SDL_Renderer* getRenderer() const;
 		Texto* setRenderer(SDL_Renderer*);
-		//SDL_Texture* getTexture() const;
-		//SDL_Point getSize() const;
 		Texto* setSize(SDL_Point);
-		//SDL_Point getPosition() const;
 		Texto* setPosition(SDL_Point);
 		Texto* setFormat(SDL_Rect);
 		Texto* setSrcrect(SDL_Rect);

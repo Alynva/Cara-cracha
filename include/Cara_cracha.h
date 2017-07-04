@@ -350,53 +350,13 @@ class Cara_cracha {
 					this->fila_fora[this->fila_fora.getSize()-1]->initTextures(this->g_renderer)->pos = GeoA::Vetor(this->window_size.x*0.5 - 139, this->window_size.y*0.5 - 32, 0);
 				}
 			} else {
-				/*Queue<Pessoa*> fila_temp;
-				Pessoa *pessoa_temp, *temp;
-
-				if (((int)this->hora % 1440 >= EXPEDIENTE_ALMO_FIM + 30 && (int)this->hora % 1440 < EXPEDIENTE_ALMO_FIM + 90) || // 14:30 ~ 15:30
-					((int)this->hora % 1440 >= EXPEDIENTE_JANT_FIM + 30 && (int)this->hora % 1440 < EXPEDIENTE_JANT_FIM + 90)) { // 19:30 ~ 20:30
-					if (this->fila.getSize()) {
-						this->fila.dequeue(pessoa_temp);
-						fila_temp.enqueue(pessoa_temp);
-					}
-					if (this->fila.getSize()) {
-						this->fila.dequeue(pessoa_temp);
-						fila_temp.enqueue(pessoa_temp);
-					}
-				}*/
 				
 				if (((int)this->hora % 1440 < EXPEDIENTE_ALMO_INICIO - 60 || (int)this->hora % 1440 >= EXPEDIENTE_JANT_FIM + 30) || // 19:30 ~ 10:30
 					((int)this->hora % 1440 >= EXPEDIENTE_ALMO_FIM + 30 && (int)this->hora % 1440 < EXPEDIENTE_JANT_INICIO)) // 14:30 ~ 16:30
 					this->fila_fora.clear();
-
-				/*if (((int)this->hora % 1440 >= EXPEDIENTE_ALMO_FIM + 30 && (int)this->hora % 1440 < EXPEDIENTE_ALMO_FIM + 90) || // 14:30 ~ 15:30
-					((int)this->hora % 1440 >= EXPEDIENTE_JANT_FIM + 30 && (int)this->hora % 1440 < EXPEDIENTE_JANT_FIM + 90)) { // 19:30 ~ 20:30
-					if (this->fila.getSize()) {
-						fila_temp.dequeue(pessoa_temp);
-						this->fila.enqueue(pessoa_temp);
-					}
-					if (this->fila.getSize()) {
-						fila_temp.dequeue(pessoa_temp);
-						this->fila.enqueue(pessoa_temp);
-					}
-				}
-				
-				pessoa_temp = temp = nullptr;*/
 			}
 
 			return this;
-		}
-
-		Cara_cracha* play() {
-
-			/*for (int i = 0; i < this->fila.getSize(); i++) {
-
-				this->fila[i]->render();
-			
-			}*/
-
-			return this;
-
 		}
 
 		Cara_cracha* limitFPS() {
