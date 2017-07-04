@@ -36,20 +36,28 @@ class Cara_cracha {
 		Queue<Pessoa*> fila_fora;
 		Queue<GeoA::Vetor> fila_pos;
 		Objeto catraca;
+		int count_criterios[4];
+		Texto t_count_criterios[4];
+		int pontua_prov;
+		Texto t_pontua_prov;
 
 		Cara_cracha():
 			g_window(NULL),
 			g_renderer(NULL),
 			game_quit(false),
 			game_play(false),
-			event(&this->game_quit, &this->game_play, &this->mouse_pressed, &this->window_size, &tela_id, &fila_dentro, &this->catraca.estado),
+			event(&this->game_quit, &this->game_play, &this->mouse_pressed, &this->window_size, &tela_id, &fila_dentro, &this->catraca.estado, count_criterios),
 			mouse_pressed(false),
 			max_fps(60),
 			curr_fr(0),
 			last_fr(0),
 			hora(630),
 			tela_id(0),
-			player(Pessoa(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) {
+			player(Pessoa(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)),
+			pontua_prov(0) {
+				for (int i = 0; i < 4; i++) {
+					this->count_criterios[i] = 0;
+				}
 		};
 
 		~Cara_cracha() {
@@ -98,10 +106,18 @@ class Cara_cracha {
 					this->janela.pos = GeoA::Vetor(50, 50, 0);
 					this->janela.tex_fundo_0 = Textura("../media/img/box.png", this->g_renderer, this->janela.pos.x, this->janela.pos.y, 213, 350);
 
-					this->t_hora = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 31, {255, 82, 0, 0}, {0, 0, 0}, std::to_string(this->hora));
+					this->t_hora = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 31, {254, 82, 0, 0}, {0, 0, 0}, std::to_string(this->hora));
 					this->t_hora.setAncora(1);
-					this->t_dia = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 17, {62, 82, 0, 0}, {0, 0, 0}, "Dia "+std::to_string(this->hora));
+					this->t_dia = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 17, {64, 82, 0, 0}, {0, 0, 0}, "Dia "+std::to_string(this->hora));
 					this->t_dia.setAncora(-1);
+
+
+					for (int i = 0; i < 4; i++) {
+						this->t_count_criterios[i] = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 21, {251, 140 + 50*i, 0 , 0}, {0, 0, 0}, std::to_string(this->count_criterios[i]));
+						this->t_count_criterios[i].setAncora(1);
+					}
+
+					this->t_pontua_prov = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 28, {210, 363, 0, 0}, {0, 0, 0}, std::to_string(this->pontua_prov));
 
 
 					SDL_Texture* tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (fundo).png"));
@@ -220,13 +236,21 @@ class Cara_cracha {
 			SDL_RenderCopy(this->g_renderer, this->g_bg[3], NULL, &bg_quad);
 
 
-			// Altera e renderiza o dia e hora
+			// Altera e renderiza o dia, a hora e os pontos
 			this->janela.tex_fundo_0.render();
-			this->t_dia.setText("Dia "+std::to_string((int)(this->hora / 60) / 24 + 1));
-			this->t_dia.render();
+
+			this->t_dia.setText("Dia "+std::to_string((int)(this->hora / 60) / 24 + 1))->render();
+			
 			this->hora = this->hora + (((int)this->hora % 1440 > EXPEDIENTE_ALMO_INICIO && (int)this->hora % 1440 < EXPEDIENTE_ALMO_FIM) ||				 ((int)this->hora % 1440 > EXPEDIENTE_JANT_INICIO && (int)this->hora % 1440 < EXPEDIENTE_JANT_FIM) ? 0.1 : 0.5);
-			this->t_hora.setText(((int)(this->hora / 60) % 24 >= 10 ? "" : "0")+std::to_string((int)(this->hora/60) % 24)+((int) this->hora % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hora % 60));
-			this->t_hora.render();
+			this->t_hora.setText(((int)(this->hora / 60) % 24 >= 10 ? "" : "0")+std::to_string((int)(this->hora/60) % 24)+((int) this->hora % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hora % 60))->render();
+
+			for (int i = 0; i < 4; i++) {
+				this->t_count_criterios[i].setText(std::to_string(this->count_criterios[i]))->render();
+			}
+
+			this->pontua_prov = this->count_criterios[0]*10 + this->count_criterios[1]*-20 + this->count_criterios[2]*-10 + this->count_criterios[3]*5;
+			this->t_pontua_prov.setText(std::to_string(this->pontua_prov))->render();
+
 
 			SDL_RenderPresent(this->g_renderer);
 			// Aplica o delay necessário para manter a 60fps

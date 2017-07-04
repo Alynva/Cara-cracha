@@ -14,15 +14,17 @@ class EventManager {
 	int* tela_id;
 	Queue<Pessoa*>* fila;
 	double* catraca_estado;
+	int* count_criterios;
 	
 	public:
-		EventManager(bool*, bool*, bool*, SDL_Point*, int*, Queue<Pessoa*>*, double*);
+		EventManager(bool*, bool*, bool*, SDL_Point*, int*, Queue<Pessoa*>*, double*, int*);
 	
 		void update();
 		void mouseMove();
 		void mouseDown(SDL_MouseButtonEvent&);
 		void mouseUp();
 		void windowResized(int, int);
+		bool checaCart(const Pessoa *);
 };
 
 #endif

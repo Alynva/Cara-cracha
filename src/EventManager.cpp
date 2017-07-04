@@ -1,13 +1,14 @@
 #include "../include/EventManager.h"
 
-EventManager::EventManager(bool* pgq, bool* pgp, bool* pmp, SDL_Point* pws, int* pti, Queue<Pessoa*>* pf, double* pce):
+EventManager::EventManager(bool* pgq, bool* pgp, bool* pmp, SDL_Point* pws, int* pti, Queue<Pessoa*>* pf, double* pce, int* pcc):
 	quit(pgq),
 	play(pgp),
 	mouse_pressed(pmp),
 	window_size(pws),
 	tela_id(pti),
 	fila(pf),
-	catraca_estado(pce) {
+	catraca_estado(pce),
+	count_criterios(pcc) {
 }
 
 void EventManager::update() {
@@ -115,10 +116,11 @@ void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
 				case 2:
 					*this->tela_id = 1;
 					if (this->fila->getSize()) {
-						Pessoa *t1;
-						fila->dequeue(t1);
+						Pessoa *temp;
+						fila->dequeue(temp);
+						this->checaCart(temp) ? this->count_criterios[3]++ : this->count_criterios[1]++;
 						*catraca_estado = 1;
-						t1 = nullptr;
+						temp = nullptr;
 					}
 					break;
 			} 
@@ -134,6 +136,7 @@ void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
 					if (this->fila->getSize()) {
 						Pessoa* temp;
 						fila->dequeue(temp);
+						this->checaCart(temp) ? this->count_criterios[2]++ : this->count_criterios[0]++;
 						temp = nullptr;
 					}
 					break;
@@ -150,4 +153,8 @@ void EventManager::mouseUp() {
 
 void EventManager::windowResized(int data1, int data2) {
 	*this->window_size = {data1, data2};
+}
+
+bool EventManager::checaCart(const Pessoa* p) {
+	return (p->sexo == p->cart.sexo && p->rosto == p->cart.rosto && p->cor_do_rosto == p->cart.cor_do_rosto && p->cabelo == p->cart.cabelo);
 }
