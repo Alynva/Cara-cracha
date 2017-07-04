@@ -1,10 +1,9 @@
 #include "../include/EventManager.h"
 
-EventManager::EventManager(bool* pgq, bool* pgp, bool* pmp, SDL_Point* pws, int* pti, Queue<Pessoa*>* pf, double* pce, int* pcc):
+EventManager::EventManager(bool* pgq, bool* pgp, bool* pmp, int* pti, Queue<Pessoa*>* pf, double* pce, int* pcc):
 	quit(pgq),
 	play(pgp),
 	mouse_pressed(pmp),
-	window_size(pws),
 	tela_id(pti),
 	fila(pf),
 	catraca_estado(pce),
@@ -48,7 +47,6 @@ void EventManager::update() {
 //			            SDL_Log("Window %d resized to %dx%d",
 //			                    this->handler.window.windowID, this->handler.window.data1,
 //			                    this->handler.window.data2);
-			        	this->windowResized(this->handler.window.data1, this->handler.window.data2);
 			            break;
 			        case SDL_WINDOWEVENT_SIZE_CHANGED:
 //			            SDL_Log("Window %d size changed to %dx%d",
@@ -149,10 +147,6 @@ void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
 
 void EventManager::mouseUp() {
 	*this->mouse_pressed = false;
-}
-
-void EventManager::windowResized(int data1, int data2) {
-	*this->window_size = {data1, data2};
 }
 
 bool EventManager::checaCart(const Pessoa* p) {

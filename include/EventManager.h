@@ -10,20 +10,18 @@ class EventManager {
 	bool* quit;
 	bool* play;
 	bool* mouse_pressed;
-	SDL_Point* window_size;
 	int* tela_id;
 	Queue<Pessoa*>* fila;
 	double* catraca_estado;
 	int* count_criterios;
 	
 	public:
-		EventManager(bool*, bool*, bool*, SDL_Point*, int*, Queue<Pessoa*>*, double*, int*);
+		EventManager(bool*, bool*, bool*, int*, Queue<Pessoa*>*, double*, int*);
 	
 		void update();
 		void mouseMove();
 		void mouseDown(SDL_MouseButtonEvent&);
 		void mouseUp();
-		void windowResized(int, int);
 		bool checaCart(const Pessoa *);
 };
 

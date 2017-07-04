@@ -46,7 +46,7 @@ class Cara_cracha {
 			g_renderer(NULL),
 			game_quit(false),
 			game_play(false),
-			event(&this->game_quit, &this->game_play, &this->mouse_pressed, &this->window_size, &tela_id, &fila_dentro, &this->catraca.estado, count_criterios),
+			event(&this->game_quit, &this->game_play, &this->mouse_pressed, &tela_id, &fila_dentro, &this->catraca.estado, count_criterios),
 			mouse_pressed(false),
 			max_fps(60),
 			curr_fr(0),
@@ -102,6 +102,10 @@ class Cara_cracha {
 
 					// Do samething....
 					this->event.update();
+
+
+					SDL_GetWindowSize(this->g_window, &this->window_size.x, &this->window_size.y);
+
 
 					this->janela.pos = GeoA::Vetor(50, 50, 0);
 					this->janela.tex_fundo_0 = Textura("../media/img/box.png", this->g_renderer, this->janela.pos.x, this->janela.pos.y, 213, 350);
