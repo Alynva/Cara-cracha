@@ -46,6 +46,9 @@ class Cara_cracha {
 		int pontua_prov;
 		Texto t_pontua_prov;
 
+		Texto t_instrucoes[12];
+		Texto t_jogo_pausado;
+
 		Cara_cracha():
 			g_window(NULL),
 			g_renderer(NULL),
@@ -56,7 +59,7 @@ class Cara_cracha {
 			max_fps(60),
 			curr_fr(0),
 			last_fr(0),
-			hora(630),
+			hora(540),
 			tela_id(0),
 			player(Pessoa(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)),
 			pontua_prov(0) {
@@ -110,6 +113,29 @@ class Cara_cracha {
 
 
 					SDL_GetWindowSize(this->g_window, &this->window_size.x, &this->window_size.y);
+
+
+					this->t_instrucoes[0] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 50, {this->window_size.x/2, this->window_size.y/2 - 250, 0, 0}, {220, 220, 220}, "Instruções");
+
+					// Aqui você é um estagiário de um restaurante, situado em uma universidade federal, o qual está passando por uma crise ética das pessoas que o utilizam. Algumas delas estão utilizando cartões de acesso doutras pessoas, por n motivos. Você foi encarregado de verificar TODOS aqueles que quiserem utilizar o restaurante. Exiga que entreguem os cartões de acesso caso necessário, tenha certeza que só entrará aqueles que possuírem seus próprios cartões de acesso. Você estará sendo monitorado a todo instante, olhe atentamente à foto presente no cartão de acesso. Porém, você precisa ser rápido. Não deixe que a fila se acomule. Seu expediente é das 11:00 às 14:00 e das 17:00 às 19:00. 
+
+					this->t_instrucoes[1] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 100, 0, 0}, {220, 220, 220}, "Aqui você é um estagiário de um restaurante, situado em uma universidade federal,");
+					this->t_instrucoes[2] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 80, 0, 0}, {220, 220, 220}, "o qual está passando por uma crise ética das pessoas que o utilizam. Algumas delas");
+					this->t_instrucoes[3] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 60, 0, 0}, {220, 220, 220}, "estão utilizando cartões de acesso doutras pessoas, por n motivos. Você foi encar-");
+					this->t_instrucoes[4] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 40, 0, 0}, {220, 220, 220}, "regado de verificar TODOS aqueles que quiserem utilizar o restaurante. Exija que");
+					this->t_instrucoes[5] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 20, 0, 0}, {220, 220, 220}, "entreguem os cartões de acesso caso necessário, tenha certeza que só entrará a-");
+					this->t_instrucoes[6] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2, 0, 0}, {220, 220, 220}, "queles que possuírem seus próprios cartões de acesso. Você estará sendo monito-");
+					this->t_instrucoes[7] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 + 20, 0, 0}, {220, 220, 220}, "rado a todo instante, olhe atentamente à foto presente no cartão de acesso. Po-");
+					this->t_instrucoes[8] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 + 40, 0, 0}, {220, 220, 220}, "rém, você precisa ser rápido. Não deixe que a fila se acumule. Seu expediente é das");
+					this->t_instrucoes[9] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 + 60, 0, 0}, {220, 220, 220}, "11:00 às 14:00 e das 17:00 às 19:00.");
+
+					this->t_instrucoes[10] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {20, this->window_size.y - 40, 0, 0}, {220, 220, 220}, "Precione ENTER para começar");
+					this->t_instrucoes[10].setAncora(-1);
+					this->t_instrucoes[11] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x - 20, this->window_size.y - 40, 0, 0}, {220, 220, 220}, "Durante o jogo, precione ESC para pausar/retornar");
+					this->t_instrucoes[11].setAncora(1);
+
+
+					this->t_jogo_pausado = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y - 20, 0, 0}, {220, 220, 220}, "Jogo pausado");
 
 
 					this->janela.pos = GeoA::Vetor(50, 50, 0);
@@ -298,7 +324,7 @@ class Cara_cracha {
 
 			if (this->tela_id == 0 || this->tela_id == 3 || this->tela_id == 4) { // Renderiza o retângulo opaco
 				SDL_SetRenderDrawBlendMode(this->g_renderer, SDL_BLENDMODE_BLEND);
-				SDL_SetRenderDrawColor(this->g_renderer, 0, 0, 0, 125);
+				SDL_SetRenderDrawColor(this->g_renderer, 0, 0, 0, 200);
 				SDL_Rect rectangle;
 				rectangle.x = rectangle.y = 0;
 				rectangle.w = this->window_size.x;
@@ -308,10 +334,13 @@ class Cara_cracha {
 
 				switch (this->tela_id) {
 					case 0: // Renderiza as instruções
+					for (int i = 0 ; i < 12; i++)
+						this->t_instrucoes[i].render();
 					break;
 					case 3: // Renderiza a tela de fim de jogo
 					break;
 					case 4: // Renderiza mensagem "PAUSADO"
+					this->t_jogo_pausado.render();
 					break;
 				}
 			}
