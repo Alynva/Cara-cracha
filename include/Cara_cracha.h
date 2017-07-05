@@ -85,7 +85,7 @@ class Cara_cracha {
 
 		bool init() {
 			//SDL_Init(SDL_INIT_VIDEO);
-			this->g_window = SDL_CreateWindow("Cara crachá", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, -1, -1, SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_ALLOW_HIGHDPI);
+			this->g_window = SDL_CreateWindow("Cara crachá", 0, 0, -1, -1, SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_ALLOW_HIGHDPI);
 			if (this->g_window == NULL) {
 				SDL_Log("Window could not be created. SDL Error: %s", SDL_GetError());
 				return false;
@@ -126,7 +126,7 @@ class Cara_cracha {
 
 
 					SDL_GetWindowSize(this->g_window, &this->window_size.x, &this->window_size.y);
-
+					SDL_SetWindowSize(this->g_window, this->window_size.x, this->window_size.y);
 
 					this->t_instrucoes[0] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 50, {this->window_size.x/2, this->window_size.y/2 - 250, 0, 0}, {220, 220, 220}, "Instruções");
 
