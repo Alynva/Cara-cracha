@@ -12,7 +12,7 @@
 
 class Cara_cracha {
 	SDL_Window* g_window; // Janela principal
-	SDL_Point window_size; // Tamanho da janela
+	SDL_Rect window_pos_size; // Tamanho da janela
 	SDL_Renderer* g_renderer; // Renderizador principal
 	Queue<SDL_Texture*> g_bg; // Plano de fundo
 	bool game_quit; // Responsavel pelo loop principal
@@ -124,41 +124,41 @@ class Cara_cracha {
 
 					this->event.update();
 
+					this->window_pos_size.x = this->window_pos_size.y = 0;
+					SDL_GetWindowSize(this->g_window, &this->window_pos_size.w, &this->window_pos_size.h);
+					SDL_SetWindowSize(this->g_window, this->window_pos_size.w, this->window_pos_size.h);
 
-					SDL_GetWindowSize(this->g_window, &this->window_size.x, &this->window_size.y);
-					SDL_SetWindowSize(this->g_window, this->window_size.x, this->window_size.y);
-
-					this->t_instrucoes[0] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 50, {this->window_size.x/2, this->window_size.y/2 - 250, 0, 0}, {220, 220, 220}, "Instruções");
+					this->t_instrucoes[0] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 50, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 250, 0, 0}, {220, 220, 220}, "Instruções");
 
 					// Aqui você é um estagiário de um restaurante, situado em uma universidade federal, o qual está passando por uma crise ética das pessoas que o utilizam. Algumas delas estão utilizando cartões de acesso doutras pessoas, por n motivos. Você foi encarregado de verificar TODOS aqueles que quiserem utilizar o restaurante. Exiga que entreguem os cartões de acesso caso necessário, tenha certeza que só entrará aqueles que possuírem seus próprios cartões de acesso. Você estará sendo monitorado a todo instante, olhe atentamente à foto presente no cartão de acesso. Porém, você precisa ser rápido. Não deixe que a fila se acomule. Seu expediente é das 11:00 às 14:00 e das 17:00 às 19:00. 
 
-					this->t_instrucoes[1] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 100, 0, 0}, {220, 220, 220}, "Aqui você é um estagiário de um restaurante, situado em uma universidade federal,");
-					this->t_instrucoes[2] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 80, 0, 0}, {220, 220, 220}, "o qual está passando por uma crise ética das pessoas que o utilizam. Algumas delas");
-					this->t_instrucoes[3] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 60, 0, 0}, {220, 220, 220}, "estão utilizando cartões de acesso doutras pessoas, por \"n\" motivos. Você foi encar-");
-					this->t_instrucoes[4] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 40, 0, 0}, {220, 220, 220}, "regado de verificar TODOS aqueles que quiserem utilizar o restaurante. Tenha certe-");
-					this->t_instrucoes[5] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 20, 0, 0}, {220, 220, 220}, "certeza que só entrarão aqueles que possuírem seus próprios cartões de acesso. Vo-");
-					this->t_instrucoes[6] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2, 0, 0}, {220, 220, 220}, "cê estará sendo monitorado a todo instante, olhe atentamente à foto presente no");
-					this->t_instrucoes[7] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 + 20, 0, 0}, {220, 220, 220}, "cartão de acesso. Porém, você precisa ser rápido. Não deixe que a fila se acumule.");
-					this->t_instrucoes[8] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 + 40, 0, 0}, {220, 220, 220}, "Seu expediente é das 11:00 às 14:00 e das 17:00 às 19:00.");
-					//this->t_instrucoes[9] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 + 60, 0, 0}, {220, 220, 220}, "");
+					this->t_instrucoes[1] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 100, 0, 0}, {220, 220, 220}, "Aqui você é um estagiário de um restaurante, situado em uma universidade federal,");
+					this->t_instrucoes[2] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 80, 0, 0}, {220, 220, 220}, "o qual está passando por uma crise ética das pessoas que o utilizam. Algumas delas");
+					this->t_instrucoes[3] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 60, 0, 0}, {220, 220, 220}, "estão utilizando cartões de acesso doutras pessoas, por \"n\" motivos. Você foi encar-");
+					this->t_instrucoes[4] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 40, 0, 0}, {220, 220, 220}, "regado de verificar TODOS aqueles que quiserem utilizar o restaurante. Tenha certe-");
+					this->t_instrucoes[5] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 20, 0, 0}, {220, 220, 220}, "certeza que só entrarão aqueles que possuírem seus próprios cartões de acesso. Vo-");
+					this->t_instrucoes[6] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2, 0, 0}, {220, 220, 220}, "cê estará sendo monitorado a todo instante, olhe atentamente à foto presente no");
+					this->t_instrucoes[7] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 + 20, 0, 0}, {220, 220, 220}, "cartão de acesso. Porém, você precisa ser rápido. Não deixe que a fila se acumule.");
+					this->t_instrucoes[8] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 + 40, 0, 0}, {220, 220, 220}, "Seu expediente é das 11:00 às 14:00 e das 17:00 às 19:00.");
+					//this->t_instrucoes[9] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 + 60, 0, 0}, {220, 220, 220}, "");
 
-					this->t_instrucoes[10] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {20, this->window_size.y - 40, 0, 0}, {220, 220, 220}, "Pressione ENTER para começar");
+					this->t_instrucoes[10] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {20, this->window_pos_size.h - 40, 0, 0}, {220, 220, 220}, "Pressione ENTER para começar");
 					this->t_instrucoes[10].setAncora(-1);
-					this->t_instrucoes[11] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x - 20, this->window_size.y - 40, 0, 0}, {220, 220, 220}, "Durante o jogo, pressione ESC para pausar/retornar");
+					this->t_instrucoes[11] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w - 20, this->window_pos_size.h - 40, 0, 0}, {220, 220, 220}, "Durante o jogo, pressione ESC para pausar/retornar");
 					this->t_instrucoes[11].setAncora(1);
 
-					this->t_instrucoes[12] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, 20, 0, 0}, {220, 220, 220}, "Pressione G para abrir o projeto no GitHub");
+					this->t_instrucoes[12] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, 20, 0, 0}, {220, 220, 220}, "Pressione G para abrir o projeto no GitHub");
 
 
-					this->t_jogo_pausado = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y - 20, 0, 0}, {220, 220, 220}, "Jogo pausado");
+					this->t_jogo_pausado = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h - 20, 0, 0}, {220, 220, 220}, "Jogo pausado");
 
 
-					this->t_controles[0] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 40, {this->window_size.x/2, this->window_size.y/2 - 250, 0, 0}, {220, 220, 220}, "Controles");
-					this->t_controles[1] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 22, {this->window_size.x/4, this->window_size.y/2 - 120, 0, 0}, {220, 220, 220}, "Liberar entrada");
-					this->o_controles[0].pos = GeoA::Vetor(this->window_size.x*.25 - 140/2, this->window_size.y*.5 + 20 - 172/2, 0);
+					this->t_controles[0] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 40, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 250, 0, 0}, {220, 220, 220}, "Controles");
+					this->t_controles[1] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 22, {this->window_pos_size.w/4, this->window_pos_size.h/2 - 120, 0, 0}, {220, 220, 220}, "Liberar entrada");
+					this->o_controles[0].pos = GeoA::Vetor(this->window_pos_size.w*.25 - 140/2, this->window_pos_size.h*.5 + 20 - 172/2, 0);
 					this->o_controles[0].tex_frente = Textura("../media/img/clique-esq.png", this->g_renderer, this->o_controles[0].pos.x, this->o_controles[0].pos.y, 140, 172);
-					this->t_controles[2] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 22, {this->window_size.x*3/4, this->window_size.y/2 - 120, 0, 0}, {220, 220, 220}, "Impedir entrada");
-					this->o_controles[1].pos = GeoA::Vetor(this->window_size.x*.75 - 140/2, this->window_size.y*.5 + 20 - 172/2, 0);
+					this->t_controles[2] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 22, {this->window_pos_size.w*3/4, this->window_pos_size.h/2 - 120, 0, 0}, {220, 220, 220}, "Impedir entrada");
+					this->o_controles[1].pos = GeoA::Vetor(this->window_pos_size.w*.75 - 140/2, this->window_pos_size.h*.5 + 20 - 172/2, 0);
 					this->o_controles[1].tex_frente = Textura("../media/img/clique-dir.png", this->g_renderer, this->o_controles[1].pos.x, this->o_controles[1].pos.y, 140, 172);
 
 
@@ -201,12 +201,12 @@ class Cara_cracha {
 					this->g_bg.enqueue(tx_temp);
 
 
-					player.pos = GeoA::Vetor(this->window_size.x*0.5 - 75, this->window_size.y*0.5 + 192, 0);
+					player.pos = GeoA::Vetor(this->window_pos_size.w*0.5 - 75, this->window_pos_size.h*0.5 + 192, 0);
 					player.initTextures(this->g_renderer);
 					SDL_SetTextureColorMod(player.t_corpo.getTexture(), 241, 214, 147);
 
 
-					this->catraca.pos = GeoA::Vetor(this->window_size.x*0.5 - 16, this->window_size.y*0.5 + 52, 0);
+					this->catraca.pos = GeoA::Vetor(this->window_pos_size.w*0.5 - 16, this->window_pos_size.h*0.5 + 52, 0);
 					this->catraca.estado = 0;
 					this->catraca.tex_fundo_0 = Textura("../media/img/sentido_unico (tras).png", this->g_renderer, this->catraca.pos.x, this->catraca.pos.y, 148, 160);
 					this->catraca.tex_fundo_1 = Textura("../media/img/sentido_unico (aberto).png", this->g_renderer, this->catraca.pos.x, this->catraca.pos.y, 148, 160);
@@ -232,8 +232,8 @@ class Cara_cracha {
 
 			// Calcula posição do fundo
 			SDL_Rect bg_quad; 
-			bg_quad.x = this->window_size.x / 2 - 1350;
-			bg_quad.y = this->window_size.y / 2 - 1240;
+			bg_quad.x = this->window_pos_size.w / 2 - 1350;
+			bg_quad.y = this->window_pos_size.h / 2 - 1240;
 			bg_quad.w = 3198;
 			bg_quad.h = 2800;
 
@@ -274,7 +274,7 @@ class Cara_cracha {
 			if (this->tela_id == 1)
 				this->tela_id = 2;
 			if (this->tela_id == 2 && this->fila_dentro.getSize()) {
-				this->fila_dentro[0]->cart.pos = GeoA::Vetor(this->window_size.x*2/3, this->window_size.y*2/3, 0);
+				this->fila_dentro[0]->cart.pos = GeoA::Vetor(this->window_pos_size.w*2/3, this->window_pos_size.h*2/3, 0);
 				this->fila_dentro[0]->cart.update()->render();
 			}
 
@@ -311,6 +311,24 @@ class Cara_cracha {
 			SDL_RenderCopy(this->g_renderer, this->g_bg[3], NULL, &bg_quad);
 
 
+			// Calcula o quão escuro está
+			double escuro = 0;
+			if (this->convertM2H(this->hora) >= 0 && this->convertM2H(this->hora) < 7)
+				escuro = -0.2 * (this->convertM2H(this->hora) - 7) * (this->convertM2H(this->hora) + 6);
+			else if (this->convertM2H(this->hora) >= 18 && this->convertM2H(this->hora) < 24)
+				escuro = -0.2 * (this->convertM2H(this->hora) - 31) * (this->convertM2H(this->hora) - 18);
+
+			escuro = GeoA::map(escuro, 0, 8, 0, 255);
+			if (escuro > 255) escuro = 255;
+
+			// Renderiza retângulo opaco representado a escuridão da noite
+			SDL_SetRenderDrawBlendMode(this->g_renderer, SDL_BLENDMODE_BLEND);
+			SDL_SetRenderDrawColor(this->g_renderer, 0, 0, 0, (int)escuro);
+			SDL_RenderFillRect(this->g_renderer, &this->window_pos_size);
+			SDL_SetRenderDrawBlendMode(this->g_renderer, SDL_BLENDMODE_NONE);
+
+
+
 			// Altera e renderiza o dia, a hora e os pontos
 			this->janela.tex_fundo_0.render();
 
@@ -320,7 +338,7 @@ class Cara_cracha {
 
 				// Incrementa a hora
 				if (((int)this->hora % 1440 > EXPEDIENTE_ALMO_INICIO && (int)this->hora % 1440 < EXPEDIENTE_ALMO_FIM) || ((int)this->hora % 1440 > EXPEDIENTE_JANT_INICIO && (int)this->hora % 1440 < EXPEDIENTE_JANT_FIM))
-					this->hora = this->hora + 0.1;
+					this->hora = this->hora + 01;
 				else if ((int)this->hora % 1440 > EXPEDIENTE_ALMO_FIM && (int)this->hora % 1440 < EXPEDIENTE_JANT_INICIO)
 					this->hora = this->hora + 0.5;
 				else
@@ -351,11 +369,7 @@ class Cara_cracha {
 			if (this->tela_id == 0 || this->tela_id == 3 || this->tela_id == 4) { // Renderiza o retângulo opaco
 				SDL_SetRenderDrawBlendMode(this->g_renderer, SDL_BLENDMODE_BLEND);
 				SDL_SetRenderDrawColor(this->g_renderer, 0, 0, 0, 200);
-				SDL_Rect rectangle;
-				rectangle.x = rectangle.y = 0;
-				rectangle.w = this->window_size.x;
-				rectangle.h = this->window_size.y;
-				SDL_RenderFillRect(this->g_renderer, &rectangle);
+				SDL_RenderFillRect(this->g_renderer, &this->window_pos_size);
 				SDL_SetRenderDrawBlendMode(this->g_renderer, SDL_BLENDMODE_NONE);
 
 				switch (this->tela_id) {
@@ -389,20 +403,20 @@ class Cara_cracha {
 
 			if 	(((int)this->hora % 1440 > EXPEDIENTE_ALMO_INICIO && (int)this->hora % 1440 < EXPEDIENTE_ALMO_FIM + 60) || // 11:00 ~ 15:00
 				 ((int)this->hora % 1440 > EXPEDIENTE_JANT_INICIO && (int)this->hora % 1440 < EXPEDIENTE_JANT_FIM + 60)) { // 17:00 ~ 20:00
-				this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 11, this->window_size.y*0.5 + 160, 0));
-				this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 75, this->window_size.y*0.5 + 128, 0));
+				this->fila_pos.enqueue(GeoA::Vetor(this->window_pos_size.w*0.5 - 11, this->window_pos_size.h*0.5 + 160, 0));
+				this->fila_pos.enqueue(GeoA::Vetor(this->window_pos_size.w*0.5 - 75, this->window_pos_size.h*0.5 + 128, 0));
 			}
 			if 	(((int)this->hora % 1440 > EXPEDIENTE_ALMO_INICIO && (int)this->hora % 1440 < EXPEDIENTE_ALMO_FIM) || // 11:00 ~ 14:00
 				 ((int)this->hora % 1440 > EXPEDIENTE_JANT_INICIO && (int)this->hora % 1440 < EXPEDIENTE_JANT_FIM)) { // 17:00 ~ 19:00
-				this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 139, this->window_size.y*0.5 + 96, 0));
-				this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 75, this->window_size.y*0.5 + 64, 0));
+				this->fila_pos.enqueue(GeoA::Vetor(this->window_pos_size.w*0.5 - 139, this->window_pos_size.h*0.5 + 96, 0));
+				this->fila_pos.enqueue(GeoA::Vetor(this->window_pos_size.w*0.5 - 75, this->window_pos_size.h*0.5 + 64, 0));
 			}
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 139, this->window_size.y*0.5 + 32, 0));
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 203, this->window_size.y*0.5 + 64, 0));
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 75, this->window_size.y*0.5 + 0, 0));
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 203, this->window_size.y*0.5 + 0, 0));
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 267, this->window_size.y*0.5 + 32, 0));
-			this->fila_pos.enqueue(GeoA::Vetor(this->window_size.x*0.5 - 139, this->window_size.y*0.5 - 32, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_pos_size.w*0.5 - 139, this->window_pos_size.h*0.5 + 32, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_pos_size.w*0.5 - 203, this->window_pos_size.h*0.5 + 64, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_pos_size.w*0.5 - 75, this->window_pos_size.h*0.5 + 0, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_pos_size.w*0.5 - 203, this->window_pos_size.h*0.5 + 0, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_pos_size.w*0.5 - 267, this->window_pos_size.h*0.5 + 32, 0));
+			this->fila_pos.enqueue(GeoA::Vetor(this->window_pos_size.w*0.5 - 139, this->window_pos_size.h*0.5 - 32, 0));
 
 			Pessoa* pessoa_temp;
 			if 	(((int)this->hora % 1440 > EXPEDIENTE_ALMO_INICIO && (int)this->hora % 1440 < EXPEDIENTE_ALMO_FIM) || // 11:00 ~ 14:00
@@ -462,7 +476,7 @@ class Cara_cracha {
 				 ((int)this->hora % 1440 > EXPEDIENTE_JANT_INICIO && (int)this->hora % 1440 < EXPEDIENTE_JANT_FIM)) { // 17:00 ~ 19:00
 				if 	(this->entraAlguem()) {
 					this->fila_fora.enqueue(new Pessoa());
-					this->fila_fora[this->fila_fora.getSize()-1]->initTextures(this->g_renderer)->pos = GeoA::Vetor(this->window_size.x*0.5 - 139, this->window_size.y*0.5 - 32, 0);
+					this->fila_fora[this->fila_fora.getSize()-1]->initTextures(this->g_renderer)->pos = GeoA::Vetor(this->window_pos_size.w*0.5 - 139, this->window_pos_size.h*0.5 - 32, 0);
 				}
 			} else {
 				
