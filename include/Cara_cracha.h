@@ -27,6 +27,8 @@ class Cara_cracha {
 	double hora;
 	Texto t_hora;
 	Texto t_dia;
+	std::string dias_semana[7];
+
 	Objeto janela;
 
 	public:
@@ -111,6 +113,15 @@ class Cara_cracha {
 					}
 
 					// Do samething....
+					this->dias_semana[0] = "Dom.";
+					this->dias_semana[1] = "Seg.";
+					this->dias_semana[2] = "Terç.";
+					this->dias_semana[3] = "Qua.";
+					this->dias_semana[4] = "Qui.";
+					this->dias_semana[5] = "Sex.";
+					this->dias_semana[6] = "Sáb.";
+
+
 					this->event.update();
 
 
@@ -154,7 +165,7 @@ class Cara_cracha {
 
 					this->t_hora = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 31, {254, 82, 0, 0}, {0, 0, 0}, ((int)(this->hora / 60) % 24 >= 10 ? "" : "0")+std::to_string((int)(this->hora/60) % 24)+((int) this->hora % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hora % 60));
 					this->t_hora.setAncora(1);
-					this->t_dia = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 17, {64, 82, 0, 0}, {0, 0, 0}, "Dia "+std::to_string((int)(this->hora / 60) / 24 + 1));
+					this->t_dia = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 18, {64, 82, 0, 0}, {0, 0, 0}, this->dias_semana[1]);
 					this->t_dia.setAncora(-1);
 
 
@@ -303,7 +314,7 @@ class Cara_cracha {
 
 			if (this->tela_id == 1 || this->tela_id == 2) {
 				// Atualiza o texto do dia
-				this->t_dia.setText("Dia "+std::to_string((int)(this->hora / 60) / 24 + 1));
+				this->t_dia.setText(this->dias_semana[(int)((this->hora / 60) / 24 + 1) % 7]);
 
 				// Incrementa a hora
 				if (((int)this->hora % 1440 > EXPEDIENTE_ALMO_INICIO && (int)this->hora % 1440 < EXPEDIENTE_ALMO_FIM) || ((int)this->hora % 1440 > EXPEDIENTE_JANT_INICIO && (int)this->hora % 1440 < EXPEDIENTE_JANT_FIM))
@@ -438,7 +449,7 @@ class Cara_cracha {
 			b_jant		= comeca_jant + para_jant;
 			c_jant		= comeca_jant * para_jant * -1;
 
-			return GeoA::random(100 / ((int)(this->hora / 60 / 24 + 1) / 3 + .5)) < (a_almo*x*x + b_almo*x + c_almo) * 1.5 || GeoA::random(100 / ((int)(this->hora / 60 / 24 + 1) / 3 + .5)) < (a_jant*x*x + b_jant*x + c_jant) * 4;
+			return GeoA::random(100 / (((int)(this->hora / 60 / 24 + 1) % 7) / 3 + .5)) < (a_almo*x*x + b_almo*x + c_almo) * 1.5 || GeoA::random(100 / (((int)(this->hora / 60 / 24 + 1) % 7) / 3 + .5)) < (a_jant*x*x + b_jant*x + c_jant) * 4;
 		}
 
 		Cara_cracha* updateFilaSize() {
