@@ -438,7 +438,7 @@ class Cara_cracha {
 			b_jant		= comeca_jant + para_jant;
 			c_jant		= comeca_jant * para_jant * -1;
 
-			return GeoA::random(100) < (a_almo*x*x + b_almo*x + c_almo) || GeoA::random(100) < (a_jant*x*x + b_jant*x + c_jant);
+			return GeoA::random(100 / ((int)(this->hora / 60 / 24 + 1) / 3 + .5)) < (a_almo*x*x + b_almo*x + c_almo) * 1.5 || GeoA::random(100 / ((int)(this->hora / 60 / 24 + 1) / 3 + .5)) < (a_jant*x*x + b_jant*x + c_jant) * 4;
 		}
 
 		Cara_cracha* updateFilaSize() {
