@@ -48,7 +48,7 @@ class Cara_cracha {
 		int pontua_prov;
 		Texto t_pontua_prov;
 
-		Texto t_instrucoes[12];
+		Texto t_instrucoes[13];
 		Texto t_jogo_pausado;
 		Texto t_controles[3];
 		Objeto o_controles[2];
@@ -146,6 +146,8 @@ class Cara_cracha {
 					this->t_instrucoes[10].setAncora(-1);
 					this->t_instrucoes[11] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x - 20, this->window_size.y - 40, 0, 0}, {220, 220, 220}, "Durante o jogo, pressione ESC para pausar/retornar");
 					this->t_instrucoes[11].setAncora(1);
+
+					this->t_instrucoes[12] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, 20, 0, 0}, {220, 220, 220}, "Pressione G para abrir o projeto no GitHub");
 
 
 					this->t_jogo_pausado = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y - 20, 0, 0}, {220, 220, 220}, "Jogo pausado");
@@ -358,7 +360,7 @@ class Cara_cracha {
 
 				switch (this->tela_id) {
 					case 0: // Renderiza as instruções
-						for (int i = 0 ; i < 12; i++)
+						for (int i = 0 ; i < 13; i++)
 							this->t_instrucoes[i].render();
 						break;
 					case 3: // Renderiza a tela de fim de jogo
@@ -369,6 +371,7 @@ class Cara_cracha {
 							this->t_controles[i].render();
 						for (int i = 0; i < 2; i++)
 							this->o_controles[i].tex_frente.render();
+						this->t_instrucoes[12].render();
 						break;
 				}
 			}

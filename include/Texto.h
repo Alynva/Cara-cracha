@@ -71,6 +71,8 @@ inline Texto* Texto::updateFont() {
 	}
 	loadedSurface = nullptr;
 
+	SDL_Log("Texto::updateFont()");
+
 	return this;
 }
 
