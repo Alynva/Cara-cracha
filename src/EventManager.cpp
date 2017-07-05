@@ -38,7 +38,6 @@ void EventManager::update() {
 			            break;
 			        case SDL_WINDOWEVENT_HIDDEN:
 //			            SDL_Log("Window %d hidden", this->handler.window.windowID);
-			        	//*this->tela_id = 4;
 			            break;
 			        case SDL_WINDOWEVENT_MOVED:
 //			            SDL_Log("Window %d moved to %d,%d",
@@ -57,7 +56,6 @@ void EventManager::update() {
 			            break;
 			        case SDL_WINDOWEVENT_MINIMIZED:
 //			            SDL_Log("Window %d minimized", this->handler.window.windowID);
-			        	//*this->tela_id = 4;
 			            break;
 			        case SDL_WINDOWEVENT_MAXIMIZED:
 //			            SDL_Log("Window %d maximized", this->handler.window.windowID);
@@ -78,7 +76,8 @@ void EventManager::update() {
 			        case SDL_WINDOWEVENT_FOCUS_LOST:
 //			            SDL_Log("Window %d lost keyboard focus",
 //			                    this->handler.window.windowID);
-			        	*this->tela_id = 4;
+			        	if (*this->tela_id == 1 || *this->tela_id == 2)
+			        		*this->tela_id = 4;
 			            break;
 			        case SDL_WINDOWEVENT_CLOSE:
 //			            SDL_Log("Window %d closed", this->handler.window.windowID);
