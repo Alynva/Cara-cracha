@@ -47,11 +47,13 @@ class Cara_cracha {
 		Texto t_count_criterios[4];
 		int pontua_prov;
 		Texto t_pontua_prov;
+		Texto t_pontua_fin;
 
 		Texto t_instrucoes[13];
 		Texto t_jogo_pausado;
 		Texto t_controles[3];
 		Objeto o_controles[2];
+		Texto t_tela_fin[3];
 
 		Cara_cracha():
 			g_window(NULL),
@@ -63,7 +65,7 @@ class Cara_cracha {
 			max_fps(60),
 			curr_fr(0),
 			last_fr(0),
-			hora(540),
+			hora(9.5*60),
 			tela_id(0),
 			player(Pessoa(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)),
 			pontua_prov(0) {
@@ -178,6 +180,12 @@ class Cara_cracha {
 
 					this->t_pontua_prov = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 28, {210, 363, 0, 0}, {0, 0, 0}, std::to_string(this->pontua_prov));
 
+					this->t_pontua_fin = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 120, {this->window_pos_size.w/2, this->window_pos_size.h/2 + 10, 0, 0}, {220, 220, 220}, std::to_string(this->pontua_prov));
+
+					this->t_tela_fin[0] = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 40, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 100, 0, 0}, {220, 220, 220}, "Você conseguiu");
+					this->t_tela_fin[1] = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 25, {this->window_pos_size.w/2, this->window_pos_size.h/2 + 100, 0, 0}, {220, 220, 220}, "pontos");
+					this->t_tela_fin[2] = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 30, {this->window_pos_size.w/2, 100, 0, 0}, {220, 220, 220}, "CONTRATADO!/DISPENSADO!");
+
 
 					SDL_Texture* tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (fundo).png"));
 					if (tx_temp == NULL) {
@@ -223,8 +231,10 @@ class Cara_cracha {
 		}
 
 		bool update() {
-
+			int tela_id_temp = this->tela_id; // Verifica se é necessário reiniciar o tempo
 			this->event.update();
+			if (this->tela_id == 1 && (tela_id_temp == 0 || tela_id_temp == 3))
+				this->hora = 9.5*60;
 
 			// Limpa a tela
 			SDL_RenderClear(this->g_renderer);
@@ -333,17 +343,22 @@ class Cara_cracha {
 			this->janela.tex_fundo_0.render();
 
 			if (this->tela_id == 1 || this->tela_id == 2) {
-				// Atualiza o texto do dia
-				this->t_dia.setText(this->dias_semana[(int)((this->hora / 60) / 24 + 1) % 7]);
 
 				// Incrementa a hora
 				if (((int)this->hora % 1440 > EXPEDIENTE_ALMO_INICIO && (int)this->hora % 1440 < EXPEDIENTE_ALMO_FIM) || ((int)this->hora % 1440 > EXPEDIENTE_JANT_INICIO && (int)this->hora % 1440 < EXPEDIENTE_JANT_FIM))
-					this->hora = this->hora + 01;
+					this->hora = this->hora + 0.1;
 				else if ((int)this->hora % 1440 > EXPEDIENTE_ALMO_FIM && (int)this->hora % 1440 < EXPEDIENTE_JANT_INICIO)
 					this->hora = this->hora + 0.5;
-				else
+				else {
 					this->hora = this->hora + 2;
-				// Atualiza o texto da hora incrementada
+
+					this->checaFimdeJogo();
+				}
+				
+				// Atualiza o texto do dia
+				this->t_dia.setText(this->dias_semana[(int)((this->hora / 60) / 24 + 1) % 7]);
+
+				// Atualiza o texto da hora
 				this->t_hora.setText(((int)(this->hora / 60) % 24 >= 10 ? "" : "0")+std::to_string((int)(this->hora/60) % 24)+((int) this->hora % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hora % 60));
 
 				// Atualiza os contadores de critérios para pontos
@@ -378,6 +393,12 @@ class Cara_cracha {
 							this->t_instrucoes[i].render();
 						break;
 					case 3: // Renderiza a tela de fim de jogo
+						this->t_pontua_fin.render();
+						for (int i = 0; i < 3; i++)
+							this->t_tela_fin[i].render();
+						this->t_instrucoes[10].render();
+						this->t_instrucoes[11].render();
+						this->t_instrucoes[12].render();
 						break;
 					case 4: // Renderiza mensagem "PAUSADO"
 						this->t_jogo_pausado.render();
@@ -396,6 +417,26 @@ class Cara_cracha {
 			this->limitFPS();
 
 			return !this->game_quit;
+		}
+
+		Cara_cracha* checaFimdeJogo() {
+			if ((int)((this->hora / 60) / 24 + 1) % 7 >= 6) {
+				this->tela_id = 3;
+
+				this->t_pontua_fin.setText(std::to_string(this->pontua_prov));
+				if (this->pontua_prov < 0) {
+					this->t_tela_fin[2].setText("REPROVADO!");
+					this->t_tela_fin[0].setText("Que pena, você marcou só");
+				} else if (this->pontua_prov < 100) {
+					this->t_tela_fin[2].setText("Dispensado.");
+					this->t_tela_fin[0].setText("Você foi bem, mas não o suficiente, marcou");
+				} else {
+					this->t_tela_fin[2].setText("Contratado!");
+					this->t_tela_fin[0].setText("Parabéns!!! Marcou incríveis");
+				}
+			}
+
+			return this;
 		}
 
 		Cara_cracha* updateFilaPos() {
