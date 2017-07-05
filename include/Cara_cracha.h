@@ -48,6 +48,8 @@ class Cara_cracha {
 
 		Texto t_instrucoes[12];
 		Texto t_jogo_pausado;
+		Texto t_controles[3];
+		Objeto o_controles[2];
 
 		Cara_cracha():
 			g_window(NULL),
@@ -121,21 +123,30 @@ class Cara_cracha {
 
 					this->t_instrucoes[1] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 100, 0, 0}, {220, 220, 220}, "Aqui você é um estagiário de um restaurante, situado em uma universidade federal,");
 					this->t_instrucoes[2] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 80, 0, 0}, {220, 220, 220}, "o qual está passando por uma crise ética das pessoas que o utilizam. Algumas delas");
-					this->t_instrucoes[3] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 60, 0, 0}, {220, 220, 220}, "estão utilizando cartões de acesso doutras pessoas, por n motivos. Você foi encar-");
-					this->t_instrucoes[4] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 40, 0, 0}, {220, 220, 220}, "regado de verificar TODOS aqueles que quiserem utilizar o restaurante. Exija que");
-					this->t_instrucoes[5] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 20, 0, 0}, {220, 220, 220}, "entreguem os cartões de acesso caso necessário, tenha certeza que só entrará a-");
-					this->t_instrucoes[6] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2, 0, 0}, {220, 220, 220}, "queles que possuírem seus próprios cartões de acesso. Você estará sendo monito-");
-					this->t_instrucoes[7] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 + 20, 0, 0}, {220, 220, 220}, "rado a todo instante, olhe atentamente à foto presente no cartão de acesso. Po-");
-					this->t_instrucoes[8] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 + 40, 0, 0}, {220, 220, 220}, "rém, você precisa ser rápido. Não deixe que a fila se acumule. Seu expediente é das");
-					this->t_instrucoes[9] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 + 60, 0, 0}, {220, 220, 220}, "11:00 às 14:00 e das 17:00 às 19:00.");
+					this->t_instrucoes[3] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 60, 0, 0}, {220, 220, 220}, "estão utilizando cartões de acesso doutras pessoas, por \"n\" motivos. Você foi encar-");
+					this->t_instrucoes[4] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 40, 0, 0}, {220, 220, 220}, "regado de verificar TODOS aqueles que quiserem utilizar o restaurante. Tenha certe-");
+					this->t_instrucoes[5] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 - 20, 0, 0}, {220, 220, 220}, "certeza que só entrarão aqueles que possuírem seus próprios cartões de acesso. Vo-");
+					this->t_instrucoes[6] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2, 0, 0}, {220, 220, 220}, "cê estará sendo monitorado a todo instante, olhe atentamente à foto presente no");
+					this->t_instrucoes[7] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 + 20, 0, 0}, {220, 220, 220}, "cartão de acesso. Porém, você precisa ser rápido. Não deixe que a fila se acumule.");
+					this->t_instrucoes[8] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 + 40, 0, 0}, {220, 220, 220}, "Seu expediente é das 11:00 às 14:00 e das 17:00 às 19:00.");
+					//this->t_instrucoes[9] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y/2 + 60, 0, 0}, {220, 220, 220}, "");
 
-					this->t_instrucoes[10] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {20, this->window_size.y - 40, 0, 0}, {220, 220, 220}, "Precione ENTER para começar");
+					this->t_instrucoes[10] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {20, this->window_size.y - 40, 0, 0}, {220, 220, 220}, "Pressione ENTER para começar");
 					this->t_instrucoes[10].setAncora(-1);
-					this->t_instrucoes[11] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x - 20, this->window_size.y - 40, 0, 0}, {220, 220, 220}, "Durante o jogo, precione ESC para pausar/retornar");
+					this->t_instrucoes[11] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x - 20, this->window_size.y - 40, 0, 0}, {220, 220, 220}, "Durante o jogo, pressione ESC para pausar/retornar");
 					this->t_instrucoes[11].setAncora(1);
 
 
 					this->t_jogo_pausado = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_size.x/2, this->window_size.y - 20, 0, 0}, {220, 220, 220}, "Jogo pausado");
+
+
+					this->t_controles[0] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 40, {this->window_size.x/2, this->window_size.y/2 - 250, 0, 0}, {220, 220, 220}, "Controles");
+					this->t_controles[1] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 22, {this->window_size.x/4, this->window_size.y/2 - 100, 0, 0}, {220, 220, 220}, "Liberar entrada");
+					this->o_controles[0].pos = GeoA::Vetor(this->window_size.x*.25 - 140/2, this->window_size.y*.5 - 172/2, 0);
+					this->o_controles[0].tex_frente = Textura("../media/img/clique-esq.png", this->g_renderer, this->o_controles[0].pos.x, this->o_controles[0].pos.y, 140, 172);
+					this->t_controles[2] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 22, {this->window_size.x*3/4, this->window_size.y/2 - 100, 0, 0}, {220, 220, 220}, "Impedir entrada");
+					this->o_controles[1].pos = GeoA::Vetor(this->window_size.x*.75 - 140/2, this->window_size.y*.5 - 172/2, 0);
+					this->o_controles[1].tex_frente = Textura("../media/img/clique-dir.png", this->g_renderer, this->o_controles[1].pos.x, this->o_controles[1].pos.y, 140, 172);
 
 
 					this->janela.pos = GeoA::Vetor(50, 50, 0);
@@ -247,6 +258,8 @@ class Cara_cracha {
 					this->fila_fora[i]->render();
 
 			// Renderiza a carteirinha
+			if (this->tela_id == 1)
+				this->tela_id = 2;
 			if (this->tela_id == 2 && this->fila_dentro.getSize()) {
 				this->fila_dentro[0]->cart.pos = GeoA::Vetor(this->window_size.x*2/3, this->window_size.y*2/3, 0);
 				this->fila_dentro[0]->cart.update()->render();
@@ -298,7 +311,7 @@ class Cara_cracha {
 				else if ((int)this->hora % 1440 > EXPEDIENTE_ALMO_FIM && (int)this->hora % 1440 < EXPEDIENTE_JANT_INICIO)
 					this->hora = this->hora + 0.5;
 				else
-					this->hora = this->hora + 1;
+					this->hora = this->hora + 2;
 				// Atualiza o texto da hora incrementada
 				this->t_hora.setText(((int)(this->hora / 60) % 24 >= 10 ? "" : "0")+std::to_string((int)(this->hora/60) % 24)+((int) this->hora % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hora % 60));
 
@@ -334,14 +347,18 @@ class Cara_cracha {
 
 				switch (this->tela_id) {
 					case 0: // Renderiza as instruções
-					for (int i = 0 ; i < 12; i++)
-						this->t_instrucoes[i].render();
-					break;
+						for (int i = 0 ; i < 12; i++)
+							this->t_instrucoes[i].render();
+						break;
 					case 3: // Renderiza a tela de fim de jogo
-					break;
+						break;
 					case 4: // Renderiza mensagem "PAUSADO"
-					this->t_jogo_pausado.render();
-					break;
+						this->t_jogo_pausado.render();
+						for (int i = 0; i < 3; i++)
+							this->t_controles[i].render();
+						for (int i = 0; i < 2; i++)
+							this->o_controles[i].tex_frente.render();
+						break;
 				}
 			}
 
@@ -421,7 +438,7 @@ class Cara_cracha {
 			b_jant		= comeca_jant + para_jant;
 			c_jant		= comeca_jant * para_jant * -1;
 
-			return GeoA::random(100) < (a_almo*x*x + b_almo*x + c_almo) || GeoA::random(100) < (a_jant*x*x + b_jant*x + c_jant) * 3;
+			return GeoA::random(100) < (a_almo*x*x + b_almo*x + c_almo) || GeoA::random(100) < (a_jant*x*x + b_jant*x + c_jant);
 		}
 
 		Cara_cracha* updateFilaSize() {
