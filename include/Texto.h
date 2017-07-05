@@ -25,6 +25,7 @@ class Texto {
 
 		Texto();
 		Texto(std::string, SDL_Renderer*, int, SDL_Rect, SDL_Color, std::string, SDL_Rect = {0, 0, 0, 0});
+		~Texto();
 	
 		Texto* setPath(std::string);
 		Texto* setRenderer(SDL_Renderer*);
@@ -68,6 +69,7 @@ inline Texto* Texto::updateFont() {
 		// Deleta a superficie
 		SDL_FreeSurface(loadedSurface);
 	}
+	loadedSurface = nullptr;
 
 	return this;
 }
@@ -96,6 +98,11 @@ inline Texto::Texto(std::string pp, SDL_Renderer* pr, int ps, SDL_Rect pf, SDL_C
 	ancora(0),
 	t_text(pt) {
 	this->loadFont();
+}
+inline Texto::~Texto() {
+	this->t_font = nullptr;
+	this->t_texture = nullptr;
+	this->t_renderer = nullptr;
 }
 
 inline Texto* Texto::setPath(std::string pp) {

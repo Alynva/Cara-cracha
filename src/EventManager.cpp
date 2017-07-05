@@ -119,7 +119,7 @@ void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
 						fila->dequeue(temp);
 						this->checaCart(temp) ? this->count_criterios[3]++ : this->count_criterios[1]++;
 						*catraca_estado = 1;
-						temp = nullptr;
+						delete temp;
 					}
 					break;
 			} 
@@ -136,7 +136,7 @@ void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
 						Pessoa* temp;
 						fila->dequeue(temp);
 						this->checaCart(temp) ? this->count_criterios[2]++ : this->count_criterios[0]++;
-						temp = nullptr;
+						delete temp;
 					}
 					break;
 			} 

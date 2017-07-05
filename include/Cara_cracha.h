@@ -265,7 +265,7 @@ class Cara_cracha {
 					this->fila_fora[i]->behaviors()->update();
 			}
 			// Renderiza as pessoas de fora
-			for (int i = this->fila_fora.getSize() - 1; i >= 0; i--)
+			for (int i = GeoA::min(this->fila_fora.getSize() - 1, 15); i >= 0; i--)
 					this->fila_fora[i]->render();
 
 			// Renderiza a carteirinha
