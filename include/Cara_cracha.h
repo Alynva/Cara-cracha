@@ -141,11 +141,11 @@ class Cara_cracha {
 
 
 					this->t_controles[0] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 40, {this->window_size.x/2, this->window_size.y/2 - 250, 0, 0}, {220, 220, 220}, "Controles");
-					this->t_controles[1] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 22, {this->window_size.x/4, this->window_size.y/2 - 100, 0, 0}, {220, 220, 220}, "Liberar entrada");
-					this->o_controles[0].pos = GeoA::Vetor(this->window_size.x*.25 - 140/2, this->window_size.y*.5 - 172/2, 0);
+					this->t_controles[1] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 22, {this->window_size.x/4, this->window_size.y/2 - 120, 0, 0}, {220, 220, 220}, "Liberar entrada");
+					this->o_controles[0].pos = GeoA::Vetor(this->window_size.x*.25 - 140/2, this->window_size.y*.5 + 20 - 172/2, 0);
 					this->o_controles[0].tex_frente = Textura("../media/img/clique-esq.png", this->g_renderer, this->o_controles[0].pos.x, this->o_controles[0].pos.y, 140, 172);
-					this->t_controles[2] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 22, {this->window_size.x*3/4, this->window_size.y/2 - 100, 0, 0}, {220, 220, 220}, "Impedir entrada");
-					this->o_controles[1].pos = GeoA::Vetor(this->window_size.x*.75 - 140/2, this->window_size.y*.5 - 172/2, 0);
+					this->t_controles[2] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 22, {this->window_size.x*3/4, this->window_size.y/2 - 120, 0, 0}, {220, 220, 220}, "Impedir entrada");
+					this->o_controles[1].pos = GeoA::Vetor(this->window_size.x*.75 - 140/2, this->window_size.y*.5 + 20 - 172/2, 0);
 					this->o_controles[1].tex_frente = Textura("../media/img/clique-dir.png", this->g_renderer, this->o_controles[1].pos.x, this->o_controles[1].pos.y, 140, 172);
 
 
