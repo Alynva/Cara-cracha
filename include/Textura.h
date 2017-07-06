@@ -46,7 +46,7 @@ class Textura {
 		void setPosition(SDL_Point);
 		SDL_Point getPosition() const;
 		
-		bool render();
+		bool render(SDL_RendererFlip = SDL_FLIP_NONE);
 };
 
 #endif

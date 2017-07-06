@@ -88,6 +88,7 @@ void Textura::setPosition(SDL_Point coord) {
 }
 
 
-bool Textura::render() {
-	return SDL_RenderCopy(this->pRenderer, this->pTexture, (this->recSrcrect.w < 0 || this->recSrcrect.h < 0) ? NULL : &this->recSrcrect, &this->recFormat) == 0;
+bool Textura::render(SDL_RendererFlip flip) {
+	SDL_Point center = {this->recFormat.x + (this->recFormat.w / 2), this->recFormat.w + (this->recFormat.h / 2)};
+	return SDL_RenderCopyEx(this->pRenderer, this->pTexture, (this->recSrcrect.w < 0 || this->recSrcrect.h < 0) ? NULL : &this->recSrcrect, &this->recFormat, 0, &center, flip) == 0;
 }

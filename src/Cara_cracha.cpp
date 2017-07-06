@@ -73,6 +73,7 @@ Cara_cracha* Cara_cracha::initVars() {
 
 	//player.pos = GeoA::Vetor(this->window_pos_size.w*0.5 - 75, this->window_pos_size.h*0.5 + 192, 0);
 	player.pos = GeoA::Vetor(400, 100, 0);
+	player.target = GeoA::Vetor(900, 100, 0);
 	player.initTextures(this->g_renderer);
 	//SDL_SetTextureColorMod(player.t_corpo.getTexture(), 241, 214, 147); // Como todas as pessoas usam da mesma textura, é necessário mudar e voltar dentro de cada pessoa
 

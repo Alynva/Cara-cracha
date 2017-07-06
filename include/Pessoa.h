@@ -17,6 +17,8 @@ class Pessoa {
 		double max_speed;
 		double max_force;
 
+		int direcao;
+
 		bool sexo;
 		int rosto;
 		int cor_do_rosto;
