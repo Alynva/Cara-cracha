@@ -1,9 +1,7 @@
 #include "../include/EventManager.h"
 
-EventManager::EventManager(bool* pgq, bool* pgp, bool* pmp, int* pti, Queue<Pessoa*>* pf, double* pce, int* pcc):
+EventManager::EventManager(bool* pgq, int* pti, Queue<Pessoa*>* pf, double* pce, int* pcc):
 	quit(pgq),
-	play(pgp),
-	mouse_pressed(pmp),
 	tela_id(pti),
 	fila(pf),
 	catraca_estado(pce),
@@ -26,6 +24,7 @@ void EventManager::update() {
 				this->mouseMove();
 				break;
 			case SDL_KEYDOWN:
+				this->keyDown(this->handler.key);
 				break;
 			case SDL_WINDOWEVENT:
 		        switch (this->handler.window.event) {
@@ -75,6 +74,8 @@ void EventManager::update() {
 			        case SDL_WINDOWEVENT_FOCUS_LOST:
 //			            SDL_Log("Window %d lost keyboard focus",
 //			                    this->handler.window.windowID);
+			        	if (*this->tela_id == 1 || *this->tela_id == 2)
+			        		*this->tela_id = 4;
 			            break;
 			        case SDL_WINDOWEVENT_CLOSE:
 //			            SDL_Log("Window %d closed", this->handler.window.windowID);
@@ -102,8 +103,6 @@ void EventManager::mouseMove() {
 }
 
 void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
-	*this->mouse_pressed = true;
-
 	switch (button.button) {
 		case SDL_BUTTON_LEFT: // Deixa entrar
 			switch (*this->tela_id) {
@@ -118,7 +117,7 @@ void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
 						fila->dequeue(temp);
 						this->checaCart(temp) ? this->count_criterios[3]++ : this->count_criterios[1]++;
 						*catraca_estado = 1;
-						temp = nullptr;
+						delete temp;
 					}
 					break;
 			} 
@@ -135,7 +134,7 @@ void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
 						Pessoa* temp;
 						fila->dequeue(temp);
 						this->checaCart(temp) ? this->count_criterios[2]++ : this->count_criterios[0]++;
-						temp = nullptr;
+						delete temp;
 					}
 					break;
 			} 
@@ -146,7 +145,19 @@ void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
 }
 
 void EventManager::mouseUp() {
-	*this->mouse_pressed = false;
+}
+
+void EventManager::keyDown(SDL_KeyboardEvent& key) {
+	if ((*this->tela_id == 0 || *this->tela_id == 3) && key.keysym.sym == SDLK_RETURN)
+		*this->tela_id = 1;
+	else if ((*this->tela_id == 1 || *this->tela_id == 2) && key.keysym.sym == SDLK_ESCAPE)
+		*this->tela_id = 4;
+	else if ((*this->tela_id == 4) && key.keysym.sym == SDLK_ESCAPE)
+		*this->tela_id = 1;
+
+	if ((*this->tela_id == 0 || *this->tela_id == 4) && key.keysym.sym == SDLK_g) {
+		system("xdg-open https://github.com/Alynva/Cara-cracha"); // sensible-browser, xdg-open e x-www-browser fazem a mesma coisa
+	}
 }
 
 bool EventManager::checaCart(const Pessoa* p) {

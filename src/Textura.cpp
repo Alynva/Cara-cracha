@@ -30,6 +30,10 @@ Textura::Textura(std::string path, SDL_Renderer* renderer, int x, int y, int w, 
 	this->recFormat.w = w;
 	this->recFormat.h = h;
 }
+Textura::~Textura() {
+	this->pRenderer = nullptr;
+	this->pTexture = nullptr;
+}
 
 SDL_Point Textura::getSize() const {
 	return {this->recFormat.w, this->recFormat.h};

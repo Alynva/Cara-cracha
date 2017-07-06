@@ -15,6 +15,10 @@ namespace GeoA {
 	int randomX(int, int); // (int .. int)
 	
 	double map(double, double, double, double, double);
+
+	auto min(auto a, auto b) {
+		return a > b ? b : a;
+	}
 	
 	struct Ponto {
 		double x; // Número do componente x do vetor
