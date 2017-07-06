@@ -3,7 +3,9 @@
 # Cara crachá
 ## Repositório do Projeto 3 da disciplina Estrutura de Dados.
 O jogo desenvolvido para o terceiro projeto de Estruturas de Dados foi o jogo “Cara-Cracha”. Neste jogo, o jogador vive na pele a experiência de trabalhar como monitor em um restaurante universitário (RU) de uma universidade. Sua função é verificar se uma pessoa é quem diz ser, olhando para seu rosto e sua suposta carteirinha de estudante.
+
 Durante o jogo, o jogador deve administrar seu tempo e administrar as pessoas que ficam aparecendo na entrada do refeitório. O jogo tem inicio às 11:00 e termina as 14:00, reabrindo das 17:00 as 19:00 simulando o horário de funcionamento padrão do refeitório, após o início do expediente uma fila de pessoas começa a se formar na frente da catraca. A missão do jogador é ser rápido, para evitar o acúmulo de pessoas, e ser observador, pois pessoas com carteirinhas erradas não podem entrar. Ao autorizar a entrada de alguém com carteirinha irregular, o jogador é penalizado. Ao alcançar o fim do expediente, com uma boa classificação (baseada na quantidade de pessoas corretas e incorretas), o jogador vence.
+
 Uma pessoa é gerada aleatoriamente e possui diversas características, que as identifica, além de ter sua própria carteirinha de estudante. Claramente a carteirinha deve conter as mesmas informações e características sobre a pessoa para que a mesma seja considerada válida. O jogador deve ser rápido e observar detalhes para evitar cometer erros durante seu dia de trabalho. 
 O que torna o jogo realmente desafiador é o fato de uma pessoa estar de um jeito na foto da carteirinha, mas depois ter pintado o cabelo, comprado um óculos, deixado o bigode crescer.. então ele se torna diferente da foto, mas ainda é ele! Então tenha muito cuidado!
 
@@ -23,9 +25,11 @@ O jogo foi desenvolvido seguindo as configurações do tipo abstrato de dado (TA
 - Previous: ponteiro que define o nó do elemento anterior.
 
 ![Pilha vazia](https://dl.dropboxusercontent.com/sh/t21x4vitadfju4f/AACFp7c9owqJjeheMEUKR8Cga/Freecell/fila2.png?dl=0)
+
 Figura 1: Fila vazia. Nó header, com os campos value, previous e next.
 
 ![Pilha com três elementos](https://dl.dropboxusercontent.com/sh/t21x4vitadfju4f/AADT-urACh2Yyr-EMwvzeUQga/Freecell/fila.png?dl=0)
+
 Figura 2: Fila com 3 elementos, nó header e encadeamento duplo. Na figura acima C é o último elemento.
 
 ## Autores
