@@ -1,5 +1,54 @@
 #include "../include/Textura.h"
 
+Textura::Textura(std::string path, SDL_Renderer* renderer, SDL_Rect format, SDL_Rect *srcrect):
+	pPath(path),
+	pRenderer(renderer),
+	pTexture(this->loadTexture()),
+	recFormat(format) {
+	if (srcrect)
+		this->recSrcrect = *srcrect;
+	else
+		this->recSrcrect = {0, 0, -1, -1};
+
+}
+Textura::~Textura() {
+	this->pRenderer = nullptr;
+	this->pTexture = nullptr;
+}
+
+
+void Textura::setPath(std::string path) {
+	this->pPath = path;
+}
+std::string Textura::getPath() const {
+	return this->pPath;
+}
+void Textura::setRenderer(SDL_Renderer* renderer) {
+	this->pRenderer = renderer;
+}
+SDL_Renderer* Textura::getRenderer() const {
+	return this->pRenderer;
+}
+void Textura::setTexture(SDL_Texture* texture) {
+	this->pTexture = texture;
+}
+SDL_Texture* Textura::getTexture() const {
+	return this->pTexture;
+}
+void Textura::setSrcrect(SDL_Rect srcrect) {
+	this->recSrcrect = srcrect;
+}
+SDL_Rect Textura::getSrcrect() const {
+	return this->recSrcrect;
+}
+void Textura::setFormat(SDL_Rect format) {
+	this->recFormat = format;
+}
+SDL_Rect Textura::getFormat() const {
+	return this->recFormat;
+}
+
+
 SDL_Texture* Textura::loadTexture() {
 	// Textura final
 	SDL_Texture* newTexture = NULL;
@@ -22,18 +71,6 @@ SDL_Texture* Textura::loadTexture() {
 	return newTexture;
 }
 
-Textura::Textura(std::string path, SDL_Renderer* renderer, int x, int y, int w, int h):pPath(path) {
-	this->pRenderer = renderer;
-	this->pTexture = this->loadTexture();
-	this->recFormat.x = x;
-	this->recFormat.y = y;
-	this->recFormat.w = w;
-	this->recFormat.h = h;
-}
-Textura::~Textura() {
-	this->pRenderer = nullptr;
-	this->pTexture = nullptr;
-}
 
 SDL_Point Textura::getSize() const {
 	return {this->recFormat.w, this->recFormat.h};
@@ -42,7 +79,6 @@ void Textura::setSize(int w, int h) {
 	this->recFormat.w = w;
 	this->recFormat.h = h;
 }
-
 SDL_Point Textura::getPosition() const {
 	return {this->recFormat.x, this->recFormat.y};
 }
@@ -50,15 +86,8 @@ void Textura::setPosition(SDL_Point coord) {
 	this->recFormat.x = coord.x;
 	this->recFormat.y = coord.y;
 }
-void Textura::setRenderer(SDL_Renderer* renderer) {
-	this->pRenderer = renderer;
-}
-SDL_Renderer* Textura::getRenderer() const {
-	return this->pRenderer;
-}
-SDL_Texture* Textura::getTexture() const {
-	return this->pTexture;
-}
+
+
 bool Textura::render() {
-	return SDL_RenderCopy(this->pRenderer, this->pTexture, NULL, &this->recFormat) == 0;
+	return SDL_RenderCopy(this->pRenderer, this->pTexture, (this->recSrcrect.w < 0 || this->recSrcrect.h < 0) ? NULL : &this->recSrcrect, &this->recFormat) == 0;
 }

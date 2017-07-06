@@ -1,0 +1,215 @@
+.sprite {
+    background-image: url(spritesheet.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.sprite-hh_human_body_h_std_bd_1_0_0 {
+    width: 25px;
+    height: 56px;
+    background-position: 0 0;
+}
+
+.sprite-hh_human_body_h_std_bd_1_1_0 {
+    width: 20px;
+    height: 53px;
+    background-position: -25px 0;
+}
+
+.sprite-hh_human_body_h_std_bd_1_2_0 {
+    width: 25px;
+    height: 57px;
+    background-position: -45px 0;
+}
+
+.sprite-hh_human_body_h_std_bd_1_3_0 {
+    width: 24px;
+    height: 54px;
+    background-position: -70px 0;
+}
+
+.sprite-hh_human_body_h_std_bd_1_7_0 {
+    width: 23px;
+    height: 51px;
+    background-position: -94px 0;
+}
+
+.sprite-hh_human_body_h_std_hd_1_0_0 {
+    width: 28px;
+    height: 28px;
+    background-position: -117px 0;
+}
+
+.sprite-hh_human_body_h_std_hd_1_1_0 {
+    width: 27px;
+    height: 28px;
+    background-position: -117px -28px;
+}
+
+.sprite-hh_human_body_h_std_hd_1_2_0 {
+    width: 26px;
+    height: 31px;
+    background-position: 0 -56px;
+}
+
+.sprite-hh_human_body_h_std_hd_1_3_0 {
+    width: 26px;
+    height: 31px;
+    background-position: -70px -56px;
+}
+
+.sprite-hh_human_body_h_std_hd_1_7_0 {
+    width: 26px;
+    height: 28px;
+    background-position: -96px -56px;
+}
+
+.sprite-hh_human_body_h_std_hd_2_0_0 {
+    width: 27px;
+    height: 28px;
+    background-position: -122px -56px;
+}
+
+.sprite-hh_human_body_h_std_hd_2_1_0 {
+    width: 27px;
+    height: 28px;
+    background-position: -26px -84px;
+}
+
+.sprite-hh_human_body_h_std_hd_2_2_0 {
+    width: 25px;
+    height: 31px;
+    background-position: -96px -84px;
+}
+
+.sprite-hh_human_body_h_std_hd_2_3_0 {
+    width: 26px;
+    height: 31px;
+    background-position: -121px -84px;
+}
+
+.sprite-hh_human_body_h_std_hd_2_7_0 {
+    width: 26px;
+    height: 28px;
+    background-position: 0 -115px;
+}
+
+.sprite-hh_human_body_h_std_hd_3_0_0 {
+    width: 27px;
+    height: 28px;
+    background-position: -26px -115px;
+}
+
+.sprite-hh_human_body_h_std_hd_3_1_0 {
+    width: 27px;
+    height: 28px;
+    background-position: -53px -115px;
+}
+
+.sprite-hh_human_body_h_std_hd_3_2_0 {
+    width: 25px;
+    height: 31px;
+    background-position: -80px -115px;
+}
+
+.sprite-hh_human_body_h_std_hd_3_3_0 {
+    width: 26px;
+    height: 31px;
+    background-position: -105px -115px;
+}
+
+.sprite-hh_human_body_h_std_hd_3_7_0 {
+    width: 26px;
+    height: 28px;
+    background-position: -145px 0;
+}
+
+.sprite-hh_human_body_h_std_hd_4_0_0 {
+    width: 27px;
+    height: 28px;
+    background-position: -144px -28px;
+}
+
+.sprite-hh_human_body_h_std_hd_4_1_0 {
+    width: 27px;
+    height: 28px;
+    background-position: -149px -56px;
+}
+
+.sprite-hh_human_body_h_std_hd_4_2_0 {
+    width: 25px;
+    height: 31px;
+    background-position: -147px -84px;
+}
+
+.sprite-hh_human_body_h_std_hd_4_3_0 {
+    width: 26px;
+    height: 31px;
+    background-position: -131px -115px;
+}
+
+.sprite-hh_human_body_h_std_hd_4_7_0 {
+    width: 26px;
+    height: 28px;
+    background-position: 0 -146px;
+}
+
+.sprite-hh_human_body_h_std_lh_1_0_0 {
+    width: 5px;
+    height: 26px;
+    background-position: -171px 0;
+}
+
+.sprite-hh_human_body_h_std_lh_1_1_0 {
+    width: 9px;
+    height: 29px;
+    background-position: -171px -26px;
+}
+
+.sprite-hh_human_body_h_std_lh_1_2_0 {
+    width: 5px;
+    height: 27px;
+    background-position: -26px -55px;
+}
+
+.sprite-hh_human_body_h_std_lh_1_3_0 {
+    width: 8px;
+    height: 33px;
+    background-position: -172px -84px;
+}
+
+.sprite-hh_human_body_h_std_lh_1_7_0 {
+    width: 8px;
+    height: 31px;
+    background-position: -157px -117px;
+}
+
+.sprite-hh_human_body_h_std_rh_1_0_0 {
+    width: 11px;
+    height: 33px;
+    background-position: -165px -117px;
+}
+
+.sprite-hh_human_body_h_std_rh_1_1_0 {
+    width: 9px;
+    height: 29px;
+    background-position: -31px -55px;
+}
+
+.sprite-hh_human_body_h_std_rh_1_2_0 {
+    width: 9px;
+    height: 33px;
+    background-position: -26px -150px;
+}
+
+.sprite-hh_human_body_h_std_rh_1_3_0 {
+    width: 8px;
+    height: 33px;
+    background-position: -35px -150px;
+}
+
+.sprite-hh_human_body_h_std_rh_1_7_0 {
+    width: 8px;
+    height: 32px;
+    background-position: -43px -150px;
+}

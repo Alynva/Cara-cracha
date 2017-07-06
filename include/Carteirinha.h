@@ -61,25 +61,25 @@ inline void Carteirinha::initTextures(SDL_Renderer* renderer) {
 	std::string path_imgs = "../media/";
 	
 	std::string path_fundo_t = path_imgs+"img/carteirinha.png";
-	this->t_fundo_t = Textura(path_fundo_t, renderer, this->pos.x - 150, this->pos.y - 100, 300, 200);
+	//this->t_fundo_t = Textura(path_fundo_t, renderer, this->pos.x - 150, this->pos.y - 100, 300, 200);
 	std::string path_fundo_f = path_imgs+"img/carteirinha (reflexo).png";
-	this->t_fundo_f = Textura(path_fundo_f, renderer, this->pos.x - 150, this->pos.y - 100, 300, 200);
+	//this->t_fundo_f = Textura(path_fundo_f, renderer, this->pos.x - 150, this->pos.y - 100, 300, 200);
 
 	std::string path_corpo = path_imgs+"avatar/body/corpo_c"+std::to_string(this->cor_do_rosto)+".png";
-	this->t_corpo = Textura(path_corpo, renderer, this->pos.x - 12, this->pos.y + 45, 128, 220);
+	//this->t_corpo = Textura(path_corpo, renderer, this->pos.x - 12, this->pos.y + 45, 128, 220);
 
 	std::string path_rosto = path_imgs+"avatar/head/"+std::to_string(this->sexo)+"_t"+std::to_string(this->rosto)+"_c"+std::to_string(this->cor_do_rosto)+".png";
-	this->t_rosto = Textura(path_rosto, renderer, this->pos.x - 12, this->pos.y + 45, 128, 220);
+	//this->t_rosto = Textura(path_rosto, renderer, this->pos.x - 12, this->pos.y + 45, 128, 220);
 	
 	std::string path_cabelo = path_imgs+"avatar/head/cabelo_"+std::to_string(this->sexo)+"_t"+std::to_string(this->cabelo)+"_c"+std::to_string(this->cor_do_cabelo)+".png";
-	this->t_cabelo = Textura(path_cabelo, renderer, this->pos.x - 12, this->pos.y + 45, 128, 220);
+	//this->t_cabelo = Textura(path_cabelo, renderer, this->pos.x - 12, this->pos.y + 45, 128, 220);
 	
 	std::string path_barba = this->barba > 0 ? path_imgs+"avatar/head/barba_"+std::to_string(this->sexo)+"_t"+std::to_string(this->barba)+"_c"+std::to_string(this->cor_da_barba)+".png" : path_imgs+"avatar/0.png";
-	this->t_barba = Textura(path_barba, renderer, this->pos.x - 12, this->pos.y + 45, 128, 220);
+	//this->t_barba = Textura(path_barba, renderer, this->pos.x - 12, this->pos.y + 45, 128, 220);
 	
 	//std::string path_blusa = path_imgs+"body/blusa_"+std::to_string(this->sexo)+"_t"+std::to_string(this->blusa)+"_c"+std::to_string(this->cor_da_blusa)+".png";
 	std::string path_blusa = path_imgs+"avatar/body/blusa_"+std::to_string(this->sexo)+"_t1_c2.png";
-	this->t_blusa = Textura(path_blusa, renderer, this->pos.x - 12, this->pos.y + 45, 128, 220);
+	//this->t_blusa = Textura(path_blusa, renderer, this->pos.x - 12, this->pos.y + 45, 128, 220);
 
 }
 

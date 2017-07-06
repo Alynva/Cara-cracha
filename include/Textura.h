@@ -17,25 +17,35 @@
 #include <string>
 
 class Textura {
-	SDL_Rect recFormat;
-	SDL_Texture* pTexture;
-	SDL_Renderer* pRenderer;
 	std::string pPath;
-	
-	SDL_Texture* loadTexture();
+	SDL_Renderer* pRenderer;
+	SDL_Texture* pTexture;
+	SDL_Rect recSrcrect;
+	SDL_Rect recFormat;
 
 	public:
 		Textura() {};
-		Textura(std::string, SDL_Renderer*, int, int, int, int);
+		Textura(std::string, SDL_Renderer*, SDL_Rect, SDL_Rect * = nullptr);
 		~Textura();
 	
-		SDL_Point getSize() const;
-		void setSize(int, int);
-		SDL_Point getPosition() const;
-		void setPosition(SDL_Point);
+		void setPath(std::string);
+		std::string getPath() const;
 		void setRenderer(SDL_Renderer*);
 		SDL_Renderer* getRenderer() const;
+		void setTexture(SDL_Texture*);
 		SDL_Texture* getTexture() const;
+		void setSrcrect(SDL_Rect);
+		SDL_Rect getSrcrect() const;
+		void setFormat(SDL_Rect);
+		SDL_Rect getFormat() const;
+
+		SDL_Texture* loadTexture();
+
+		void setSize(int, int);
+		SDL_Point getSize() const;
+		void setPosition(SDL_Point);
+		SDL_Point getPosition() const;
+		
 		bool render();
 };
 

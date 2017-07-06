@@ -71,16 +71,17 @@ Cara_cracha* Cara_cracha::initVars() {
 
 	this->initInstrucoes()->initInfos()->initBg();
 
-	player.pos = GeoA::Vetor(this->window_pos_size.w*0.5 - 75, this->window_pos_size.h*0.5 + 192, 0);
+	//player.pos = GeoA::Vetor(this->window_pos_size.w*0.5 - 75, this->window_pos_size.h*0.5 + 192, 0);
+	player.pos = GeoA::Vetor(400, 100, 0);
 	player.initTextures(this->g_renderer);
-	SDL_SetTextureColorMod(player.t_corpo.getTexture(), 241, 214, 147);
+	//SDL_SetTextureColorMod(player.t_corpo.getTexture(), 241, 214, 147); // Como todas as pessoas usam da mesma textura, é necessário mudar e voltar dentro de cada pessoa
 
 
 	this->catraca.pos = GeoA::Vetor(this->window_pos_size.w*0.5 - 16, this->window_pos_size.h*0.5 + 52, 0);
 	this->catraca.estado = 0;
-	this->catraca.tex_fundo_0 = Textura("../media/img/sentido_unico (tras).png", this->g_renderer, this->catraca.pos.x, this->catraca.pos.y, 148, 160);
-	this->catraca.tex_fundo_1 = Textura("../media/img/sentido_unico (aberto).png", this->g_renderer, this->catraca.pos.x, this->catraca.pos.y, 148, 160);
-	this->catraca.tex_frente = Textura("../media/img/sentido_unico (frente).png", this->g_renderer, this->catraca.pos.x, this->catraca.pos.y, 148, 160);
+	this->catraca.tex_fundo_0 = Textura("../media/img/sentido_unico (tras).png", this->g_renderer, {(int)this->catraca.pos.x, (int)this->catraca.pos.y, 148, 160});
+	this->catraca.tex_fundo_1 = Textura("../media/img/sentido_unico (aberto).png", this->g_renderer, {(int)this->catraca.pos.x, (int)this->catraca.pos.y, 148, 160});
+	this->catraca.tex_frente = Textura("../media/img/sentido_unico (frente).png", this->g_renderer, {(int)this->catraca.pos.x, (int)this->catraca.pos.y, 148, 160});
 
 	return this;
 }
@@ -114,10 +115,10 @@ Cara_cracha* Cara_cracha::initInstrucoes() {
 	this->t_controles[0] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 40, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 250, 0, 0}, {220, 220, 220}, "Controles");
 	this->t_controles[1] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 22, {this->window_pos_size.w/4, this->window_pos_size.h/2 - 120, 0, 0}, {220, 220, 220}, "Liberar entrada");
 	this->o_controles[0].pos = GeoA::Vetor(this->window_pos_size.w*.25 - 140/2, this->window_pos_size.h*.5 + 20 - 172/2, 0);
-	this->o_controles[0].tex_frente = Textura("../media/img/clique-esq.png", this->g_renderer, this->o_controles[0].pos.x, this->o_controles[0].pos.y, 140, 172);
+	this->o_controles[0].tex_frente = Textura("../media/img/clique-esq.png", this->g_renderer, {(int)this->o_controles[0].pos.x, (int)this->o_controles[0].pos.y, 140, 172});
 	this->t_controles[2] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 22, {this->window_pos_size.w*3/4, this->window_pos_size.h/2 - 120, 0, 0}, {220, 220, 220}, "Impedir entrada");
 	this->o_controles[1].pos = GeoA::Vetor(this->window_pos_size.w*.75 - 140/2, this->window_pos_size.h*.5 + 20 - 172/2, 0);
-	this->o_controles[1].tex_frente = Textura("../media/img/clique-dir.png", this->g_renderer, this->o_controles[1].pos.x, this->o_controles[1].pos.y, 140, 172);
+	this->o_controles[1].tex_frente = Textura("../media/img/clique-dir.png", this->g_renderer, {(int)this->o_controles[1].pos.x, (int)this->o_controles[1].pos.y, 140, 172});
 
 	this->t_pontua_fin = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 120, {this->window_pos_size.w/2, this->window_pos_size.h/2 + 10, 0, 0}, {220, 220, 220}, "0");
 
@@ -131,7 +132,7 @@ Cara_cracha* Cara_cracha::initInstrucoes() {
 
 Cara_cracha* Cara_cracha::initInfos() {
 	this->infos.pos = GeoA::Vetor(50, 50, 0);
-	this->infos.tex_fundo_0 = Textura("../media/img/box.png", this->g_renderer, this->infos.pos.x, this->infos.pos.y, 213, 350);
+	this->infos.tex_fundo_0 = Textura("../media/img/box.png", this->g_renderer, {(int)this->infos.pos.x, (int)this->infos.pos.y, 213, 350});
 
 	this->t_hora = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 31, {254, 82, 0, 0}, {0, 0, 0}, ((int)(this->hora / 60) % 24 >= 10 ? "" : "0")+std::to_string((int)(this->hora/60) % 24)+((int) this->hora % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hora % 60));
 	this->t_hora.setAncora(1);
@@ -468,7 +469,7 @@ Cara_cracha* Cara_cracha::render() {
 
 	// Renderiza as pessoas de fora
 	for (int i = GeoA::min(this->fila_fora.getSize() - 1, 15); i >= 0; i--)
-			this->fila_fora[i]->render();
+		this->fila_fora[i]->render();
 
 	// Renderiza os itens do cenário que podem estar na frente das pessoas de fora
 	SDL_RenderCopy(this->g_renderer, this->g_bg[1], NULL, &bg_quad);
@@ -496,7 +497,7 @@ Cara_cracha* Cara_cracha::render() {
 		this->tela_id = 2;
 	if (this->tela_id == 2 && this->fila_dentro.getSize()) {
 		this->fila_dentro[0]->cart.pos = GeoA::Vetor(this->window_pos_size.w*2/3, this->window_pos_size.h*2/3, 0);
-		this->fila_dentro[0]->cart.update()->render();
+		//this->fila_dentro[0]->cart.update()->render();
 	}
 
 	this->renderizaNoite();
