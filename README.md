@@ -2,12 +2,12 @@
 
 # Cara crachá
 ## Repositório do Projeto 3 da disciplina Estrutura de Dados.
-O jogo desenvolvido para o terceiro projeto de Estruturas de Dados foi o jogo “Cara-Cracha”. Neste jogo, o jogador vive na pele a experiência de trabalhar como monitor em um restaurante universitário (RU) de uma universidade. Sua função é verificar se uma pessoa é quem diz ser, olhando para seu rosto e sua suposta carteirinha de estudante.
+O jogo desenvolvido para o terceiro projeto de Estruturas de Dados foi o jogo “Cara-Cracha”. Neste jogo, o jogador vive na pele a experiência de trabalhar como monitor em um restaurante universitário (RU). Sua função é verificar se uma pessoa é quem diz ser, olhando para seu rosto e sua suposta carteirinha de estudante.
 
-Durante o jogo, o jogador deve administrar seu tempo e administrar as pessoas que ficam aparecendo na entrada do refeitório. O jogo tem inicio às 11:00 e termina as 14:00, reabrindo das 17:00 as 19:00 simulando o horário de funcionamento padrão do refeitório, após o início do expediente uma fila de pessoas começa a se formar na frente da catraca. A missão do jogador é ser rápido, para evitar o acúmulo de pessoas, e ser observador, pois pessoas com carteirinhas erradas não podem entrar. Ao autorizar a entrada de alguém com carteirinha irregular, o jogador é penalizado. Ao alcançar o fim do expediente, com uma boa classificação (baseada na quantidade de pessoas corretas e incorretas), o jogador vence.
+Durante o jogo, o jogador deve administrar seu tempo e administrar as pessoas que ficam aparecendo na entrada do refeitório. O jogo tem inicio às 11:00 e termina às 14:00, reabrindo das 17:00 às 19:00 simulando o horário de funcionamento padrão do refeitório, após o início do expediente uma fila de pessoas começa a se formar na frente da catraca. A missão do jogador é ser rápido, para evitar o acúmulo de pessoas, e ser observador, pois pessoas com carteirinhas erradas não podem entrar. Ao autorizar a entrada de alguém com carteirinha irregular, o jogador é penalizado. Ao alcançar o fim do expediente, com uma boa classificação (baseada na quantidade de pessoas corretas e incorretas), o jogador vence.
 
-Uma pessoa é gerada aleatoriamente e possui diversas características, que as identifica, além de ter sua própria carteirinha de estudante. Claramente a carteirinha deve conter as mesmas informações e características sobre a pessoa para que a mesma seja considerada válida. O jogador deve ser rápido e observar detalhes para evitar cometer erros durante seu dia de trabalho. 
-O que torna o jogo realmente desafiador é o fato de uma pessoa estar de um jeito na foto da carteirinha, mas depois ter pintado o cabelo, comprado um óculos, deixado o bigode crescer.. então ele se torna diferente da foto, mas ainda é ele! Então tenha muito cuidado!
+Uma pessoa é gerada aleatoriamente e possui diversas características, que as identifica, além de ter sua própria carteirinha de estudante. Claramente a carteirinha deve conter determinadas informações e características sobre a pessoa para que a mesma seja considerada válida. O jogador deve ser rápido e observar detalhes para evitar cometer erros durante seu dia de trabalho. 
+O que torna o jogo realmente desafiador é o fato de uma pessoa estar de um jeito na foto da carteirinha, mas depois ter pintado o cabelo, comprado um óculos, deixado o bigode crescer, entre outras alterações cotidianas, o que o torna ligeiramente diferente da foto, mas ainda é ele! Então tenha muito cuidado!
 
 Estruturas de Dados do jogo:
 - Uma fila de personagens, gerada no início do jogo e preenchida conforme novos personagens ingressam na fila;
@@ -39,10 +39,10 @@ Figura 2: Fila com 3 elementos, nó header e encadeamento duplo. Na figura acima
 * Rafael Sales - [GitHub](https://github.com/rsaless)
 
 ## Créditos
-* Alisson Nunes - Implementação e parte gráfica.
+* Alisson Nunes - Programação.
 * Gabriel Alves - Desenvolvimento do segundo projeto.
 * Matheus Bortoleto - Desenvolvimento do segundo projeto.
 * Rafael Sales - Documentação.
 
 ## Licença
-O código a seguir foi criado para propósitos educacionais e seu reuso é aberto a qualquer um que o queira utilizar, com permissões de cópia, criação, distribuição e remoção de partes ou totalidade dele, desde que se deem os devidos créditos aos autores.
+O código a seguir foi criado para propósitos educacionais e seu reuso é aberto a qualquer um que o queira utilizar, com permissões de cópia, criação, distribuição e remoção de partes ou totalidade dele, desde que se deem os devidos créditos aos autores. Para mais detalhes, acesse o [documento completo](https://github.com/Alynva/Cara-cracha/blob/master/LICENSE.md).
