@@ -1,9 +1,7 @@
 #include "../include/EventManager.h"
 
-EventManager::EventManager(bool* pgq, bool* pgp, bool* pmp, int* pti, Queue<Pessoa*>* pf, double* pce, int* pcc):
+EventManager::EventManager(bool* pgq, int* pti, Queue<Pessoa*>* pf, double* pce, int* pcc):
 	quit(pgq),
-	play(pgp),
-	mouse_pressed(pmp),
 	tela_id(pti),
 	fila(pf),
 	catraca_estado(pce),
@@ -105,8 +103,6 @@ void EventManager::mouseMove() {
 }
 
 void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
-	*this->mouse_pressed = true;
-
 	switch (button.button) {
 		case SDL_BUTTON_LEFT: // Deixa entrar
 			switch (*this->tela_id) {
@@ -149,7 +145,6 @@ void EventManager::mouseDown(SDL_MouseButtonEvent& button) {
 }
 
 void EventManager::mouseUp() {
-	*this->mouse_pressed = false;
 }
 
 void EventManager::keyDown(SDL_KeyboardEvent& key) {

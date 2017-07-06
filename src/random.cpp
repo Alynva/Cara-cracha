@@ -20,5 +20,5 @@ double GeoA::random(double LO, double HI) {
 }
 int GeoA::randomX(int LO, int HI) {
 	double r = LO + static_cast <double> (rand()) /( static_cast <double> (RAND_MAX/(HI-LO)));
-	return r > LO && r < HI ? r : GeoA::random(LO, HI);
+	return r > LO && r < HI ? r : GeoA::randomX(LO, HI);
 }

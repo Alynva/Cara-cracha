@@ -6,7 +6,8 @@ int main(int argc, char** argv) {
 	Cara_cracha jogo;
 
 	if (jogo.init()) {
-		while (jogo.update());
+		while (jogo.update())
+			jogo.render();
 	}
 
 	return 7;
