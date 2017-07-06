@@ -15,11 +15,19 @@ Estruturas de Dados do jogo:
 - Uma lista de camadas para a construção do cenário;
 
 ## Instalação
+Utilizamos a linguagem de programação C++ na versão 11 durante a codificação do jogo. Para compilá-lo, basta executar o comando ```make``` na pasta **./src**. O arquivo **makefile** está configurado para colocar o executável dentro da pasta **./bin**, o qual pode ser lançado utilizando o comando ```make run```. Caso queira otimizar as etapas, ao executar o comando ```make full``` você estará compilando e executando o jogo.
 
-colocar a parte de instalação aqui
+O projeto foi compilado e testado utilizando os seguintes SOs:
+
+- Windows 8.1 64-bit
+
+- Linux Xubuntu 64-bit
+
+
+Para demais sistemas, fica a cargo do utilizador verificar a compatibilidade. Obtendo algum problema, comunique-nos [criando uma nova questão](https://github.com/Alynva/Cara-cracha/issues/new). Caso obtenha sucesso na utilização em demais sistemas, sinta-se a vontade de colaborar com a presente documentação, incrementando-o à lista anterior.
 
 ## Descrição da Implementação
-O jogo foi desenvolvido seguindo as configurações do tipo abstrato de dado (TAD) Fila não circular, com encadeamento duplo e com nó header. Tem-se então que cada elemento é armazenado em um nó com três atributos, sendo eles:
+O jogo foi desenvolvido seguindo as configurações do tipo abstrato de dado (TAD) Fila circular, com encadeamento duplo e com nó header. Tem-se então que cada elemento é armazenado em um nó com três atributos, sendo eles:
 - Value: armazena o elemento em si;
 - Next: ponteiro que define o nó do próximo elemento;
 - Previous: ponteiro que define o nó do elemento anterior.
