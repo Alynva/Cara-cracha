@@ -143,81 +143,117 @@ Pessoa* Pessoa::update() {
 
 Pessoa* Pessoa::updateTexPos() {
 	// x - 67; y - 20
-	int pos_desloc_x = this->pos.x - 14;
-	int pos_desloc_y = this->pos.y - 62;
+	int pos_desloc_x = this->pos.x - 14*2;
+	int pos_desloc_y = this->pos.y - 60*2;
 
 	switch (this->direcao) {
 		case 0:
-		case 6:
 			this->t_corpo.setSrcrect({0, 0, 25, 56});
-			this->t_corpo.setFormat({pos_desloc_x, pos_desloc_y, 25, 56});
+			this->t_corpo.setFormat({pos_desloc_x, pos_desloc_y, 25*2, 56*2});
 
 			this->t_braco_e.setSrcrect({171, 0, 5, 26});
-			this->t_braco_e.setFormat({pos_desloc_x + 21, pos_desloc_y + 3, 5, 26});
+			this->t_braco_e.setFormat({pos_desloc_x - 3*2, pos_desloc_y + 4*2, 5*2, 26*2});
 
 			this->t_braco_d.setSrcrect({165, 117, 11, 33});
-			this->t_braco_d.setFormat({pos_desloc_x - 4, pos_desloc_y + 6, 11, 33});
+			this->t_braco_d.setFormat({pos_desloc_x + 17*2, pos_desloc_y + 6*2, 11*2, 33*2});
 
 			this->t_cabeca.setSrcrect({122, 56, 27, 28});
-			this->t_cabeca.setFormat({pos_desloc_x - 2, pos_desloc_y - 24, 27, 28});
+			this->t_cabeca.setFormat({pos_desloc_x - 2*2, pos_desloc_y - 24*2, 27*2, 28*2});
+			break;
+		case 6:
+			this->t_corpo.setSrcrect({0, 0, 25, 56});
+			this->t_corpo.setFormat({pos_desloc_x, pos_desloc_y, 25*2, 56*2});
+
+			this->t_braco_e.setSrcrect({171, 0, 5, 26});
+			this->t_braco_e.setFormat({pos_desloc_x + 23*2, pos_desloc_y + 4*2, 5*2, 26*2});
+
+			this->t_braco_d.setSrcrect({165, 117, 11, 33});
+			this->t_braco_d.setFormat({pos_desloc_x - 3*2, pos_desloc_y + 5*2, 11*2, 33*2});
+
+			this->t_cabeca.setSrcrect({122, 56, 27, 28});
+			this->t_cabeca.setFormat({pos_desloc_x - 0*2, pos_desloc_y - 24*2, 27*2, 28*2});
 			break;
 
 		case 1:
-		case 5:
 			this->t_corpo.setSrcrect({25, 0, 20, 53});
-			this->t_corpo.setFormat({pos_desloc_x, pos_desloc_y, 20, 53});
+			this->t_corpo.setFormat({pos_desloc_x, pos_desloc_y, 20*2, 53*2});
 
 			//this->t_braco_e.setSrcrect({26, 55, 5, 27});
-			this->t_braco_e.setFormat({pos_desloc_x + 21, pos_desloc_y + 3, 0, 0});
+			this->t_braco_e.setFormat({pos_desloc_x + 21*2, pos_desloc_y + 3*2, 0, 0});
 
 			this->t_braco_d.setSrcrect({31, 55, 9, 29});
-			this->t_braco_d.setFormat({pos_desloc_x - 4, pos_desloc_y + 6, 9, 29});
+			this->t_braco_d.setFormat({pos_desloc_x + 3*2, pos_desloc_y + 7*2, 9*2, 29*2});
 
-			this->t_cabeca.setSrcrect({28, 117, 27, 28});
-			this->t_cabeca.setFormat({pos_desloc_x - 2, pos_desloc_y - 24, 27, 28});
+			this->t_cabeca.setSrcrect({117, 28, 27, 28});
+			this->t_cabeca.setFormat({pos_desloc_x - 5*2, pos_desloc_y - 24*2, 27*2, 28*2});
+			break;
+		case 5:
+			this->t_corpo.setSrcrect({25, 0, 20, 53});
+			this->t_corpo.setFormat({pos_desloc_x, pos_desloc_y, 20*2, 53*2});
+
+			//this->t_braco_e.setSrcrect({26, 55, 5, 27});
+			this->t_braco_e.setFormat({pos_desloc_x + 21*2, pos_desloc_y + 3*2, 0, 0});
+
+			this->t_braco_d.setSrcrect({31, 55, 9, 29});
+			this->t_braco_d.setFormat({pos_desloc_x + 8*2, pos_desloc_y + 7*2, 9*2, 29*2});
+
+			this->t_cabeca.setSrcrect({117, 28, 27, 28});
+			this->t_cabeca.setFormat({pos_desloc_x - 1*2, pos_desloc_y - 23*2, 27*2, 28*2});
 			break;
 
 		case 2:
-		case 4:
 			this->t_corpo.setSrcrect({45, 0, 25, 56});
-			this->t_corpo.setFormat({pos_desloc_x, pos_desloc_y, 25, 56});
+			this->t_corpo.setFormat({pos_desloc_x, pos_desloc_y, 25*2, 56*2});
 
 			this->t_braco_e.setSrcrect({26, 55, 5, 27});
-			this->t_braco_e.setFormat({pos_desloc_x + 21, pos_desloc_y + 3, 5, 27});
+			this->t_braco_e.setFormat({pos_desloc_x + 21*2, pos_desloc_y + 3*2, 5*2, 27*2});
 
 			this->t_braco_d.setSrcrect({26, 150, 9, 33});
-			this->t_braco_d.setFormat({pos_desloc_x - 4, pos_desloc_y + 6, 9, 33});
+			this->t_braco_d.setFormat({pos_desloc_x - 4*2, pos_desloc_y + 6*2, 9*2, 33*2});
 
 			this->t_cabeca.setSrcrect({0, 56, 26, 31});
-			this->t_cabeca.setFormat({pos_desloc_x - 2, pos_desloc_y - 24, 26, 31});
+			this->t_cabeca.setFormat({pos_desloc_x - 2*2, pos_desloc_y - 24*2, 26*2, 31*2});
+			break;
+		case 4:
+			this->t_corpo.setSrcrect({45, 0, 25, 56});
+			this->t_corpo.setFormat({pos_desloc_x, pos_desloc_y, 25*2, 56*2});
+
+			this->t_braco_e.setSrcrect({26, 55, 5, 27});
+			this->t_braco_e.setFormat({pos_desloc_x - 1*2, pos_desloc_y + 3*2, 5*2, 27*2});
+
+			this->t_braco_d.setSrcrect({26, 150, 9, 33});
+			this->t_braco_d.setFormat({pos_desloc_x + 20*2, pos_desloc_y + 6*2, 9*2, 33*2});
+
+			this->t_cabeca.setSrcrect({0, 56, 26, 31});
+			this->t_cabeca.setFormat({pos_desloc_x - 0*2, pos_desloc_y - 23*2, 26*2, 31*2});
 			break;
 
 		case 3:
 			this->t_corpo.setSrcrect({70, 0, 24, 54});
-			this->t_corpo.setFormat({pos_desloc_x, pos_desloc_y, 24, 54});
+			this->t_corpo.setFormat({pos_desloc_x, pos_desloc_y, 24*2, 54*2});
 
 			this->t_braco_e.setSrcrect({172, 84, 8, 33});
-			this->t_braco_e.setFormat({pos_desloc_x + 21, pos_desloc_y + 3, 8, 33});
+			this->t_braco_e.setFormat({pos_desloc_x + 21*2, pos_desloc_y + 2*2, 8*2, 33*2});
 
 			this->t_braco_d.setSrcrect({35, 150, 8, 33});
-			this->t_braco_d.setFormat({pos_desloc_x - 4, pos_desloc_y + 6, 8, 33});
+			this->t_braco_d.setFormat({pos_desloc_x - 4*2, pos_desloc_y + 2*2, 8*2, 33*2});
 
 			this->t_cabeca.setSrcrect({70, 56, 26, 31});
-			this->t_cabeca.setFormat({pos_desloc_x - 2, pos_desloc_y - 24, 26, 31});
+			this->t_cabeca.setFormat({pos_desloc_x - 1*2, pos_desloc_y - 24*2, 26*2, 31*2});
 			break;
 
 		case 7:
 			this->t_corpo.setSrcrect({94, 0, 23, 51});
-			this->t_corpo.setFormat({pos_desloc_x, pos_desloc_y, 23, 51});
+			this->t_corpo.setFormat({pos_desloc_x, pos_desloc_y, 23*2, 51*2});
 
 			this->t_braco_e.setSrcrect({157, 117, 8, 31});
-			this->t_braco_e.setFormat({pos_desloc_x + 21, pos_desloc_y + 3, 8, 31});
+			this->t_braco_e.setFormat({pos_desloc_x - 5*2, pos_desloc_y + 3*2, 8*2, 31*2});
 
 			this->t_braco_d.setSrcrect({43, 150, 8, 32});
-			this->t_braco_d.setFormat({pos_desloc_x - 4, pos_desloc_y + 6, 8, 32});
+			this->t_braco_d.setFormat({pos_desloc_x + 20*2, pos_desloc_y + 2*2, 8*2, 32*2});
 
 			this->t_cabeca.setSrcrect({96, 56, 26, 28});
-			this->t_cabeca.setFormat({pos_desloc_x - 2, pos_desloc_y - 24, 26, 28});
+			this->t_cabeca.setFormat({pos_desloc_x - 2*2, pos_desloc_y - 25*2, 26*2, 28*2});
 			break;
 	}
 
