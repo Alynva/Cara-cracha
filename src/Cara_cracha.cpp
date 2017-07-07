@@ -6,6 +6,8 @@
 #define EXPEDIENTE_JANT_INICIO 1020
 #define EXPEDIENTE_JANT_FIM 1140
 
+#define HORA_INICIO_JOGO 9.5*60
+
 double Cara_cracha::convertM2H(double minute) {
 	return ((int)(minute / 60) % 24) + GeoA::map((int)minute % 60, 0, 60, 0, 1);
 }
@@ -369,7 +371,7 @@ Cara_cracha::Cara_cracha():
 	max_fps(60),
 	curr_fr(0),
 	last_fr(0),
-	hora(9.5*60),
+	hora(HORA_INICIO_JOGO),
 	pontua_prov(0),
 	player(Pessoa(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) {
 		for (int i = 0; i < 4; i++) {
@@ -408,7 +410,7 @@ bool Cara_cracha::update() {
 	int tela_id_antiga = this->tela_id; // Verifica se é necessário reiniciar o tempo
 	this->event.update();
 	if ((tela_id_antiga == 0 || tela_id_antiga == 3) && this->tela_id == 1) // Sai da tela inicial ou da tela final e vai para a tela de inicio de jogo
-		this->hora = 9.5*60;
+		this->hora = HORA_INICIO_JOGO;
 
 
 	if (this->tela_id == 1 || this->tela_id == 2) { // Atualiza as informações apenas durante o jogo

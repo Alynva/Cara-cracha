@@ -114,6 +114,7 @@ Pessoa* Pessoa::update() {
 	this->vel.add(&this->acc);
 	this->acc.mult(0);
 
+
 	if (this->vel.magSq()) {
 		double angle = this->vel.heading();
 		
@@ -279,6 +280,35 @@ Pessoa* Pessoa::behaviors() {
 		this->vel = this->arrive(&this->target)->limit(this->max_speed);
 	else if (this->vel.mag() > 0)
 		this->vel.mult(0);
+
+	double angle = this->vel.heading();
+	double mag = this->vel.mag();
+	if (angle > 0.1 && angle < 0.3) { // O vetor está entre o vetor (0, 0) e (2, 1)
+		this->vel.x = 1;
+		this->vel.y = 0;
+	} else if (angle > 0.5 && angle < 1.4) {
+		this->vel.x = 0;
+		this->vel.y = 1;
+	} else if (angle > 1.6 && angle < 2.5) {
+		this->vel.x = 0;
+		this->vel.y = 1;
+	} else if (angle > 2.7 && angle < 3.0) {
+		this->vel.x = -1;
+		this->vel.y = 0;
+	} else if (angle < -2.4) {
+		this->vel.x = -1;
+		this->vel.y = 0;
+	} else if (angle > -2.5 && angle < -1.6) {
+		this->vel.x = 0;
+		this->vel.y = -1;
+	} else if (angle > -1.4 && angle < -0.5) {
+		this->vel.x = 0;
+		this->vel.y = -1;
+	} else if (angle > -0.3 && angle < -0.9) {
+		this->vel.x = 1;
+		this->vel.y = 0;
+	}
+	this->vel.setMag(mag);
 
 	return this;
 }
