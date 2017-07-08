@@ -66,15 +66,14 @@ Cara_cracha* Cara_cracha::initVars() {
 	SDL_SetWindowSize(this->g_window, this->window_pos_size.w, this->window_pos_size.h);
 
 	// Calcula posição do fundo
-	this->bg_quad.x = this->window_pos_size.w / 2 - 1350;
+	this->bg_quad.x = this->window_pos_size.w / 2 - 1426;
 	this->bg_quad.y = this->window_pos_size.h / 2 - 1240;
-	this->bg_quad.w = 3198;
+	this->bg_quad.w = 3350;
 	this->bg_quad.h = 2800;
 
 	this->initInstrucoes()->initInfos()->initBg();
 
-	//player.pos = GeoA::Vetor(this->window_pos_size.w*0.5 - 75, this->window_pos_size.h*0.5 + 192, 0);
-	player.pos = GeoA::Vetor(this->window_pos_size.w/2, this->window_pos_size.h/2, 0);
+	player.pos = GeoA::Vetor(this->window_pos_size.w*0.5 - 75, this->window_pos_size.h*0.5 + 192, 0);
 	player.initTextures(this->g_renderer);
 	//SDL_SetTextureColorMod(player.t_corpo.getTexture(), 241, 214, 147); // Como todas as pessoas usam da mesma textura, é necessário mudar e voltar dentro de cada pessoa
 
@@ -450,7 +449,6 @@ bool Cara_cracha::update() {
 
 		// Atualiza o jogador
 
-		player.vel = GeoA::Vetor(0, -1, 0);
 		this->player.update();
 	}
 
