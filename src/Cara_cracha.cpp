@@ -65,12 +65,6 @@ Cara_cracha* Cara_cracha::initVars() {
 	SDL_GetWindowSize(this->g_window, &this->window_pos_size.w, &this->window_pos_size.h);
 	SDL_SetWindowSize(this->g_window, this->window_pos_size.w, this->window_pos_size.h);
 
-	// Calcula posição do fundo
-	this->bg_quad.x = this->window_pos_size.w / 2 - 1426;
-	this->bg_quad.y = this->window_pos_size.h / 2 - 1240;
-	this->bg_quad.w = 3350;
-	this->bg_quad.h = 2800;
-
 	this->initInstrucoes()->initInfos()->initBg();
 
 	player.pos = GeoA::Vetor(this->window_pos_size.w*0.5 - 75, this->window_pos_size.h*0.5 + 192, 0);
@@ -152,18 +146,46 @@ Cara_cracha* Cara_cracha::initInfos() {
 }
 
 Cara_cracha* Cara_cracha::initBg() {
-	SDL_Texture* tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (fundo).png"));
+	SDL_Texture* tx_temp;
+/*	SDL_Rect this->bg_quad;
+
+	// Calcula posição do fundo
+	this->bg_quad.x = this->window_pos_size.w / 2 - 713;
+	this->bg_quad.y = this->window_pos_size.h / 2 - 620;
+	this->bg_quad.w = 1675;
+	this->bg_quad.h = 1400;
+	this->bg_quad.enqueue(&this->bg_quad);*/
+
+	tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (fundo).png"));
 	if (tx_temp == NULL)
 		SDL_Log("Erro Img: %s", SDL_GetError());
 	this->g_bg.enqueue(tx_temp);
+/*
+	this->bg_quad.x = this->window_pos_size.w / 2;
+	this->bg_quad.y = this->window_pos_size.h / 2;
+	this->bg_quad.w = 173;
+	this->bg_quad.h = 148;
+	this->bg_quad.enqueue(&this->bg_quad);*/
 	tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (frente).png"));
 	if (tx_temp == NULL)
 		SDL_Log("Erro Img: %s", SDL_GetError());
 	this->g_bg.enqueue(tx_temp);
+/*	
+	this->bg_quad.x = this->window_pos_size.w / 2;
+	this->bg_quad.y = this->window_pos_size.h / 2;
+	this->bg_quad.w = 60;
+	this->bg_quad.h = 114;
+	this->bg_quad.enqueue(&this->bg_quad);*/
 	tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (frente)(porta).png"));
 	if (tx_temp == NULL)
 		SDL_Log("Erro Img: %s", SDL_GetError());
 	this->g_bg.enqueue(tx_temp);
+/*	
+	this->bg_quad.x = this->window_pos_size.w / 2;
+	this->bg_quad.y = this->window_pos_size.h / 2;
+	this->bg_quad.w = 71*2;
+	this->bg_quad.h = 77*2;
+	this->bg_quad.enqueue(&this->bg_quad);*/
 	tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (frente)(catraca).png"));
 	if (tx_temp == NULL)
 		SDL_Log("Erro Img: %s", SDL_GetError());
@@ -461,6 +483,10 @@ Cara_cracha* Cara_cracha::render() {
 	SDL_RenderClear(this->g_renderer);
 
 	// Renderiza o fundo
+	this->bg_quad.x = this->window_pos_size.w / 2 - 1426;
+	this->bg_quad.y = this->window_pos_size.h / 2 - 1240;
+	this->bg_quad.w = 1675*2;
+	this->bg_quad.h = 1400*2;
 	SDL_RenderCopy(this->g_renderer, this->g_bg[0], NULL, &this->bg_quad);
 
 	// Renderiza a parte de trás da catraca
@@ -474,12 +500,21 @@ Cara_cracha* Cara_cracha::render() {
 		this->fila_fora[i]->render();
 
 	// Renderiza os itens do cenário que podem estar na frente das pessoas de fora
-	SDL_RenderCopy(this->g_renderer, this->g_bg[1], NULL, &bg_quad);
+	this->bg_quad.x = this->window_pos_size.w / 2 - 372;
+	this->bg_quad.y = this->window_pos_size.h / 2 - 148;
+	this->bg_quad.w = 173*2;
+	this->bg_quad.h = 148*2;
+	SDL_RenderCopy(this->g_renderer, this->g_bg[1], NULL, &this->bg_quad);
 
 	// Renderiza a porta de vidro
 	if (((int)this->hora % 1440 < EXPEDIENTE_ALMO_INICIO || (int)this->hora % 1440 > EXPEDIENTE_JANT_FIM) ||
-		 ((int)this->hora % 1440 > EXPEDIENTE_ALMO_FIM && (int)this->hora % 1440 < EXPEDIENTE_JANT_INICIO))
-		SDL_RenderCopy(this->g_renderer, this->g_bg[2], NULL, &bg_quad);
+		 ((int)this->hora % 1440 > EXPEDIENTE_ALMO_FIM && (int)this->hora % 1440 < EXPEDIENTE_JANT_INICIO)) {
+		this->bg_quad.x = this->window_pos_size.w / 2 - 160;
+		this->bg_quad.y = this->window_pos_size.h / 2 - 126;
+		this->bg_quad.w = 60*2;
+		this->bg_quad.h = 114*2;
+		SDL_RenderCopy(this->g_renderer, this->g_bg[2], NULL, &this->bg_quad);
+	}
 
 	// Renderiza as pessoas de dentro
 	for (int i = this->fila_dentro.getSize() - 1; i >= 0; i--)
@@ -492,7 +527,11 @@ Cara_cracha* Cara_cracha::render() {
 	this->catraca.tex_frente.render();
 
 	// Renderiza cenário da parte da catraca
-	SDL_RenderCopy(this->g_renderer, this->g_bg[3], NULL, &bg_quad);
+	this->bg_quad.x = this->window_pos_size.w / 2 - 100;
+	this->bg_quad.y = this->window_pos_size.h / 2 + 110;
+	this->bg_quad.w = 71*2;
+	this->bg_quad.h = 77*2;
+	SDL_RenderCopy(this->g_renderer, this->g_bg[3], NULL, &this->bg_quad);
 
 	// Renderiza a carteirinha
 	if (this->tela_id == 1)
