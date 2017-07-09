@@ -47,9 +47,9 @@ Figura 2: Fila com 3 elementos, nó header e encadeamento duplo. Na figura acima
 * Rafael Sales - [GitHub](https://github.com/rsaless)
 
 ## Créditos
-* Alisson Nunes - Programação.
-* Gabriel Alves - Desenvolvimento do segundo projeto.
-* Matheus Bortoleto - Desenvolvimento do segundo projeto.
+* Alisson Nunes - Lógica do jogo e programação.
+* Gabriel Alves - Estrutura de dados.
+* Matheus Bortoleto - Detalhes do jogo.
 * Rafael Sales - Documentação.
 
 ## Licença
