@@ -1,0 +1,719 @@
+.sprite {
+    background-image: url(spritesheet.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.sprite-hh_human_face_h_std_ey_10_1_0 {
+    width: 6px;
+    height: 6px;
+    background-position: 0 0;
+}
+
+.sprite-hh_human_face_h_std_ey_10_2_0 {
+    width: 12px;
+    height: 10px;
+    background-position: -6px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_10_3_0 {
+    width: 18px;
+    height: 6px;
+    background-position: -18px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_11_1_0 {
+    width: 6px;
+    height: 6px;
+    background-position: -36px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_11_2_0 {
+    width: 12px;
+    height: 10px;
+    background-position: -42px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_11_3_0 {
+    width: 18px;
+    height: 6px;
+    background-position: -54px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_2_1_0 {
+    width: 5px;
+    height: 6px;
+    background-position: -72px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_2_2_0 {
+    width: 10px;
+    height: 9px;
+    background-position: -77px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_2_3_0 {
+    width: 14px;
+    height: 6px;
+    background-position: -87px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_3_1_0 {
+    width: 5px;
+    height: 5px;
+    background-position: -101px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_3_2_0 {
+    width: 11px;
+    height: 10px;
+    background-position: -106px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_3_3_0 {
+    width: 14px;
+    height: 6px;
+    background-position: -117px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_4_1_0 {
+    width: 5px;
+    height: 4px;
+    background-position: -131px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_4_2_0 {
+    width: 11px;
+    height: 7px;
+    background-position: -136px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_4_3_0 {
+    width: 16px;
+    height: 3px;
+    background-position: -147px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_5_1_0 {
+    width: 5px;
+    height: 6px;
+    background-position: -163px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_5_2_0 {
+    width: 12px;
+    height: 9px;
+    background-position: -168px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_5_3_0 {
+    width: 16px;
+    height: 5px;
+    background-position: -180px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_6_1_0 {
+    width: 5px;
+    height: 5px;
+    background-position: -196px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_6_2_0 {
+    width: 12px;
+    height: 8px;
+    background-position: -201px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_6_3_0 {
+    width: 14px;
+    height: 5px;
+    background-position: -213px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_7_1_0 {
+    width: 5px;
+    height: 5px;
+    background-position: -227px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_7_2_0 {
+    width: 12px;
+    height: 8px;
+    background-position: -232px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_7_3_0 {
+    width: 14px;
+    height: 5px;
+    background-position: -244px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_8_1_0 {
+    width: 5px;
+    height: 6px;
+    background-position: -258px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_8_2_0 {
+    width: 12px;
+    height: 11px;
+    background-position: -263px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_8_3_0 {
+    width: 16px;
+    height: 6px;
+    background-position: -275px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_9_1_0 {
+    width: 6px;
+    height: 6px;
+    background-position: -291px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_9_2_0 {
+    width: 12px;
+    height: 10px;
+    background-position: -297px 0;
+}
+
+.sprite-hh_human_face_h_std_ey_9_3_0 {
+    width: 18px;
+    height: 6px;
+    background-position: 0 -10px;
+}
+
+.sprite-hh_human_face_h_std_fc_1_1_0 {
+    width: 8px;
+    height: 11px;
+    background-position: -18px -10px;
+}
+
+.sprite-hh_human_face_h_std_fc_1_2_0 {
+    width: 6px;
+    height: 10px;
+    background-position: -26px -10px;
+}
+
+.sprite-hh_human_face_h_std_fc_1_3_0 {
+    width: 6px;
+    height: 6px;
+    background-position: -32px -10px;
+}
+
+.sprite-hh_human_hair_h_spk_hr_34_0_0 {
+    width: 37px;
+    height: 33px;
+    background-position: -38px -11px;
+}
+
+.sprite-hh_human_hair_h_spk_hr_34_1_0 {
+    width: 35px;
+    height: 28px;
+    background-position: -75px -11px;
+}
+
+.sprite-hh_human_hair_h_spk_hr_34_2_0 {
+    width: 36px;
+    height: 31px;
+    background-position: -110px -11px;
+}
+
+.sprite-hh_human_hair_h_spk_hr_34_3_0 {
+    width: 38px;
+    height: 31px;
+    background-position: -146px -11px;
+}
+
+.sprite-hh_human_hair_h_spk_hr_34_7_0 {
+    width: 38px;
+    height: 33px;
+    background-position: -184px -11px;
+}
+
+.sprite-hh_human_hair_h_spk_hr_8_0_0 {
+    width: 28px;
+    height: 29px;
+    background-position: -222px -10px;
+}
+
+.sprite-hh_human_hair_h_spk_hr_8_1_0 {
+    width: 28px;
+    height: 28px;
+    background-position: -275px -10px;
+}
+
+.sprite-hh_human_hair_h_spk_hr_8_2_0 {
+    width: 25px;
+    height: 21px;
+    background-position: 0 -38px;
+}
+
+.sprite-hh_human_hair_h_spk_hr_8_3_0 {
+    width: 26px;
+    height: 20px;
+    background-position: -250px -38px;
+}
+
+.sprite-hh_human_hair_h_spk_hr_8_7_0 {
+    width: 26px;
+    height: 29px;
+    background-position: -276px -38px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_11_0_0 {
+    width: 33px;
+    height: 33px;
+    background-position: 0 -67px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_11_1_0 {
+    width: 34px;
+    height: 32px;
+    background-position: -33px -58px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_11_2_0 {
+    width: 34px;
+    height: 34px;
+    background-position: -67px -58px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_11_3_0 {
+    width: 28px;
+    height: 33px;
+    background-position: -101px -67px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_11_7_0 {
+    width: 26px;
+    height: 31px;
+    background-position: -129px -67px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_30_0_0 {
+    width: 32px;
+    height: 40px;
+    background-position: -155px -67px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_30_1_0 {
+    width: 33px;
+    height: 34px;
+    background-position: -187px -67px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_30_2_0 {
+    width: 31px;
+    height: 34px;
+    background-position: -220px -67px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_30_3_0 {
+    width: 28px;
+    height: 32px;
+    background-position: -251px -67px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_30_7_0 {
+    width: 28px;
+    height: 37px;
+    background-position: -279px -67px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_4_0_0 {
+    width: 44px;
+    height: 48px;
+    background-position: 0 -104px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_4_1_0 {
+    width: 44px;
+    height: 48px;
+    background-position: -44px -99px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_4_2_0 {
+    width: 45px;
+    height: 46px;
+    background-position: -88px -104px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_4_3_0 {
+    width: 47px;
+    height: 42px;
+    background-position: -187px -104px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_4_7_0 {
+    width: 42px;
+    height: 47px;
+    background-position: -234px -104px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_501_0_0 {
+    width: 36px;
+    height: 32px;
+    background-position: -44px -151px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_501_1_0 {
+    width: 34px;
+    height: 30px;
+    background-position: -80px -151px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_501_2_0 {
+    width: 36px;
+    height: 31px;
+    background-position: -114px -151px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_501_3_0 {
+    width: 39px;
+    height: 31px;
+    background-position: -150px -151px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_501_7_0 {
+    width: 37px;
+    height: 31px;
+    background-position: -189px -151px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_6_0_0 {
+    width: 43px;
+    height: 33px;
+    background-position: -226px -151px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_6_1_0 {
+    width: 31px;
+    height: 30px;
+    background-position: -276px -104px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_6_2_0 {
+    width: 48px;
+    height: 36px;
+    background-position: 0 -184px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_6_3_0 {
+    width: 48px;
+    height: 28px;
+    background-position: -48px -184px;
+}
+
+.sprite-hh_human_hair_h_spk_hrb_6_7_0 {
+    width: 48px;
+    height: 31px;
+    background-position: -96px -184px;
+}
+
+.sprite-hh_human_shoe_h_std_sh_3_0_0 {
+    width: 26px;
+    height: 13px;
+    background-position: -133px -134px;
+}
+
+.sprite-hh_human_shoe_h_std_sh_3_1_0 {
+    width: 19px;
+    height: 9px;
+    background-position: -133px -104px;
+}
+
+.sprite-hh_human_shoe_h_std_sh_3_2_0 {
+    width: 25px;
+    height: 14px;
+    background-position: -159px -134px;
+}
+
+.sprite-hh_human_shoe_h_std_sh_3_3_0 {
+    width: 21px;
+    height: 11px;
+    background-position: -276px -134px;
+}
+
+.sprite-hh_human_shoe_h_std_sh_3_7_0 {
+    width: 21px;
+    height: 9px;
+    background-position: -276px -145px;
+}
+
+.sprite-hh_human_shoe_h_std_sh_7_0_0 {
+    width: 25px;
+    height: 14px;
+    background-position: 0 -154px;
+}
+
+.sprite-hh_human_shoe_h_std_sh_7_1_0 {
+    width: 19px;
+    height: 10px;
+    background-position: -25px -154px;
+}
+
+.sprite-hh_human_shoe_h_std_sh_7_2_0 {
+    width: 25px;
+    height: 11px;
+    background-position: -269px -154px;
+}
+
+.sprite-hh_human_shoe_h_std_sh_7_3_0 {
+    width: 23px;
+    height: 7px;
+    background-position: -269px -165px;
+}
+
+.sprite-hh_human_shoe_h_std_sh_7_7_0 {
+    width: 21px;
+    height: 8px;
+    background-position: 0 -172px;
+}
+
+.sprite-shirt_F_fur_h_std_ch_2405_0_0 {
+    width: 27px;
+    height: 33px;
+    background-position: -269px -172px;
+}
+
+.sprite-shirt_F_fur_h_std_ch_2405_1_0 {
+    width: 22px;
+    height: 31px;
+    background-position: -144px -205px;
+}
+
+.sprite-shirt_F_fur_h_std_ch_2405_2_0 {
+    width: 26px;
+    height: 34px;
+    background-position: -166px -205px;
+}
+
+.sprite-shirt_F_fur_h_std_ch_2405_3_0 {
+    width: 29px;
+    height: 33px;
+    background-position: -192px -205px;
+}
+
+.sprite-shirt_F_fur_h_std_ch_2405_7_0 {
+    width: 26px;
+    height: 30px;
+    background-position: -221px -205px;
+}
+
+.sprite-shirt_F_fur_h_std_ls_2405_0_0 {
+    width: 5px;
+    height: 12px;
+    background-position: -250px -10px;
+}
+
+.sprite-shirt_F_fur_h_std_ls_2405_1_0 {
+    width: 7px;
+    height: 13px;
+    background-position: -25px -38px;
+}
+
+.sprite-shirt_F_fur_h_std_ls_2405_2_0 {
+    width: 5px;
+    height: 13px;
+    background-position: -255px -10px;
+}
+
+.sprite-shirt_F_fur_h_std_ls_2405_3_0 {
+    width: 8px;
+    height: 18px;
+    background-position: -297px -134px;
+}
+
+.sprite-shirt_F_fur_h_std_ls_2405_7_0 {
+    width: 8px;
+    height: 15px;
+    background-position: -297px -152px;
+}
+
+.sprite-shirt_F_fur_h_std_rs_2405_0_0 {
+    width: 10px;
+    height: 18px;
+    background-position: -296px -167px;
+}
+
+.sprite-shirt_F_fur_h_std_rs_2405_1_0 {
+    width: 8px;
+    height: 14px;
+    background-position: -25px -167px;
+}
+
+.sprite-shirt_F_fur_h_std_rs_2405_2_0 {
+    width: 9px;
+    height: 19px;
+    background-position: -144px -185px;
+}
+
+.sprite-shirt_F_fur_h_std_rs_2405_3_0 {
+    width: 8px;
+    height: 17px;
+    background-position: -153px -185px;
+}
+
+.sprite-shirt_F_fur_h_std_rs_2405_7_0 {
+    width: 8px;
+    height: 15px;
+    background-position: -33px -167px;
+}
+
+.sprite-shirt_M_ssleeve_hood_h_std_ch_2301_0_0 {
+    width: 26px;
+    height: 33px;
+    background-position: -247px -205px;
+}
+
+.sprite-shirt_M_ssleeve_hood_h_std_ch_2301_1_0 {
+    width: 24px;
+    height: 32px;
+    background-position: -273px -205px;
+}
+
+.sprite-shirt_M_ssleeve_hood_h_std_ch_2301_2_0 {
+    width: 29px;
+    height: 36px;
+    background-position: 0 -237px;
+}
+
+.sprite-shirt_M_ssleeve_hood_h_std_ch_2301_3_0 {
+    width: 26px;
+    height: 31px;
+    background-position: -29px -237px;
+}
+
+.sprite-shirt_M_ssleeve_hood_h_std_ch_2301_7_0 {
+    width: 23px;
+    height: 29px;
+    background-position: -55px -237px;
+}
+
+.sprite-shirt_M_ssleeve_hood_h_std_ls_2301_0_0 {
+    width: 6px;
+    height: 10px;
+    background-position: -303px -10px;
+}
+
+.sprite-shirt_M_ssleeve_hood_h_std_ls_2301_1_0 {
+    width: 8px;
+    height: 9px;
+    background-position: -161px -185px;
+}
+
+.sprite-shirt_M_ssleeve_hood_h_std_ls_2301_2_0 {
+    width: 5px;
+    height: 10px;
+    background-position: 0 -20px;
+}
+
+.sprite-shirt_M_ssleeve_hood_h_std_ls_2301_3_0 {
+    width: 9px;
+    height: 13px;
+    background-position: -169px -185px;
+}
+
+.sprite-shirt_M_ssleeve_hood_h_std_ls_2301_7_0 {
+    width: 8px;
+    height: 11px;
+    background-position: -178px -185px;
+}
+
+.sprite-shirt_M_ssleeve_hood_h_std_rs_2301_0_0 {
+    width: 10px;
+    height: 15px;
+    background-position: -186px -185px;
+}
+
+.sprite-shirt_M_ssleeve_hood_h_std_rs_2301_1_0 {
+    width: 8px;
+    height: 8px;
+    background-position: -196px -185px;
+}
+
+.sprite-shirt_M_ssleeve_hood_h_std_rs_2301_2_0 {
+    width: 8px;
+    height: 12px;
+    background-position: -204px -185px;
+}
+
+.sprite-shirt_M_ssleeve_hood_h_std_rs_2301_3_0 {
+    width: 9px;
+    height: 13px;
+    background-position: -212px -185px;
+}
+
+.sprite-shirt_M_ssleeve_hood_h_std_rs_2301_7_0 {
+    width: 8px;
+    height: 11px;
+    background-position: -221px -185px;
+}
+
+.sprite-std {
+    width: 180px;
+    height: 183px;
+    background-position: -309px 0;
+}
+
+.sprite-trousers_F_longshorts_h_std_lg_2029_0_0 {
+    width: 21px;
+    height: 23px;
+    background-position: -306px -183px;
+}
+
+.sprite-trousers_F_longshorts_h_std_lg_2029_1_0 {
+    width: 16px;
+    height: 19px;
+    background-position: -327px -183px;
+}
+
+.sprite-trousers_F_longshorts_h_std_lg_2029_2_0 {
+    width: 21px;
+    height: 23px;
+    background-position: -343px -183px;
+}
+
+.sprite-trousers_F_longshorts_h_std_lg_2029_3_0 {
+    width: 21px;
+    height: 19px;
+    background-position: -364px -183px;
+}
+
+.sprite-trousers_F_longshorts_h_std_lg_2029_7_0 {
+    width: 21px;
+    height: 19px;
+    background-position: -385px -183px;
+}
+
+.sprite-trousers_U_camo_h_std_lg_2037_0_0 {
+    width: 23px;
+    height: 26px;
+    background-position: -406px -183px;
+}
+
+.sprite-trousers_U_camo_h_std_lg_2037_1_0 {
+    width: 16px;
+    height: 21px;
+    background-position: -429px -183px;
+}
+
+.sprite-trousers_U_camo_h_std_lg_2037_2_0 {
+    width: 23px;
+    height: 25px;
+    background-position: -445px -183px;
+}
+
+.sprite-trousers_U_camo_h_std_lg_2037_3_0 {
+    width: 23px;
+    height: 21px;
+    background-position: -297px -208px;
+}
+
+.sprite-trousers_U_camo_h_std_lg_2037_7_0 {
+    width: 23px;
+    height: 21px;
+    background-position: -320px -208px;
+}
