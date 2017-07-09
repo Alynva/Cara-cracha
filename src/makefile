@@ -8,7 +8,7 @@ C_VERSION = -std=c++14
 OBJ_FILE = main.cpp
 
 # Arquivos auxiliares
-AUX_FILES = Cara_cracha.cpp Pessoa.cpp Vetor.cpp map.cpp random.cpp EventManager.cpp Textura.cpp
+AUX_FILES = Cara_cracha.cpp Pessoa.cpp Carteirinha.cpp Vetor.cpp map.cpp random.cpp EventManager.cpp Textura.cpp
 
 # Flags do compilador
 CC_FLAGS = -g -Wall

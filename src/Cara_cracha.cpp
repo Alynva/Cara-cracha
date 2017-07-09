@@ -69,6 +69,7 @@ Cara_cracha* Cara_cracha::initVars() {
 
 	player.pos = GeoA::Vetor(this->window_pos_size.w*0.5 - 75, this->window_pos_size.h*0.5 + 192, 0);
 	player.initTextures(this->g_renderer);
+	player.update();
 	//SDL_SetTextureColorMod(player.t_corpo.getTexture(), 241, 214, 147); // Como todas as pessoas usam da mesma textura, é necessário mudar e voltar dentro de cada pessoa
 
 
@@ -394,7 +395,7 @@ Cara_cracha::Cara_cracha():
 	last_fr(0),
 	hora(HORA_INICIO_JOGO),
 	pontua_prov(0),
-	player(Pessoa(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) {
+	player(Pessoa(0, 1, 0, /*0, 0, */2, 0, 1, 0, /*0, 0, */1, 0, 1, 0)) {
 		for (int i = 0; i < 4; i++) {
 			this->count_criterios[i] = 0;
 		}
@@ -470,7 +471,6 @@ bool Cara_cracha::update() {
 			this->fila_dentro[i]->behaviors()->update();
 
 		// Atualiza o jogador
-
 		this->player.update();
 	}
 
@@ -538,7 +538,7 @@ Cara_cracha* Cara_cracha::render() {
 		this->tela_id = 2;
 	if (this->tela_id == 2 && this->fila_dentro.getSize()) {
 		this->fila_dentro[0]->cart.pos = GeoA::Vetor(this->window_pos_size.w*2/3, this->window_pos_size.h*2/3, 0);
-		//this->fila_dentro[0]->cart.update()->render();
+		this->fila_dentro[0]->cart.update()->render();
 	}
 
 	this->renderizaNoite();

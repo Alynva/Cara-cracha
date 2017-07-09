@@ -20,14 +20,14 @@ class Pessoa {
 		int direcao;
 
 		bool sexo;
-		int rosto;
+		int olhos;
 		int cor_do_rosto;
-		int oculos;
-		int cor_do_oculos;
+		//int oculos;
+		//int cor_do_oculos;
 		int cabelo;
 		int cor_do_cabelo;
-		int barba;
-		int cor_da_barba;
+		//int barba;
+		//int cor_da_barba;
 		int blusa;
 		int cor_da_blusa;
 		int calca;
@@ -39,19 +39,23 @@ class Pessoa {
 		Textura t_braco_e;
 		Textura t_braco_d;
 		Textura t_cabeca;
-		//Textura t_rosto;
+		Textura t_nariz_boca;
+		Textura t_olhos;
 		//Textura t_oculos;
-		//Textura t_cabelo;
+		Textura t_cabelo;
 		//Textura t_barba;
-		//Textura t_blusa;
-		//Textura t_calca;
-		//Textura t_tenis;
+		Textura t_blusa;
+		Textura t_blusa_b_e;
+		Textura t_blusa_b_d;
+		Textura t_calca;
+		Textura t_tenis;
+		
 		Carteirinha cart;
 
 		static Textura tex;
 		
 		Pessoa();
-		Pessoa(bool, int, int, int, int, int, int, int, int, int, int, int, int, int, int);
+		Pessoa(bool, int, /*int, int, */int, int, int, int, /*int, int, */int, int, int, int, int);
 
 		Pessoa* initTextures(SDL_Renderer*);
 		Pessoa* update();

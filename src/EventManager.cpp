@@ -161,5 +161,5 @@ void EventManager::keyDown(SDL_KeyboardEvent& key) {
 }
 
 bool EventManager::checaCart(const Pessoa* p) {
-	return (p->sexo == p->cart.sexo && p->rosto == p->cart.rosto && p->cor_do_rosto == p->cart.cor_do_rosto && p->cabelo == p->cart.cabelo);
+	return (p->sexo == p->cart.sexo && p->olhos == p->cart.olhos && p->cor_do_rosto == p->cart.cor_do_rosto && p->cabelo == p->cart.cabelo);
 }
