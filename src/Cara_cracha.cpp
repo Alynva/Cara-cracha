@@ -6,6 +6,8 @@
 #define EXPEDIENTE_JANT_INICIO 1020
 #define EXPEDIENTE_JANT_FIM 1140
 
+#define HORA_INICIO_JOGO 9.5*60
+
 double Cara_cracha::convertM2H(double minute) {
 	return ((int)(minute / 60) % 24) + GeoA::map((int)minute % 60, 0, 60, 0, 1);
 }
@@ -63,24 +65,20 @@ Cara_cracha* Cara_cracha::initVars() {
 	SDL_GetWindowSize(this->g_window, &this->window_pos_size.w, &this->window_pos_size.h);
 	SDL_SetWindowSize(this->g_window, this->window_pos_size.w, this->window_pos_size.h);
 
-	// Calcula posição do fundo
-	this->bg_quad.x = this->window_pos_size.w / 2 - 1350;
-	this->bg_quad.y = this->window_pos_size.h / 2 - 1240;
-	this->bg_quad.w = 3198;
-	this->bg_quad.h = 2800;
 
 	this->initInstrucoes()->initInfos()->initBg();
 
 	player.pos = GeoA::Vetor(this->window_pos_size.w*0.5 - 75, this->window_pos_size.h*0.5 + 192, 0);
 	player.initTextures(this->g_renderer);
-	SDL_SetTextureColorMod(player.t_corpo.getTexture(), 241, 214, 147);
+	player.update();
+	//SDL_SetTextureColorMod(player.t_corpo.getTexture(), 241, 214, 147); // Como todas as pessoas usam da mesma textura, é necessário mudar e voltar dentro de cada pessoa
 
 
 	this->catraca.pos = GeoA::Vetor(this->window_pos_size.w*0.5 - 16, this->window_pos_size.h*0.5 + 52, 0);
 	this->catraca.estado = 0;
-	this->catraca.tex_fundo_0 = Textura("../media/img/sentido_unico (tras).png", this->g_renderer, this->catraca.pos.x, this->catraca.pos.y, 148, 160);
-	this->catraca.tex_fundo_1 = Textura("../media/img/sentido_unico (aberto).png", this->g_renderer, this->catraca.pos.x, this->catraca.pos.y, 148, 160);
-	this->catraca.tex_frente = Textura("../media/img/sentido_unico (frente).png", this->g_renderer, this->catraca.pos.x, this->catraca.pos.y, 148, 160);
+	this->catraca.tex_fundo_0 = Textura("../media/img/sentido_unico (tras).png", this->g_renderer, {(int)this->catraca.pos.x, (int)this->catraca.pos.y, 148, 160});
+	this->catraca.tex_fundo_1 = Textura("../media/img/sentido_unico (aberto).png", this->g_renderer, {(int)this->catraca.pos.x, (int)this->catraca.pos.y, 148, 160});
+	this->catraca.tex_frente = Textura("../media/img/sentido_unico (frente).png", this->g_renderer, {(int)this->catraca.pos.x, (int)this->catraca.pos.y, 148, 160});
 
 	return this;
 }
@@ -114,10 +112,10 @@ Cara_cracha* Cara_cracha::initInstrucoes() {
 	this->t_controles[0] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 40, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 250, 0, 0}, {220, 220, 220}, "Controles");
 	this->t_controles[1] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 22, {this->window_pos_size.w/4, this->window_pos_size.h/2 - 120, 0, 0}, {220, 220, 220}, "Liberar entrada");
 	this->o_controles[0].pos = GeoA::Vetor(this->window_pos_size.w*.25 - 140/2, this->window_pos_size.h*.5 + 20 - 172/2, 0);
-	this->o_controles[0].tex_frente = Textura("../media/img/clique-esq.png", this->g_renderer, this->o_controles[0].pos.x, this->o_controles[0].pos.y, 140, 172);
+	this->o_controles[0].tex_frente = Textura("../media/img/clique-esq.png", this->g_renderer, {(int)this->o_controles[0].pos.x, (int)this->o_controles[0].pos.y, 140, 172});
 	this->t_controles[2] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 22, {this->window_pos_size.w*3/4, this->window_pos_size.h/2 - 120, 0, 0}, {220, 220, 220}, "Impedir entrada");
 	this->o_controles[1].pos = GeoA::Vetor(this->window_pos_size.w*.75 - 140/2, this->window_pos_size.h*.5 + 20 - 172/2, 0);
-	this->o_controles[1].tex_frente = Textura("../media/img/clique-dir.png", this->g_renderer, this->o_controles[1].pos.x, this->o_controles[1].pos.y, 140, 172);
+	this->o_controles[1].tex_frente = Textura("../media/img/clique-dir.png", this->g_renderer, {(int)this->o_controles[1].pos.x, (int)this->o_controles[1].pos.y, 140, 172});
 
 	this->t_pontua_fin = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 120, {this->window_pos_size.w/2, this->window_pos_size.h/2 + 10, 0, 0}, {220, 220, 220}, "0");
 
@@ -131,7 +129,7 @@ Cara_cracha* Cara_cracha::initInstrucoes() {
 
 Cara_cracha* Cara_cracha::initInfos() {
 	this->infos.pos = GeoA::Vetor(50, 50, 0);
-	this->infos.tex_fundo_0 = Textura("../media/img/box.png", this->g_renderer, this->infos.pos.x, this->infos.pos.y, 213, 350);
+	this->infos.tex_fundo_0 = Textura("../media/img/box.png", this->g_renderer, {(int)this->infos.pos.x, (int)this->infos.pos.y, 213, 350});
 
 	this->t_hora = Texto("../media/font/Volter_Goldfish.ttf", this->g_renderer, 31, {254, 82, 0, 0}, {0, 0, 0}, ((int)(this->hora / 60) % 24 >= 10 ? "" : "0")+std::to_string((int)(this->hora/60) % 24)+((int) this->hora % 60 >= 10 ? ":" : ":0")+std::to_string((int) this->hora % 60));
 	this->t_hora.setAncora(1);
@@ -150,18 +148,46 @@ Cara_cracha* Cara_cracha::initInfos() {
 }
 
 Cara_cracha* Cara_cracha::initBg() {
-	SDL_Texture* tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (fundo).png"));
+	SDL_Texture* tx_temp;
+/*	SDL_Rect this->bg_quad;
+
+	// Calcula posição do fundo
+	this->bg_quad.x = this->window_pos_size.w / 2 - 713;
+	this->bg_quad.y = this->window_pos_size.h / 2 - 620;
+	this->bg_quad.w = 1675;
+	this->bg_quad.h = 1400;
+	this->bg_quad.enqueue(&this->bg_quad);*/
+
+	tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (fundo).png"));
 	if (tx_temp == NULL)
 		SDL_Log("Erro Img: %s", SDL_GetError());
 	this->g_bg.enqueue(tx_temp);
+/*
+	this->bg_quad.x = this->window_pos_size.w / 2;
+	this->bg_quad.y = this->window_pos_size.h / 2;
+	this->bg_quad.w = 173;
+	this->bg_quad.h = 148;
+	this->bg_quad.enqueue(&this->bg_quad);*/
 	tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (frente).png"));
 	if (tx_temp == NULL)
 		SDL_Log("Erro Img: %s", SDL_GetError());
 	this->g_bg.enqueue(tx_temp);
+/*	
+	this->bg_quad.x = this->window_pos_size.w / 2;
+	this->bg_quad.y = this->window_pos_size.h / 2;
+	this->bg_quad.w = 60;
+	this->bg_quad.h = 114;
+	this->bg_quad.enqueue(&this->bg_quad);*/
 	tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (frente)(porta).png"));
 	if (tx_temp == NULL)
 		SDL_Log("Erro Img: %s", SDL_GetError());
 	this->g_bg.enqueue(tx_temp);
+/*	
+	this->bg_quad.x = this->window_pos_size.w / 2;
+	this->bg_quad.y = this->window_pos_size.h / 2;
+	this->bg_quad.w = 71*2;
+	this->bg_quad.h = 77*2;
+	this->bg_quad.enqueue(&this->bg_quad);*/
 	tx_temp = SDL_CreateTextureFromSurface(this->g_renderer, IMG_Load("../media/img/background (frente)(catraca).png"));
 	if (tx_temp == NULL)
 		SDL_Log("Erro Img: %s", SDL_GetError());
@@ -368,9 +394,9 @@ Cara_cracha::Cara_cracha():
 	max_fps(60),
 	curr_fr(0),
 	last_fr(0),
-	hora(9.5*60),
+	hora(HORA_INICIO_JOGO),
 	pontua_prov(0),
-	player(Pessoa(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) {
+	player(Pessoa(0, 1, 0, /*0, 0, */2, 0, 1, 0, /*0, 0, */1, 0, 1, 0)) {
 		for (int i = 0; i < 4; i++) {
 			this->count_criterios[i] = 0;
 		}
@@ -407,7 +433,7 @@ bool Cara_cracha::update() {
 	int tela_id_antiga = this->tela_id; // Verifica se é necessário reiniciar o tempo
 	this->event.update();
 	if ((tela_id_antiga == 0 || tela_id_antiga == 3) && this->tela_id == 1) // Sai da tela inicial ou da tela final e vai para a tela de inicio de jogo
-		this->hora = 9.5*60;
+		this->hora = HORA_INICIO_JOGO;
 
 
 	if (this->tela_id == 1 || this->tela_id == 2) { // Atualiza as informações apenas durante o jogo
@@ -458,6 +484,10 @@ Cara_cracha* Cara_cracha::render() {
 	SDL_RenderClear(this->g_renderer);
 
 	// Renderiza o fundo
+	this->bg_quad.x = this->window_pos_size.w / 2 - 1426;
+	this->bg_quad.y = this->window_pos_size.h / 2 - 1240;
+	this->bg_quad.w = 1675*2;
+	this->bg_quad.h = 1400*2;
 	SDL_RenderCopy(this->g_renderer, this->g_bg[0], NULL, &this->bg_quad);
 
 	// Renderiza a parte de trás da catraca
@@ -468,15 +498,24 @@ Cara_cracha* Cara_cracha::render() {
 
 	// Renderiza as pessoas de fora
 	for (int i = GeoA::min(this->fila_fora.getSize() - 1, 15); i >= 0; i--)
-			this->fila_fora[i]->render();
+		this->fila_fora[i]->render();
 
 	// Renderiza os itens do cenário que podem estar na frente das pessoas de fora
-	SDL_RenderCopy(this->g_renderer, this->g_bg[1], NULL, &bg_quad);
+	this->bg_quad.x = this->window_pos_size.w / 2 - 372;
+	this->bg_quad.y = this->window_pos_size.h / 2 - 148;
+	this->bg_quad.w = 173*2;
+	this->bg_quad.h = 148*2;
+	SDL_RenderCopy(this->g_renderer, this->g_bg[1], NULL, &this->bg_quad);
 
 	// Renderiza a porta de vidro
 	if (((int)this->hora % 1440 < EXPEDIENTE_ALMO_INICIO || (int)this->hora % 1440 > EXPEDIENTE_JANT_FIM) ||
-		 ((int)this->hora % 1440 > EXPEDIENTE_ALMO_FIM && (int)this->hora % 1440 < EXPEDIENTE_JANT_INICIO))
-		SDL_RenderCopy(this->g_renderer, this->g_bg[2], NULL, &bg_quad);
+		 ((int)this->hora % 1440 > EXPEDIENTE_ALMO_FIM && (int)this->hora % 1440 < EXPEDIENTE_JANT_INICIO)) {
+		this->bg_quad.x = this->window_pos_size.w / 2 - 160;
+		this->bg_quad.y = this->window_pos_size.h / 2 - 126;
+		this->bg_quad.w = 60*2;
+		this->bg_quad.h = 114*2;
+		SDL_RenderCopy(this->g_renderer, this->g_bg[2], NULL, &this->bg_quad);
+	}
 
 	// Renderiza as pessoas de dentro
 	for (int i = this->fila_dentro.getSize() - 1; i >= 0; i--)
@@ -489,7 +528,11 @@ Cara_cracha* Cara_cracha::render() {
 	this->catraca.tex_frente.render();
 
 	// Renderiza cenário da parte da catraca
-	SDL_RenderCopy(this->g_renderer, this->g_bg[3], NULL, &bg_quad);
+	this->bg_quad.x = this->window_pos_size.w / 2 - 100;
+	this->bg_quad.y = this->window_pos_size.h / 2 + 110;
+	this->bg_quad.w = 71*2;
+	this->bg_quad.h = 77*2;
+	SDL_RenderCopy(this->g_renderer, this->g_bg[3], NULL, &this->bg_quad);
 
 	// Renderiza a carteirinha
 	if (this->tela_id == 1)
