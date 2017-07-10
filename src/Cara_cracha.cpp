@@ -86,27 +86,27 @@ Cara_cracha* Cara_cracha::initVars() {
 Cara_cracha* Cara_cracha::initInstrucoes() {
 	this->t_instrucoes[0] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 50, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 250, 0, 0}, {220, 220, 220}, "Instruções");
 
-	// Aqui você é um estagiário de um restaurante, situado em uma universidade federal, o qual está passando por uma crise ética das pessoas que o utilizam. Algumas delas estão utilizando cartões de acesso doutras pessoas, por n motivos. Você foi encarregado de verificar TODOS aqueles que quiserem utilizar o restaurante. Exiga que entreguem os cartões de acesso caso necessário, tenha certeza que só entrará aqueles que possuírem seus próprios cartões de acesso. Você estará sendo monitorado a todo instante, olhe atentamente à foto presente no cartão de acesso. Porém, você precisa ser rápido. Não deixe que a fila se acomule. Seu expediente é das 11:00 às 14:00 e das 17:00 às 19:00. 
-
-	this->t_instrucoes[1] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 100, 0, 0}, {220, 220, 220}, "Aqui você é um estagiário de um restaurante, situado em uma universidade federal,");
-	this->t_instrucoes[2] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 80, 0, 0}, {220, 220, 220}, "o qual está passando por uma crise ética das pessoas que o utilizam. Algumas delas");
-	this->t_instrucoes[3] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 60, 0, 0}, {220, 220, 220}, "estão utilizando cartões de acesso doutras pessoas, por \"n\" motivos. Você foi encar-");
-	this->t_instrucoes[4] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 40, 0, 0}, {220, 220, 220}, "regado de verificar TODOS aqueles que quiserem utilizar o restaurante. Tenha certe-");
-	this->t_instrucoes[5] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 20, 0, 0}, {220, 220, 220}, "za que só entrarão aqueles que possuírem seus próprios cartões de acesso. Você");
-	this->t_instrucoes[6] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2, 0, 0}, {220, 220, 220}, "estará sendo monitorado a todo instante, olhe atentamente à foto presente no car-");
-	this->t_instrucoes[7] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 + 20, 0, 0}, {220, 220, 220}, "tão de acesso. Porém, você precisa ser rápido. Não deixe que a fila se acumule. Seu");
-	this->t_instrucoes[8] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 + 40, 0, 0}, {220, 220, 220}, "expediente é das 11:00 às 14:00 e das 17:00 às 19:00.");
-	//this->t_instrucoes[9] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 + 60, 0, 0}, {220, 220, 220}, "");
-
+	this->t_instrucoes[1] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 80, 0, 0}, {220, 220, 220}, "Aqui você é um estagiário de um restaurante situado em uma Universidade Federal.");
+	this->t_instrucoes[2] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 60, 0, 0}, {220, 220, 220}, "Ao final do sexto dia, poderá ser efetivado caso tenha um bom desempenho. Algu-");
+	this->t_instrucoes[3] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 40, 0, 0}, {220, 220, 220}, "mas pessoas estão utilizando cartões de acesso de outras e a sua função é verificar");
+	this->t_instrucoes[4] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 20, 0, 0}, {220, 220, 220}, "TODOS aqueles que quiserem utilizar o restaurante. Tenha certeza que só entrarão");
+	this->t_instrucoes[5] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2, 0, 0}, {220, 220, 220}, "aqueles que possuírem seu próprio cartão. Olhe atentamente a foto presente no");
+	this->t_instrucoes[6] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 + 20, 0, 0}, {220, 220, 220}, "cartão, porém, você precisa ser rápido. Não deixe que a fila se acumule! Seu expedi-");
+	this->t_instrucoes[7] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h/2 + 40, 0, 0}, {220, 220, 220}, "ente será das 11:00 às 14:00 e das 17:00 às 19:00.");
+	
+	this->t_instrucoes[8] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {20, 20, 0, 0}, {220, 220, 220}, "Pressione ALT+TAB para minimizar");
+	this->t_instrucoes[8].setAncora(-1);
+	this->t_instrucoes[9] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w - 20, 20, 0, 0}, {220, 220, 220}, "Pressione ALT+F4 para fechar");
+	this->t_instrucoes[9].setAncora(1);
 	this->t_instrucoes[10] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {20, this->window_pos_size.h - 40, 0, 0}, {220, 220, 220}, "Pressione ENTER para começar");
 	this->t_instrucoes[10].setAncora(-1);
 	this->t_instrucoes[11] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w - 20, this->window_pos_size.h - 40, 0, 0}, {220, 220, 220}, "Durante o jogo, pressione ESC para pausar/retornar");
 	this->t_instrucoes[11].setAncora(1);
 
-	this->t_instrucoes[12] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, 20, 0, 0}, {220, 220, 220}, "Pressione G para abrir o projeto no GitHub");
+	this->t_instrucoes[12] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, 32, 0, 0}, {220, 220, 220}, "Pressione G para abrir o projeto no GitHub");
 
 
-	this->t_jogo_pausado = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h - 20, 0, 0}, {220, 220, 220}, "Jogo pausado");
+	this->t_jogo_pausado = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 18, {this->window_pos_size.w/2, this->window_pos_size.h - 20, 0, 0}, {220, 220, 220}, "Jogo pausado, pressione ESC para retornar");
 
 
 	this->t_controles[0] = Texto("../media/font/Ubuntu-R.ttf", this->g_renderer, 40, {this->window_pos_size.w/2, this->window_pos_size.h/2 - 250, 0, 0}, {220, 220, 220}, "Controles");
@@ -354,6 +354,8 @@ Cara_cracha* Cara_cracha::telasForaJogo() {
 				this->t_pontua_fin.render();
 				for (int i = 0; i < 3; i++)
 					this->t_tela_fin[i].render();
+				this->t_instrucoes[8].render();
+				this->t_instrucoes[9].render();
 				this->t_instrucoes[10].render();
 				this->t_instrucoes[11].render();
 				this->t_instrucoes[12].render();
@@ -364,6 +366,8 @@ Cara_cracha* Cara_cracha::telasForaJogo() {
 					this->t_controles[i].render();
 				for (int i = 0; i < 2; i++)
 					this->o_controles[i].tex_frente.render();
+				this->t_instrucoes[8].render();
+				this->t_instrucoes[9].render();
 				this->t_instrucoes[12].render();
 				break;
 		}
