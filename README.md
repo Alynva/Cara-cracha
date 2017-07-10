@@ -40,6 +40,32 @@ Figura 1: Fila vazia. Nó header, com os campos value, previous e next.
 
 Figura 2: Fila com 3 elementos, nó header e encadeamento duplo. Na figura acima C é o último elemento.
 
+## Telas do Jogo
+
+![Tela inicial](https://github.com/Alynva/Cara-cracha/blob/master/media/tela_inicial.png?raw=true)
+
+Figura 3: Tela inicial do jogo
+
+![Tela do jogo pausado](https://github.com/Alynva/Cara-cracha/blob/master/media/tela_pausada.png?raw=true)
+
+Figura 4: Tela com o jogo pausado
+
+![Tela do jogo durante uma partida](https://github.com/Alynva/Cara-cracha/blob/master/media/tela_jogando.png?raw=true)
+
+Figura 5: Tela do jogo durante uma partida
+
+![Tela final 0](https://github.com/Alynva/Cara-cracha/blob/master/media/tela_final_0.png?raw=true)
+
+Figura 6: Tela final 0 do jogo
+
+![Tela final 1](https://github.com/Alynva/Cara-cracha/blob/master/media/tela_final_1.png?raw=true)
+
+Figura 7: Tela final 1 do jogo
+
+![Tela final 2](https://github.com/Alynva/Cara-cracha/blob/master/media/tela_final_2.png?raw=true)
+
+Figura 8: Tela final 2 do jogo
+
 ## Autores
 * Alisson Nunes - [GitHub](https://github.com/Alynva)
 * Gabriel Alves - [GitHub](https://github.com/CptSpookz)
