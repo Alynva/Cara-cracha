@@ -156,7 +156,8 @@ void EventManager::keyDown(SDL_KeyboardEvent& key) {
 		*this->tela_id = 1;
 
 	if ((*this->tela_id == 0 || *this->tela_id == 4) && key.keysym.sym == SDLK_g) {
-		system("xdg-open https://github.com/Alynva/Cara-cracha"); // sensible-browser, xdg-open e x-www-browser fazem a mesma coisa
+		system("start https://github.com/Alynva/Cara-cracha");
+		system("sensible-browser https://github.com/Alynva/Cara-cracha"); // sensible-browser, xdg-open e x-www-browser fazem a mesma coisa
 	}
 }
 
