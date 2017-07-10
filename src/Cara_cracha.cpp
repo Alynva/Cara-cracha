@@ -436,8 +436,12 @@ bool Cara_cracha::init() {
 bool Cara_cracha::update() {
 	int tela_id_antiga = this->tela_id; // Verifica se é necessário reiniciar o tempo
 	this->event.update();
-	if ((tela_id_antiga == 0 || tela_id_antiga == 3) && this->tela_id == 1) // Sai da tela inicial ou da tela final e vai para a tela de inicio de jogo
+	if ((tela_id_antiga == 0 || tela_id_antiga == 3) && this->tela_id == 1) { // Sai da tela inicial ou da tela final e vai para a tela de inicio de jogo
 		this->hora = HORA_INICIO_JOGO;
+		this->pontua_prov = 0;
+		for (int i = 0; i < 4; i++)
+			this->count_criterios[i] = 0;
+	}
 
 
 	if (this->tela_id == 1 || this->tela_id == 2) { // Atualiza as informações apenas durante o jogo
